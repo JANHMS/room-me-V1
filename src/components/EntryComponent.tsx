@@ -31,7 +31,7 @@ const EntryPage: React.FC<Props> = ({
           <IonButtons slot="start">
             <IonBackButton />
           </IonButtons>
-          {/* <IonTitle>{formatDate(entry?.date)}</IonTitle> */}
+          <IonTitle>{formatDate(entry?.date)}</IonTitle>
           <IonButtons slot="end">
             <IonButton onClick={handleDelete}>
               <IonIcon icon={trashIcon} slot="icon-only" />

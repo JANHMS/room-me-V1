@@ -13,6 +13,7 @@ import { trash as trashIcon } from 'ionicons/icons';
 import React, { useEffect, useState } from 'react';
 import { useHistory, useParams } from 'react-router';
 import { useAuth } from '../auth';
+import EntryComponent from '../components/EntryComponent';
 import { formatDate } from '../date';
 import { firestore } from '../firebase';
 import { Entry, toEntry } from '../models';
@@ -40,26 +41,11 @@ const EntryPage: React.FC = () => {
   };
 
   return (
-    <IonPage>
-      <IonHeader>
-        <IonToolbar>
-          <IonButtons slot="start">
-            <IonBackButton />
-          </IonButtons>
-          <IonTitle>{formatDate(entry?.date)}</IonTitle>
-          <IonButtons slot="end">
-            <IonButton onClick={handleDelete}>
-              <IonIcon icon={trashIcon} slot="icon-only" />
-            </IonButton>
-          </IonButtons>
-        </IonToolbar>
-      </IonHeader>
-      <IonContent className="ion-padding">
-        <h2>{entry?.title}</h2>
-        <img src={entry?.pictureUrl} alt={entry?.title} />
-        <p>{entry?.description}</p>
-      </IonContent>
-    </IonPage>
+    <EntryComponent
+      formatDate={formatDate}
+      entry={entry}
+      handleDelete={handleDelete}
+    />
   );
 };
 

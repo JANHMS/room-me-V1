@@ -25,7 +25,8 @@ const AppTabs: React.FC = (): JSX.Element => {
   if (!loggedIn) {
     return <Redirect to="/login" />;
   }
-  return (      
+  return (    
+    <IonTabs>  
       <IonRouterOutlet>
         <Route path="/login" component={LoginPage} exact />
         <Route path="/register" component={RegisterPage} exact />
@@ -43,15 +44,12 @@ const AppTabs: React.FC = (): JSX.Element => {
 
         <Route exact path="/my/settings">
           <SettingsPage />
-        </Route>
-        <IonTabs>
-        <IonRouterOutlet>
+        </Route>  
+      </IonRouterOutlet>
           <IonTabBar slot="bottom">
             <ToggleBar />
-          </IonTabBar>
-        </IonRouterOutlet>
-        </IonTabs>
-      </IonRouterOutlet>
+        </IonTabBar>
+      </IonTabs>
   );
 };
 

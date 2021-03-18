@@ -6,9 +6,11 @@ import React from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import AppTabs from './AppTabs';
 import { AuthContext, useAuthInit } from './auth';
+import Homescreen from './components/Homescreen';
 import LoginPage from './pages/LoginPage';
 import NotFoundPage from './pages/NotFoundPage';
 import RegisterPage from './pages/RegisterPage';
+
 
 const App: React.FC = () => {
   const { loading, auth } =  useAuthInit();
@@ -21,9 +23,8 @@ const App: React.FC = () => {
       <AuthContext.Provider value={auth}>
         <IonReactRouter>
           <Switch>
-            <Route exact path="/login">
-              <LoginPage />
-            </Route>
+            <Route path="/login" component={LoginPage} exact />
+            <Route path="/" component={Homescreen} exact/>
             <Route exact path="/register">
               <RegisterPage />
             </Route>

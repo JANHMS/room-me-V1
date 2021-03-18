@@ -1,66 +1,72 @@
-import { IonButton, IonContent, IonHeader, IonInput, IonLoading, IonPage, IonTitle, IonToolbar } from "@ionic/react";
+import { IonButton, IonContent, IonHeader, IonInput, IonItem, IonLabel, IonList, IonLoading, IonPage, IonText, IonTitle, IonToolbar } from "@ionic/react";
 import React, { MouseEventHandler } from "react";
 import { Link } from "react-router-dom";
 import { SignIn } from "./GoogleSignInButton";
 import HeaderImage from "./HeaderImage";
 
 interface Props {
-  username: string;
-  setUsername: (password: string) => void;
+  email: string;
+  setEmail: (password: string) => void;
   password: string;
   setPassword: (password: string) => void;
   cpassword: string;
   setCPassword: (password: string) => void;
-  loading: boolean;
-  handleregisterUser: MouseEventHandler<HTMLIonButtonElement>;
-  auth: any;
+  status: any;
+  handleRegister: MouseEventHandler<HTMLIonButtonElement>;
 }
 
 const RegisterForm: React.FC<Props> = ({
-  username,
-  setUsername,
+  email,
+  setEmail,
   password,
   setPassword,
   cpassword,
   setCPassword,
-  loading,
-  handleregisterUser,
-  auth
+  status,
+  handleRegister,
+
 }) => {
   
   return(
-
     <IonPage>
-        <IonToolbar>
-          <HeaderImage />
-        </IonToolbar>
-      <h2>Register</h2>
-      <IonLoading message="Registration in progress..." duration={1000} isOpen={loading}/>
-      <IonContent className="icon-padding">
-        <IonInput 
-          value={username} 
-          onIonChange={(e:any) => setUsername(e.target.value)} 
-          placeholder="Username" 
-        />
-        <IonInput 
-          type="password"
-          value={password} 
-          onIonChange={(e:any) => setPassword(e.target.value)} 
-          placeholder="Password" 
-        />
-        <IonInput 
-          type="password"
-          value={cpassword} 
-          onIonChange={(e:any) => setCPassword(e.target.value)} 
-          placeholder="Confirm Password" 
-        />
-        <IonButton onClick={handleregisterUser} expand="full" routerLink="/home">
-          Register        
-        </IonButton>
-        <SignIn auth={auth}/>
-        <p><Link to="/login">Already have an Account?</Link></p>
-      </IonContent>
-    </IonPage>
+     <IonHeader>
+       <IonToolbar>
+         <IonTitle>Register</IonTitle>
+       </IonToolbar>
+     </IonHeader>
+     <IonContent className="ion-padding">
+       <IonList>
+         <IonItem>
+           <IonLabel position="stacked">Email</IonLabel>
+           <IonInput type="email" value={email}
+             onIonChange={(event) => setEmail(event.detail.value)}
+           />
+         </IonItem>
+         <IonItem>
+           <IonLabel position="stacked">Password</IonLabel>
+           <IonInput type="password" value={password}
+             onIonChange={(event) => setPassword(event.detail.value)}
+           />
+         </IonItem>
+         <IonItem>
+           <IonLabel position="stacked">Confirm Password</IonLabel>
+           <IonInput type="password" value={cpassword}
+             onIonChange={(event) => setCPassword(event.detail.value)}
+           />
+         </IonItem>
+       </IonList>
+       {status.error &&
+         <IonText color="danger">Registration failed</IonText>
+       }
+       <IonButton expand="block" onClick={handleRegister}>
+         Create Account
+       </IonButton>
+       <IonButton expand="block" fill="clear" routerLink="/login">
+         Already have an account?
+       </IonButton>
+       <IonLoading isOpen={status.loading} />
+     </IonContent>
+   </IonPage>
   )
 }
 

@@ -6,6 +6,7 @@ import { Entry, toEntry } from '../models';
 import { auth } from '../firebase';
 import { useHistory } from "react-router";
 import DashboardComponent from '../components/DashboardComponent';
+import { toast } from '../toast';
 
 const DashboardPage: React.FC = () => {
   const history = useHistory()
@@ -23,7 +24,8 @@ const DashboardPage: React.FC = () => {
 
   async function logout() {
   setLoadingLogout(true)
-  history.replace('/homescreen')
+  history.replace('/')
+  toast("Logged out")
   setLoadingLogout(false)
   auth.signOut()
   }

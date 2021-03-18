@@ -28,16 +28,7 @@ const AppTabs: React.FC = (): JSX.Element => {
   return (    
     <IonTabs>  
       <IonRouterOutlet>
-        <Route path="/login" component={LoginPage} exact />
-        <Route path="/register" component={RegisterPage} exact />
-        <Route path="/my/entries/add" component={AddEntryPage} />
-        <Route path="/homescreen" component={Homescreen} exact />
-        <Route path="/my/entries/view/:id" component={EntryPage} exact />
         <Route path="/chat" component={ChatRoom} exact />
-        <Route exact path="/">
-          <Redirect to="/homescreen" />
-        </Route>
-        
         <Route path="/my/entries" component={DashboardPage} exact />
         <Route path="/my/entries/add" component={AddEntryPage} exact />
         <Route path="/my/entries/view/:id" component={EntryPage} exact />

@@ -27,9 +27,10 @@ const LoginForm: React.FC<Props> = ({
     <IonPage>
       <IonHeader>
         <IonToolbar>
-          <IonTitle>Login</IonTitle>
+        <HeaderImage />
         </IonToolbar>
       </IonHeader>
+      <h2>Login</h2>
       <IonContent className="ion-padding">
         <IonList>
           <IonItem>

@@ -17,6 +17,7 @@ import { Redirect } from 'react-router';
 import { useAuth } from '../auth';
 import LoginForm from '../components/LoginForm';
 import { auth } from '../firebase';
+import { toast } from '../toast';
 
 const LoginPage: React.FC = () => {
   const { loggedIn } = useAuth();
@@ -29,9 +30,11 @@ const LoginPage: React.FC = () => {
       setStatus({ loading: true, error: false });
       const credential = await auth.signInWithEmailAndPassword(email, password);
       console.log('credential:', credential);
+      toast("Logged in")
     } catch (error) {
       setStatus({ loading: false, error: true });
       console.log('error:', error);
+      toast("Login failed")
     }
   };
 

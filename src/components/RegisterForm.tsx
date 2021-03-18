@@ -29,11 +29,12 @@ const RegisterForm: React.FC<Props> = ({
   
   return(
     <IonPage>
-     <IonHeader>
-       <IonToolbar>
-         <IonTitle>Register</IonTitle>
-       </IonToolbar>
-     </IonHeader>
+      <IonHeader>
+        <IonToolbar>
+        <HeaderImage />
+        </IonToolbar>
+      </IonHeader>
+      <h2>Login</h2>
      <IonContent className="ion-padding">
        <IonList>
          <IonItem>

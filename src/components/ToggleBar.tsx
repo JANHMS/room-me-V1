@@ -9,7 +9,7 @@ const ToggleCar: React.FC = () => {
         <IonIcon icon={chatbubbles} />
         <IonLabel>Chat</IonLabel>
       </IonTabButton>
-      <IonTabButton tab="tab2" href="/dashboard">
+      <IonTabButton tab="tab2" href="/my/entries">
         <IonIcon icon={home} />
         <IonLabel>Find</IonLabel>
       </IonTabButton>

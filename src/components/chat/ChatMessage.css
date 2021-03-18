@@ -1,0 +1,15 @@
+.chat-message-box {
+  max-width: 70%;
+  border-radius: 5px;
+  padding: 5px;
+  background: white;
+  margin-top: 10px;
+  font-size: 1.2em;
+  margin-bottom: 10px;
+}
+
+.message-time {
+  text-align: right;
+  font-size: 0.7em;
+  color: "darkblue";
+}

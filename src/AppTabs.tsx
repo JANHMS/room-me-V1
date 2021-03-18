@@ -12,41 +12,46 @@ import { Redirect, Route } from 'react-router-dom';
 import { useAuth } from './auth';
 import AddEntryPage from './pages/AddEntryPage';
 import EntryPage from './pages/EntryPage';
-import DashBoard from './pages/DashBoard';
+import DashboardPage from './pages/DashboardPage';
 import SettingsPage from './pages/SettingsPage';
+import ChatRoom from './components/ChatRoomComponent';
+import Homescreen from './components/Homescreen';
+import RegisterPage from './pages/RegisterPage';
+import LoginPage from './pages/LoginPage';
+import ToggleBar from './components/ToggleBar';
 
-const AppTabs: React.FC = () => {
+const AppTabs: React.FC = (): JSX.Element => {
   const { loggedIn } = useAuth();
   if (!loggedIn) {
     return <Redirect to="/login" />;
   }
-  return (
-    <IonTabs>
+  return (      
       <IonRouterOutlet>
-        <Route exact path="/my/entries">
-          <DashBoard />
+        <Route path="/login" component={LoginPage} exact />
+        <Route path="/register" component={RegisterPage} exact />
+        <Route path="/my/entries/add" component={AddEntryPage} />
+        <Route path="/homescreen" component={Homescreen} exact />
+        <Route path="/my/entries/view/:id" component={EntryPage} exact />
+        <Route path="/chat" component={ChatRoom} exact />
+        <Route exact path="/">
+          <Redirect to="/homescreen" />
         </Route>
-        <Route exact path="/my/entries/add">
-          <AddEntryPage />
-        </Route>
-        <Route exact path="/my/entries/view/:id">
-          <EntryPage />
-        </Route>
+        
+        <Route path="/my/entries" component={DashboardPage} exact />
+        <Route path="/my/entries/add" component={AddEntryPage} exact />
+        <Route path="/my/entries/view/:id" component={EntryPage} exact />
+
         <Route exact path="/my/settings">
           <SettingsPage />
         </Route>
+        <IonTabs>
+        <IonRouterOutlet>
+          <IonTabBar slot="bottom">
+            <ToggleBar />
+          </IonTabBar>
+        </IonRouterOutlet>
+        </IonTabs>
       </IonRouterOutlet>
-      <IonTabBar slot="bottom">
-        <IonTabButton tab="home" href="/my/entries">
-          <IonIcon icon={homeIcon} />
-          <IonLabel>Home</IonLabel>
-        </IonTabButton>
-        <IonTabButton tab="settings" href="/my/settings">
-          <IonIcon icon={settingsIcon} />
-          <IonLabel>Settings</IonLabel>
-        </IonTabButton>
-      </IonTabBar>
-    </IonTabs>
   );
 };
 

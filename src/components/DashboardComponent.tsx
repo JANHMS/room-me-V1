@@ -2,20 +2,20 @@ import { IonContent, IonLoading, IonInput, IonIcon, IonButton, IonHeader, IonPag
 import React, { useState } from "react";
 import ToggleBar from "../components/ToggleBar";
 import HeaderImage from '../components/HeaderImage';
+import { add as addIcon } from 'ionicons/icons';
+
 
 interface Props {
-  logout: () => void;
+  logout: any;
   loadingLogout: boolean;
   entries: any;
   formatDate: any;
-  addIcon: any;
 }
-const Dashboard: React.FC<Props> = ({
+const DashboardComponent: React.FC<Props> = ({
   logout,
   loadingLogout,
   entries,
   formatDate,
-  addIcon
 }) => {
   
 return (
@@ -58,4 +58,4 @@ return (
   )
 }
 
-export default Dashboard;
+export default DashboardComponent;

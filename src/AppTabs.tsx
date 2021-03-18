@@ -12,7 +12,7 @@ import { Redirect, Route } from 'react-router-dom';
 import { useAuth } from './auth';
 import AddEntryPage from './pages/AddEntryPage';
 import EntryPage from './pages/EntryPage';
-import HomePage from './pages/HomePage';
+import DashBoard from './pages/DashBoard';
 import SettingsPage from './pages/SettingsPage';
 
 const AppTabs: React.FC = () => {
@@ -24,7 +24,7 @@ const AppTabs: React.FC = () => {
     <IonTabs>
       <IonRouterOutlet>
         <Route exact path="/my/entries">
-          <HomePage />
+          <DashBoard />
         </Route>
         <Route exact path="/my/entries/add">
           <AddEntryPage />

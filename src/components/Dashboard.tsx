@@ -5,7 +5,6 @@ import HeaderImage from '../components/HeaderImage';
 
 interface Props {
   logout: () => void;
-  username: string;
   loadingLogout: boolean;
   entries: any;
   formatDate: any;
@@ -13,7 +12,6 @@ interface Props {
 }
 const Dashboard: React.FC<Props> = ({
   logout,
-  username,
   loadingLogout,
   entries,
   formatDate,
@@ -34,7 +32,6 @@ return (
     </IonHeader>
     <h2>Dashboard</h2>
     <IonContent className="icon-padding">
-      <p>Hello {username}</p>
       <IonLoading message="Logging out..." duration={0} isOpen={loadingLogout}/>
       <IonList>
           {entries.map((entry: { id: React.Key | null | undefined; pictureUrl: any; date: any; title: boolean | React.ReactChild | React.ReactFragment | React.ReactPortal | null | undefined; }) =>

@@ -30,7 +30,7 @@ export const onAuthStateChanged = onAuthCallback =>
   firebase.auth().onAuthStateChanged(onAuthCallback)
 
 
-export const getUserProfile = uid =>
+export const getUserProfile = (uid: string) =>
   firestore.collection('profiles')
     .doc(uid)
     .get()

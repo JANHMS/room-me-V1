@@ -1,4 +1,4 @@
-import {firestore} from '../firebase'
+import { firestore } from '../firebase'
 import { createRef } from './index'
 
 
@@ -31,12 +31,3 @@ export const markOfferAsInCollaboration = offerId =>
   firestore.collection('offers')
     .doc(offerId)
     .update({collaborationCreated: true})
-
-
-
-
-
-
-
-
-

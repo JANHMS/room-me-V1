@@ -1,8 +1,9 @@
+import firebase from 'firebase'
 import { firestore } from '../firebase'
 
 import { createRef } from './index'
 
-export const fetchServiceById = serviceId => 
+export const fetchServiceById = (serviceId: string) => 
   firestore.collection('services')
     .doc(serviceId)
     .get()
@@ -17,22 +18,20 @@ export const fetchServices = () =>
       return services
     })
 
-export const fetchUserServices = userId => {
-  const userRef = createRef('profiles', userId)
-  return firestore
+export const fetchUserServices = async (userId: any) => {
+  const userRef = createRef('users', userId)
+  const snapshot = await firestore
     .collection('services')
     .where("user", "==", userRef)
     .get()
-    .then(snapshot => {
-      const services = snapshot.docs.map(doc => ({id: doc.id, ...doc.data()}))
-      return services
-    })
+  const services = snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }))
+  return services
   }
 
 
-export const createService = newService => {
-  return firestore
+export const createService = async (newService: firebase.firestore.DocumentData) => {
+  const docRef = await firestore
     .collection('services')
     .add(newService)
-    .then(docRef => docRef.id)
+  return docRef.id
 }

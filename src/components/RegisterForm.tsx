@@ -11,7 +11,11 @@ interface Props {
   setPassword: (password: string) => void;
   cpassword: string;
   setCPassword: (password: string) => void;
+  fullName: string;
+  setFullName: (name: string) => void;
   status: any;
+  avatar: string;
+  setAvatar: (avatar: string) => void;
   handleRegister: MouseEventHandler<HTMLIonButtonElement>;
 }
 
@@ -24,7 +28,10 @@ const RegisterForm: React.FC<Props> = ({
   setCPassword,
   status,
   handleRegister,
-
+  fullName,
+  setFullName,
+  avatar,
+  setAvatar
 }) => {
   
   return(
@@ -37,6 +44,12 @@ const RegisterForm: React.FC<Props> = ({
       <h2>Login</h2>
      <IonContent className="ion-padding">
        <IonList>
+         <IonItem>
+           <IonLabel position="stacked">Full Name</IonLabel>
+           <IonInput value={fullName}
+             onIonChange={(event) => setFullName(event.detail.value)}
+           />
+         </IonItem>
          <IonItem>
            <IonLabel position="stacked">Email</IonLabel>
            <IonInput type="email" value={email}
@@ -55,6 +68,14 @@ const RegisterForm: React.FC<Props> = ({
              onIonChange={(event) => setCPassword(event.detail.value)}
            />
          </IonItem>
+         
+         <IonItem>
+           <IonLabel position="stacked">Avatar</IonLabel>
+           <IonInput value={avatar}
+             onIonChange={(event) => setAvatar(event.detail.value)}
+           />
+         </IonItem> 
+
        </IonList>
        {status.error &&
          <IonText color="danger">Registration failed</IonText>

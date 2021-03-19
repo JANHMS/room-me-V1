@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { fetchServiceById } from '../actions';
+import { fetchServiceById } from '../../actions';
 
-import Spinner from '../components/Spinner/SpinnerComponent';
-import OfferModal from '../components/service/OfferModal';
+import Spinner from '../../components/Spinner/SpinnerComponent';
+import OfferModal from '../../components/service/OfferModal';
 
 const ServiceDetail = props => {
 

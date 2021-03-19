@@ -1,3 +1,4 @@
+import { IonPage } from '@ionic/react'
 import React, { useState } from 'react'
 
 const Modal = props => {
@@ -7,6 +8,7 @@ const Modal = props => {
   const changeModalState = modalState => setIsActive(modalState)
 
   return (
+    <IonPage>
     <div>
       <button
         onClick={() => changeModalState(true)}
@@ -40,6 +42,7 @@ const Modal = props => {
         </div>
       </div>
     </div>
+  </IonPage>
   )
 }
 

@@ -12,9 +12,11 @@ import DashboardPage from './pages/DashboardPage';
 import SettingsPage from './pages/SettingsPage';
 import ChatRoom from './components/ChatRoomComponent';
 import ToggleBar from './components/ToggleBar';
-import ServicesPage from './pages/ServicesPage';
+import ServicesPage from './pages/services/ServicesPage';
 import ProfilePage from './pages/ProfilePage';
-import ServiceDetailPage from './pages/ServiceDetailPage';
+import ServiceDetailPage from './pages/services/ServiceDetailPage';
+import ServiceCreatePage from './pages/services/ServiceCreatePage';
+import CreateServiceComponent from './components/service/CreateServiceComponent';
 
 const AppTabs: React.FC = (): JSX.Element => {
   const { loggedIn } = useAuth();
@@ -31,9 +33,9 @@ const AppTabs: React.FC = (): JSX.Element => {
         <Route path="/collaborations/:id" component={CollaborationDetailPage} exact />
         <Route path="/offers/recieved" component={ReceivedOffersPage} exact />
         <Route path="/services/sent" component={SentOffersPage} exact />
-        <Route path="/services/me" component={UserServicesPage} exact />
-        <Route path="/services/new" component={ServiceCreatePage} exact />*/}
-        <Route path="my/services/:serviceId" component={ServiceDetailPage} exact /> 
+        <Route path="/services/me" component={UserServicesPage} exact />*/}
+        <Route path="/my/entries/services/new" component={CreateServiceComponent} exact />
+        <Route path="/my/entries/services/:serviceId" component={ServiceDetailPage} exact /> 
         <Route path="/my/services" component={ServicesPage} exact />
         <Route path="/my/profile" component={ProfilePage} exact />
         <Route path="/my/settings" component={SettingsPage} exact />

@@ -6,7 +6,7 @@ import 'firebase/storage';
 // Replace the following with the config for your own Firebase project
 // https://firebase.google.com/docs/web/setup#config-object
 const firebaseConfig = {
-  databaseURL: "https://room-me-29534-default-rtdb.europe-west1.firebasedatabase.app/",
+  databaseURL: "https://room-me-29534-default-rtdb.europe-west1.firebasedatabase.app",
   apiKey: "AIzaSyAOU-yobcA2Oi0OAuAcflvkJVTX7uSDVQw",
   authDomain: "room-me-29534.firebaseapp.com",
   projectId: "room-me-29534",

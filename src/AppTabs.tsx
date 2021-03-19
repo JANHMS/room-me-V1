@@ -14,6 +14,7 @@ import ChatRoom from './components/ChatRoomComponent';
 import ToggleBar from './components/ToggleBar';
 import ServicesPage from './pages/ServicesPage';
 import ProfilePage from './pages/ProfilePage';
+import ServiceDetailPage from './pages/ServiceDetailPage';
 
 const AppTabs: React.FC = (): JSX.Element => {
   const { loggedIn } = useAuth();
@@ -23,7 +24,6 @@ const AppTabs: React.FC = (): JSX.Element => {
   return (    
     <IonTabs>  
       <IonRouterOutlet>
-        <Route path="/chat" component={ChatRoom} exact />
         <Route path="/my/entries" component={DashboardPage} exact />
         <Route path="/my/entries/add" component={AddEntryPage} exact />
         <Route path="/my/entries/view/:id" component={EntryPage} exact />

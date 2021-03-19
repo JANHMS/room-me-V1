@@ -1,12 +1,8 @@
 import {
-  IonIcon,
-  IonLabel,
   IonRouterOutlet,
   IonTabBar,
-  IonTabButton,
   IonTabs,
 } from '@ionic/react';
-import { home as homeIcon, settings as settingsIcon } from 'ionicons/icons';
 import React from 'react';
 import { Redirect, Route } from 'react-router-dom';
 import { useAuth } from './auth';
@@ -15,10 +11,8 @@ import EntryPage from './pages/EntryPage';
 import DashboardPage from './pages/DashboardPage';
 import SettingsPage from './pages/SettingsPage';
 import ChatRoom from './components/ChatRoomComponent';
-import Homescreen from './components/Homescreen';
-import RegisterPage from './pages/RegisterPage';
-import LoginPage from './pages/LoginPage';
 import ToggleBar from './components/ToggleBar';
+import ServicesPage from './pages/ServicesPage';
 
 const AppTabs: React.FC = (): JSX.Element => {
   const { loggedIn } = useAuth();
@@ -32,10 +26,15 @@ const AppTabs: React.FC = (): JSX.Element => {
         <Route path="/my/entries" component={DashboardPage} exact />
         <Route path="/my/entries/add" component={AddEntryPage} exact />
         <Route path="/my/entries/view/:id" component={EntryPage} exact />
-
-        <Route exact path="/my/settings">
-          <SettingsPage />
-        </Route>  
+        {/* <Route path="/collaborations/me" component={ReceivedCollaborationsPage} exact />
+        <Route path="/collaborations/:id" component={CollaborationDetailPage} exact />
+        <Route path="/offers/recieved" component={ReceivedOffersPage} exact />
+        <Route path="/services/sent" component={SentOffersPage} exact />
+        <Route path="/services/me" component={UserServicesPage} exact />
+        <Route path="/services/new" component={ServiceCreatePage} exact />
+        <Route path="/services/:serviceId" component={ServiceDetailPage} exact /> */}
+        <Route path="/services" component={ServicesPage} exact />
+        <Route path="/my/settings" component={SettingsPage} exact />
       </IonRouterOutlet>
           <IonTabBar slot="bottom">
             <ToggleBar />

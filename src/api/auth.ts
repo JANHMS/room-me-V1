@@ -1,12 +1,10 @@
-
-
 import firebase from 'firebase/app'
 import 'firebase/auth'
 
-import db from 'db'
+import { firestore } from '../firebase'
 
 const createUserProfile = (userProfile) => 
-  db.collection('profiles')
+  firestore.collection('profiles')
     .doc(userProfile.uid)
     .set(userProfile)
 
@@ -33,7 +31,7 @@ export const onAuthStateChanged = onAuthCallback =>
 
 
 export const getUserProfile = uid =>
-  db.collection('profiles')
+  firestore.collection('profiles')
     .doc(uid)
     .get()
     .then(snapshot => ({uid, ...snapshot.data()}))

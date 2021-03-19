@@ -1,8 +1,8 @@
 
 
-import db from 'db'
+import { firestore } from '../firebase'
 
-export const createRef = (collection, docId) => db.doc(`${collection}/` + docId)
+export const createRef = (collection, docId) => firestore.doc(`${collection}/` + docId)
 
 export * from './services'
 export * from './auth'

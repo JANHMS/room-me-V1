@@ -3,9 +3,9 @@ import {
   FETCH_OFFERS_SUCCESS, 
   CHANGE_OFFER_STATUS,
   REQUEST_RESOURCE,
-  FETCH_RESOURCE_SUCCESS } from 'types'
+  FETCH_RESOURCE_SUCCESS } from '../types'
 
-import * as api from 'api'
+import * as api from '../api'
 
 export const createOffer = offer => api.createOffer(offer)
 

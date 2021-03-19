@@ -1,22 +1,22 @@
 
 import firebase from 'firebase/app'
-import db from 'db'
+import { firestore } from '../firebase'
 import { createRef } from './index'
 
 export const createCollaboration = collab => 
-  db.collection('collaborations')
+  firestore.collection('collaborations')
     .add(collab)
     .then(docRef => docRef.id)
 
 export const sendMessage = message => 
-  db.collection('profiles')
+  firestore.collection('profiles')
     .doc(message.toUser)
     .collection('messages')
     .add(message)
 
 
 export const subscribeToMessages = (userId, callback) =>
-  db.collection('profiles')
+  firestore.collection('profiles')
     .doc(userId)
     .collection('messages')
     .onSnapshot(snapshot => {
@@ -26,7 +26,7 @@ export const subscribeToMessages = (userId, callback) =>
 
 
 export const markMessageAsRead = message =>
-  db.collection('profiles')
+  firestore.collection('profiles')
     .doc(message.toUser)
     .collection('messages')
     .doc(message.id)
@@ -34,14 +34,14 @@ export const markMessageAsRead = message =>
 
 
 export const fetchCollaborations = userId => 
-  db.collection('collaborations')
+  firestore.collection('collaborations')
     .where('allowedPeople', 'array-contains', userId)
     .get()
     .then(snapshot => snapshot.docs.map(doc => ({id: doc.id, ...doc.data()})))
 
 
 export const subToCollaboration = (collabId, done) =>
-  db.collection('collaborations')
+  firestore.collection('collaborations')
     .doc(collabId)
     .onSnapshot(snapshot => {
       const collab = {id: snapshot.id, ...snapshot.data()}
@@ -52,7 +52,7 @@ export const subToCollaboration = (collabId, done) =>
 export const joinCollaboration = (collabId, uid) => {
   const userRef = createRef('profiles', uid)
 
-  return db
+  return firestore
     .collection('collaborations')
     .doc(collabId)
     .update({ joinedPeople: firebase.firestore.FieldValue.arrayUnion(userRef)})
@@ -61,7 +61,7 @@ export const joinCollaboration = (collabId, uid) => {
 export const leaveCollaboration = (collabId, uid) => {
   const userRef = createRef('profiles', uid)
 
-  return db
+  return firestore
     .collection('collaborations')
     .doc(collabId)
     .update({ joinedPeople: firebase.firestore.FieldValue.arrayRemove(userRef)})
@@ -69,7 +69,7 @@ export const leaveCollaboration = (collabId, uid) => {
 
 
 export const subToProfile = (uid, done) => 
-  db.collection('profiles')
+  firestore.collection('profiles')
     .doc(uid)
     .onSnapshot(snapshot => {
       const user = {id: snapshot.id, ...snapshot.data()}
@@ -77,21 +77,21 @@ export const subToProfile = (uid, done) =>
     })
 
 export const sendChatMessage = ({message, collabId, timestamp}) =>
-  db.collection('collaborations')
+  firestore.collection('collaborations')
     .doc(collabId)
     .collection('messages')
     .doc(timestamp)
     .set(message)
 
 export const subToMessages = (collabId, done) =>
-  db.collection('collaborations')
+  firestore.collection('collaborations')
     .doc(collabId)
     .collection('messages')
     .onSnapshot(snapshot => done(snapshot.docChanges()))
 
 
 export const startCollaboration = (collabId, expiresAt) => 
-  db.collection('collaborations')
+  firestore.collection('collaborations')
     .doc(collabId)
     .update({expiresAt})
 

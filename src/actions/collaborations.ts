@@ -1,5 +1,3 @@
-
-
 import { 
   COLLABORATION_CREATED_FROM_OFFER, 
   FETCH_USER_MESSAGES_SUCCESS,
@@ -87,22 +85,3 @@ export const subToMessages = collabId => dispatch => {
 
 export const startCollaboration = (collabId, expiresAt) => 
   api.startCollaboration(collabId, expiresAt)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

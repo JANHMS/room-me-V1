@@ -1,11 +1,10 @@
-
 import { 
   FETCH_SERVICES_SUCCESS, 
   FETCH_SERVICE_SUCCESS,
   REQUEST_SERVICE,
-  FETCH_USER_SERVICES_SUCCESS } from 'types'
+  FETCH_USER_SERVICES_SUCCESS } from '../types'
 
-import * as api from 'api'
+import * as api from '../api'
 
 export const fetchServices = () => dispatch =>
    api

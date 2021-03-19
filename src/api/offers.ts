@@ -1,14 +1,12 @@
-
-
-import db from 'db'
+import {firestore} from '../firebase'
 import { createRef } from './index'
 
 
-export const createOffer = offer => db.collection('offers').add(offer)
+export const createOffer = offer => firestore.collection('offers').add(offer)
 
 export const fetchSentOffers = userId => {
   const userRef = createRef('profiles', userId)
-  return db
+  return firestore
     .collection('offers')
     .where('fromUser', '==', userRef)
     .get()
@@ -17,7 +15,7 @@ export const fetchSentOffers = userId => {
 
 export const fetchReceivedOffers = userId => {
   const userRef = createRef('profiles', userId)
-  return db
+  return firestore
     .collection('offers')
     .where('toUser', '==', userRef)
     .get()
@@ -25,12 +23,12 @@ export const fetchReceivedOffers = userId => {
 }
 
 export const changeOfferStatus = (offerId, status) => 
-  db.collection('offers')
+  firestore.collection('offers')
     .doc(offerId)
     .update({status})
 
 export const markOfferAsInCollaboration = offerId => 
-  db.collection('offers')
+  firestore.collection('offers')
     .doc(offerId)
     .update({collaborationCreated: true})
 

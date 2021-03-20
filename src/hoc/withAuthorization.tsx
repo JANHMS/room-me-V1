@@ -8,7 +8,7 @@ const withAuthorization = ({
   props
 }) => {
   const WithAuthorization = (): JSX.Element => {  
-    return auth.isAuth ? <Component {...props} /> : <Redirect to="/homescreen" />   
+    return auth ? <Component {...props} /> : <Redirect to="/" />   
     }
   return connect(({auth}) => ({auth}))(WithAuthorization)
 }

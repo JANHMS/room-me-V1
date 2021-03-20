@@ -1,6 +1,4 @@
-# Daily Moments
-
-This example is part of the Ionic React course.
+# Room Me
 
 ## Links
 

@@ -17,6 +17,7 @@ import ProfilePage from './pages/ProfilePage';
 import ServiceDetailPage from './pages/services/ServiceDetailPage';
 import ServiceCreatePage from './pages/services/ServiceCreatePage';
 import CreateServiceComponent from './components/service/CreateServiceComponent';
+import UserServices from './pages/services/UserServices';
 
 const AppTabs: React.FC = (): JSX.Element => {
   const { loggedIn } = useAuth();
@@ -35,6 +36,9 @@ const AppTabs: React.FC = (): JSX.Element => {
         <Route path="/services/sent" component={SentOffersPage} exact />
         <Route path="/services/me" component={UserServicesPage} exact />*/}
         <Route path="/my/entries/services/new" component={ServiceCreatePage} exact />
+        <Route path="/my/entries/services/me" component={UserServices} exact />
+
+        UserServices
         {/* <Route path="/my/entries/services/:serviceId" component={ServiceDetailPage} exact />  */}
         <Route path="/my/services" component={ServicesPage} exact />
         <Route path="/my/profile" component={ProfilePage} exact />

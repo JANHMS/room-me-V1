@@ -3,7 +3,10 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 
 const ServiceItem = ({
-  service, children, className, noButton
+  service,
+  children,
+  className,
+  noButton
 }) => {
 
   const shortText = (text, maxLength = 50) => {

@@ -2,10 +2,10 @@ import {
   IonApp, IonLoading,
 } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import AppTabs from './AppTabs';
-import { AuthContext, useAuthInit } from './auth';
+import { AuthContext, useAuth, useAuthInit } from './auth';
 import { Provider } from 'react-redux'
 import initStore from './store'
 import Homescreen from './components/Homescreen';
@@ -13,11 +13,32 @@ import LoginPage from './pages/LoginPage';
 import NotFoundPage from './pages/NotFoundPage';
 import RegisterPage from './pages/RegisterPage';
 
+import { 
+  onAuthStateChanged, 
+  storeAuthUser, 
+  subscribeToMessages,
+  checkUserConnection } from '../src/actions'
+
+const store = initStore()
 
 const App: React.FC = () => {
-  const store = initStore()
-
+  const { userId } = useAuth()
   const { loading, auth } =  useAuthInit();
+
+  useEffect(() => {
+    onAuthStateChanged(authUser => {
+      store.dispatch(storeAuthUser(authUser))
+      
+      if(authUser) {
+        checkUserConnection(userId)
+        store.dispatch(subscribeToMessages(userId))
+      }
+      if(!authUser) {
+        unsubscribeMessages()
+      }
+    })
+  },[])
+
   if (loading) {
     return <IonLoading isOpen />;
   }

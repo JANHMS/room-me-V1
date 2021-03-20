@@ -34,8 +34,8 @@ const AppTabs: React.FC = (): JSX.Element => {
         <Route path="/offers/recieved" component={ReceivedOffersPage} exact />
         <Route path="/services/sent" component={SentOffersPage} exact />
         <Route path="/services/me" component={UserServicesPage} exact />*/}
-        <Route path="/my/entries/services/new" component={CreateServiceComponent} exact />
-        <Route path="/my/entries/services/:serviceId" component={ServiceDetailPage} exact /> 
+        <Route path="/my/entries/services/new" component={ServiceCreatePage} exact />
+        {/* <Route path="/my/entries/services/:serviceId" component={ServiceDetailPage} exact />  */}
         <Route path="/my/services" component={ServicesPage} exact />
         <Route path="/my/profile" component={ProfilePage} exact />
         <Route path="/my/settings" component={SettingsPage} exact />

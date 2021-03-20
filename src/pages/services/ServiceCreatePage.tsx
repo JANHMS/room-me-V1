@@ -4,6 +4,7 @@ import { Redirect } from 'react-router-dom'
 import { createService } from '../../actions'
 import { useAuth } from '../../auth'
 import CreateServiceComponent from '../../components/service/CreateServiceComponent'
+import { toast } from '../../toast'
 
 const ServiceCreate: React.FC = () => {
   
@@ -26,10 +27,13 @@ const ServiceCreate: React.FC = () => {
   const handleSubmit = () => {
     createService(serviceForm, userId)
       .then(() => setRedirect(true))
-      .catch(() => alert('SOME ERROR!'))
+      .catch(() => toast('SOME ERROR!'))
   }
 
-  if (redirect) { return <Redirect to="/my/entries" />}
+  if (redirect) {
+    toast("Sucessfully created")
+    return <Redirect to="/my/entries" />
+  }
 
   return (
     <CreateServiceComponent 

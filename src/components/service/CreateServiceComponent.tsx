@@ -103,7 +103,7 @@ return (
                     className="IonButton is-link">Create</IonButton>
                 </div>
                 <div className="control">
-                  <IonButton className="IonButton is-text">Cancel</IonButton>
+                  <IonButton routerDirection='back' className="IonButton is-text">Cancel</IonButton>
                 </div>
               </div>
             </form>

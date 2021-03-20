@@ -35,4 +35,4 @@ const UserServicesPage = ({
 }
 
 
-export default withAuthorization(UserServicesPage);
+export default UserServicesPage;

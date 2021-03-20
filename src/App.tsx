@@ -4,7 +4,6 @@ import {
 import { IonReactRouter } from '@ionic/react-router';
 import React, { useEffect } from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
-import AppTabs from './AppTabs';
 import { AuthContext, useAuth, useAuthInit } from './auth';
 import { Provider } from 'react-redux'
 import initStore from './store'
@@ -12,12 +11,14 @@ import Homescreen from './components/Homescreen';
 import LoginPage from './pages/LoginPage';
 import NotFoundPage from './pages/NotFoundPage';
 import RegisterPage from './pages/RegisterPage';
+import ServiceApp from './ServiceApp'
 
 import { 
   onAuthStateChanged, 
   storeAuthUser, 
   subscribeToMessages,
   checkUserConnection } from '../src/actions'
+import AppTabs from './AppTabs';
 
 const store = initStore()
 

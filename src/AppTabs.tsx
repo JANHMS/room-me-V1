@@ -18,6 +18,9 @@ import ServiceDetailPage from './pages/services/ServiceDetailPage';
 import ServiceCreatePage from './pages/services/ServiceCreatePage';
 import UserServicesPage from './pages/services/UserServicesPage';
 import ServiceHome from './pages/ServiceHome';
+import RegisterPage from './pages/RegisterPage';
+import Homescreen from './components/Homescreen';
+import LoginPage from './pages/LoginPage';
 
 
 const AppTabs: React.FC = (): JSX.Element => {
@@ -28,6 +31,12 @@ const AppTabs: React.FC = (): JSX.Element => {
   return (    
     <IonTabs>  
       <IonRouterOutlet>
+        <Route path="/login" component={LoginPage} exact />
+        <Route path="/" component={Homescreen} exact/>
+        <Route exact path="/register">
+          <RegisterPage />
+        </Route>
+        
         <Route path="/my/entries" component={DashboardPage} exact />
         <Route path="/my/entries/add" component={AddEntryPage} exact />
         <Route path="/my/entries/view/:id" component={EntryPage} exact />

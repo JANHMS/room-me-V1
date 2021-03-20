@@ -17,6 +17,7 @@ import ServicesPage from './pages/services/ServicesPage';
 import ServiceDetailPage from './pages/services/ServiceDetailPage';
 import ServiceCreatePage from './pages/services/ServiceCreatePage';
 import UserServicesPage from './pages/services/UserServicesPage';
+import ServiceHome from './pages/ServiceHome';
 
 
 const AppTabs: React.FC = (): JSX.Element => {
@@ -31,9 +32,11 @@ const AppTabs: React.FC = (): JSX.Element => {
         <Route path="/my/entries/add" component={AddEntryPage} exact />
         <Route path="/my/entries/view/:id" component={EntryPage} exact />
 
-        <Route path="/my/entries/services/new" component={ServiceCreatePage} exact />
-        <Route path="/my/entries/me/services" component={UserServicesPage} exact />
-        <Route path="/my/entries/services/view/:serviceId" component={ServiceDetailPage} exact />  
+        <Route path="/my/services/home" component={ServiceHome} exact />
+        
+        <Route path="/my/services/new" component={ServiceCreatePage} exact />
+        <Route path="/my/services/me/services" component={UserServicesPage} exact />
+
         <Route path="/my/services" component={ServicesPage} exact />
         
         <Route path="/my/profile" component={ProfilePage} exact />

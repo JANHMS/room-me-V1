@@ -1,12 +1,10 @@
 import { IonBackButton, IonButtons, IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react'
 import React from 'react'
 import { Link } from 'react-router-dom'
+import HeaderImage from '../HeaderImage'
 
 const ServiceItem = ({
   service,
-  children,
-  className,
-  noButton
 }) => {
 
   const shortText = (text, maxLength = 50) => {
@@ -22,32 +20,33 @@ const ServiceItem = ({
       <IonHeader>
         <IonToolbar>
           <IonButtons slot="start">
-            <IonBackButton />
+            <IonBackButton defaultHref="/my/entries"/>
           </IonButtons>
           <IonTitle>Service</IonTitle>
         </IonToolbar>
       </IonHeader>
 
       <IonContent>
-
+        <div className="card-icon">
+           <p> {service.title} </p>
+        </div>
+        
         <div className="card-icon">
            <img src={service.image} alt=""/>
         </div>
+
         <div className="card-text">
            <p>{shortText(service.description)}</p>
         </div>
-        { children &&
-          <div className="card-text">
-            { children }
-          </div>
-        }
-        { !noButton &&
-          <div className="card-action">
-             <Link 
-                to={`/services/${service.id}`}
-                className="button btn-align-md accent-btn raised">Learn More</Link>
-          </div>
-        }
+
+        <div className="card-action">
+           <Link 
+              to={`/services/${service.id}`}
+              className="button btn-align-md accent-btn raised">
+              Learn More
+            </Link>
+        </div>
+      
     </IonContent>
   </IonPage>
   )

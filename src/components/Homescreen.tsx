@@ -16,8 +16,11 @@ const Homescreen: React.FC = () => {
         <IonToolbar>
           <IonButton routerLink="/login" style={{
             position: "absolute",
-            top: "10px",
-            right: "10px"
+            width: "100px", 
+            fontSize:"15px", 
+            height:"8vw",
+            top: "2.5px",
+            right: "20px"
           }}>Sign in</IonButton>
           <HeaderImage />
         </IonToolbar>
@@ -27,7 +30,7 @@ const Homescreen: React.FC = () => {
         <IonTitle>   
           <h2>You're about to <br/> find your tribe</h2>
         <br/>
-        <h5>Find your <img src={rommmeimage} style={{width:"100px", position:"relative", top:"10px"}}/> <br/> <br/> easily and uncomplicated. <br/> <br/> <br/> <div style={{color:"darkblue"}}>How is that for a change?</div></h5>
+        <h5>Find your <img src={rommmeimage} style={{width:"100px", position:"relative", top:"10px"}}/> <br/> <br/> easily uncomplicated. <br/> <br/> <br/> <div style={{color:"darkblue"}}>How is that <br /> for a change?</div></h5>
       </IonTitle>
       <IonFooter style={{
         position: "absolute",
@@ -35,7 +38,7 @@ const Homescreen: React.FC = () => {
       }}>
         <IonToolbar>
           <IonTitle>
-            <IonButton expand="full" routerLink="/register">
+            <IonButton routerLink="/register">
               Join Room-Me       
             </IonButton>
           </IonTitle>

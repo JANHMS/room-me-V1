@@ -44,7 +44,7 @@ const AppTabs: React.FC = (): JSX.Element => {
         <Route path="/my/services/home" component={ServiceHome} exact />
         
         <Route path="/my/services/new" component={ServiceCreatePage} exact />
-        <Route path="/my/services/me/services" component={UserServicesPage} exact />
+        <Route path="/my/services/me" component={UserServicesPage} exact />
 
         <Route path="/my/services" component={ServicesPage} exact />
         

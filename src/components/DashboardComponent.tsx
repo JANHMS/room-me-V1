@@ -28,7 +28,6 @@ return (
     <HeaderBar 
       logout={logout}
     />
-    <h2>Dashboard</h2>
     <IonContent className="icon-padding">
       <IonLoading message="Logging out..." duration={0} isOpen={loadingLogout}/>
       <IonText>Hi {user.fullName}</IonText>

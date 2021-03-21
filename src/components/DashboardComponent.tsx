@@ -6,6 +6,7 @@ import { add as addIcon } from 'ionicons/icons';
 import { Link } from 'react-router-dom';
 import ReceivedMessages from './messages/ReceivedMessages';
 import HeaderBar from "./HeaderBar";
+import ServiceItem from './service/ServiceItem';
 
 
 interface Props {
@@ -14,13 +15,15 @@ interface Props {
   entries: any;
   formatDate: any;
   user: any;
+  services: any[];
 }
 const DashboardComponent: React.FC<Props> = ({
   logout,
   loadingLogout,
   entries,
   formatDate,
-  user
+  user,
+  services
 }) => {
   
 return (
@@ -33,9 +36,9 @@ return (
       <IonText>Hi {user.fullName}</IonText>
 
       <IonList>
-          {entries.map((entry: { id: React.Key | null | undefined; pictureUrl: any; date: any; title: boolean | React.ReactChild | React.ReactFragment | React.ReactPortal | null | undefined; }) =>
+          {services.map((entry: { id: React.Key | null | undefined; pictureUrl: any; date: any; title: boolean | React.ReactChild | React.ReactFragment | React.ReactPortal | null | undefined; }) =>
             <IonItem button key={entry.id}
-              routerLink={`/my/entries/view/${entry.id}`}>
+              routerLink={`/my/services/view/${entry.id}`}>
               <IonThumbnail slot="end">
                 <IonImg src={entry.pictureUrl} />
               </IonThumbnail>

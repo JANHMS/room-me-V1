@@ -10,6 +10,8 @@ import { toast } from '../toast';
 import { getUserProfile } from '../api';
 import Spinner from '../components/Spinner/SpinnerComponent';
 import { IonLoading } from '@ionic/react';
+import { connect } from 'react-redux' // HOC
+import { fetchServices } from '../actions';
 
 const DashboardPage: React.FC = () => {
   const history = useHistory()
@@ -18,6 +20,7 @@ const DashboardPage: React.FC = () => {
   const [entries, setEntries] = useState<Entry[]>([]);
   const [user, setUser] = useState<any>()
   const [loading, setLoading] = useState(false)
+  const [services, setServices] = useState<any>();
   
   useEffect(() => {
     const entriesRef = firestore.collection('users').doc(userId)
@@ -33,10 +36,19 @@ const DashboardPage: React.FC = () => {
         var source = doc.metadata.hasPendingWrites ? "Local" : "Server";
         const userData = doc.data()
         await setUser(userData)
-        // console.log(source, " data: ", doc.data());
-        setLoading(false)
+        
+        firestore.collection('services')
+          .get()
+          .then(async snapshot => {
+            const servicesData = snapshot.docs.map(doc => ({id: doc.id, ...doc.data()}))
+            console.log(servicesData)
+            await setServices(servicesData)
+          })
+  
+      setLoading(false)
         });
     }, [])
+    
   const [loadingLogout, setLoadingLogout] = useState(false)
 
   async function logout() {
@@ -48,12 +60,13 @@ const DashboardPage: React.FC = () => {
   }
   
   return (
-    user ? <DashboardComponent
+    user && services ? <DashboardComponent
       logout={logout}
       loadingLogout={loadingLogout}
       entries={entries}
       formatDate={formatDate}
       user={user}
+      services={services}
     /> : <IonLoading isOpen={loading}
         onDidDismiss={() => setLoading(false)}
         message={'Please wait...'}
@@ -61,4 +74,8 @@ const DashboardPage: React.FC = () => {
   );
 };
 
-export default DashboardPage;
+const mapStateToProps = state => ({services: state.services.all})
+    
+export default connect(mapStateToProps, {fetchServices})(DashboardPage)
+
+

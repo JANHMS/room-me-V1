@@ -13,13 +13,14 @@ const ServiceDetail = props => {
 
   useEffect(() => {
     fetchServiceById(serviceId)
+    console.log(service)
   }, [serviceId, fetchServiceById])
 
 
   const { service, auth } = props
   const { user } = service
 
-  if (isFetching || serviceId !== service.id) { return <Spinner /> }
+  if (isFetching) { return <Spinner /> }
 
   return (
     <ServiceDeatilComponent

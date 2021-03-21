@@ -31,12 +31,11 @@ return(
                     <figure className="image is-48x48">
                       <img
                         className="is-rounded"
-                        src={user.avatar}
-                        alt={user.fullName} />
+                  />
                     </figure>
                   </div>
                   <div className="media-content">
-                    <p className="title is-4">{user.fullName}</p>
+                    <p className="title is-4"></p>
                     <p className="subtitle is-6">Owner</p>
                   </div>
                 </div>
@@ -60,7 +59,7 @@ return(
               </h2>
               <br />
               <div className="has-text-centered">
-                { auth.isAuth && auth.user.uid !== service.user.uid &&
+                { auth.isAuth && auth.user !== service.user &&
                   <OfferModal 
                     auth={auth}
                     service={service}/>

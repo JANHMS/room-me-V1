@@ -7,7 +7,7 @@ const HeaderImage = () => {
       textOverflow: "ellipsis",
       whiteSpace: "nowrap",
       overflow: "hidden",
-      width: "200px"}}>
+      width: "100px"}}>
       <img src={rommmeimage} />
     </div>
   )

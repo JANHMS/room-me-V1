@@ -5,6 +5,7 @@ import HeaderImage from '../components/HeaderImage';
 import { add as addIcon } from 'ionicons/icons';
 import { Link } from 'react-router-dom';
 import ReceivedMessages from './messages/ReceivedMessages';
+import HeaderBar from "./HeaderBar";
 
 
 interface Props {
@@ -24,62 +25,14 @@ const DashboardComponent: React.FC<Props> = ({
   
 return (
   <IonPage>
-    <IonHeader>
-      <IonToolbar>
-        <HeaderImage/>
-        <IonButton onClick={logout} style={{
-          position: "absolute",
-          top: "10px",
-          right: "10px"
-        }}>Logout</IonButton>
-      </IonToolbar>
-    </IonHeader>
+    <HeaderBar 
+      logout={logout}
+    />
     <h2>Dashboard</h2>
     <IonContent className="icon-padding">
       <IonLoading message="Logging out..." duration={0} isOpen={loadingLogout}/>
       <IonText>Hi {user.fullName}</IonText>
-      <React.Fragment>
-        <div className="navbar-item has-dropdown is-hoverable">
-          <a className="navbar-link">
-              Manage
-          </a>
-          <div className="navbar-dropdown">
-            <Link 
-              to="/services/new"
-              className="navbar-item">
-                Create Service
-            </Link>
-            <Link 
-              to="/services/me"
-              className="navbar-item">
-                Your Services
-            </Link>
-            <Link 
-              to="/offers/sent"
-              className="navbar-item">
-                Sent Offers
-            </Link>
-            <Link 
-              to="/offers/received"
-              className="navbar-item">
-                Received Offers
-            </Link>
-            <Link 
-              to="/collaborations/me"
-              className="navbar-item">
-                Received Collaborations
-            </Link>
-          </div>
-        </div>
-        <div className="navbar-item has-dropdown is-hoverable">
-          <a className="navbar-link">
-              Messages
-          </a>
-          <div className="navbar-dropdown navbar-dropdown-messages">
-            {/* { messages && <ReceivedMessages /> } */}
-          </div>
-        </div>
-      </React.Fragment>
+    
       <IonList>
           {entries.map((entry: { id: React.Key | null | undefined; pictureUrl: any; date: any; title: boolean | React.ReactChild | React.ReactFragment | React.ReactPortal | null | undefined; }) =>
             <IonItem button key={entry.id}

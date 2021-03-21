@@ -31,7 +31,7 @@ return (
     <IonContent className="icon-padding">
       <IonLoading message="Logging out..." duration={0} isOpen={loadingLogout}/>
       <IonText>Hi {user.fullName}</IonText>
-    
+
       <IonList>
           {entries.map((entry: { id: React.Key | null | undefined; pictureUrl: any; date: any; title: boolean | React.ReactChild | React.ReactFragment | React.ReactPortal | null | undefined; }) =>
             <IonItem button key={entry.id}
@@ -45,15 +45,20 @@ return (
               </IonLabel>
             </IonItem>
           )}
+
         </IonList>
         <IonFab vertical="bottom" horizontal="end">
           <IonFabButton routerLink="/my/entries/add">
             <IonIcon icon={addIcon} />
+            <ToggleBar/>
           </IonFabButton>
         </IonFab>
-      <IonFooter><p><ToggleBar/></p></IonFooter>
+        
     </IonContent>
+    <ToggleBar />
+
   </IonPage>
+  
   )
 }
 

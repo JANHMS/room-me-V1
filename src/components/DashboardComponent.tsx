@@ -12,12 +12,14 @@ interface Props {
   loadingLogout: boolean;
   entries: any;
   formatDate: any;
+  user: any;
 }
 const DashboardComponent: React.FC<Props> = ({
   logout,
   loadingLogout,
   entries,
   formatDate,
+  user
 }) => {
   
 return (
@@ -35,7 +37,7 @@ return (
     <h2>Dashboard</h2>
     <IonContent className="icon-padding">
       <IonLoading message="Logging out..." duration={0} isOpen={loadingLogout}/>
-      {/* <IonText>Hi {user.fullname}</IonText> */}
+      <IonText>Hi {user.fullName}</IonText>
       <React.Fragment>
         <div className="navbar-item has-dropdown is-hoverable">
           <a className="navbar-link">

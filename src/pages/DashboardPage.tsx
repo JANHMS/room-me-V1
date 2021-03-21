@@ -8,6 +8,8 @@ import { useHistory } from "react-router";
 import DashboardComponent from '../components/DashboardComponent';
 import { toast } from '../toast';
 import { getUserProfile } from '../api';
+import Spinner from '../components/Spinner/SpinnerComponent';
+import { IonLoading } from '@ionic/react';
 
 const DashboardPage: React.FC = () => {
   const history = useHistory()
@@ -15,6 +17,7 @@ const DashboardPage: React.FC = () => {
   const { userId } = useAuth();
   const [entries, setEntries] = useState<Entry[]>([]);
   const [user, setUser] = useState<any>()
+  const [loading, setLoading] = useState(false)
   
   useEffect(() => {
     const entriesRef = firestore.collection('users').doc(userId)
@@ -24,14 +27,16 @@ const DashboardPage: React.FC = () => {
   }, [userId]);
   
   useEffect(() => {
+    setLoading(true)
     firestore.collection("profiles").doc(userId)
-        .onSnapshot((doc) => {
-            var source = doc.metadata.hasPendingWrites ? "Local" : "Server";
-            console.log(source, " data: ", doc.data().fullName);
+      .onSnapshot(async (doc) => {
+        var source = doc.metadata.hasPendingWrites ? "Local" : "Server";
+        const userData = doc.data()
+        await setUser(userData)
+        // console.log(source, " data: ", doc.data());
+        setLoading(false)
         });
     }, [])
-    console.log("This is user", user)
-
   const [loadingLogout, setLoadingLogout] = useState(false)
 
   async function logout() {
@@ -41,13 +46,18 @@ const DashboardPage: React.FC = () => {
   setLoadingLogout(false)
   auth.signOut()
   }
+  
   return (
-    <DashboardComponent
+    user ? <DashboardComponent
       logout={logout}
       loadingLogout={loadingLogout}
       entries={entries}
       formatDate={formatDate}
-    />
+      user={user}
+    /> : <IonLoading isOpen={loading}
+        onDidDismiss={() => setLoading(false)}
+        message={'Please wait...'}
+        duration={5000}/>
   );
 };
 

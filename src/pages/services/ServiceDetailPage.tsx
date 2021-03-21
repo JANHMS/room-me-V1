@@ -20,16 +20,18 @@ const ServiceDetail = props => {
   const { service, auth } = props
   const { user } = service
 
-  if (isFetching) { return <Spinner /> }
+  if (isFetching || serviceId !== service.id) { return <Spinner /> }
 
   return (
+    auth && user ?
     <ServiceDeatilComponent
       auth={auth}
       user={user}
       service={service}
-    />
+    /> : <Spinner />
   )
 }
+
 
 const mapStateToProps = ({selectedService, auth}) => (
   {

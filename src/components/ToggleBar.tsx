@@ -9,11 +9,11 @@ const ToggleCar: React.FC = () => {
         <IonIcon icon={chatbubbles} />
         <IonLabel>Chat</IonLabel>
       </IonTabButton>
-      <IonTabButton tab="tab2" href="/my/entries">
+      <IonTabButton tab="tab2" href="/my">
         <IonIcon icon={home} />
         <IonLabel>Find</IonLabel>
       </IonTabButton>
-      <IonTabButton tab="tab3" href="/addentry">
+      <IonTabButton tab="tab3" href="/my/profile">
         <IonIcon icon={person} />
         <IonLabel>Me</IonLabel>
       </IonTabButton>

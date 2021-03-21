@@ -38,7 +38,7 @@ return (
       <IonList>
           {services.map((entry) =>
             <IonItem button key={entry.id}
-              routerLink={`/my/services/view/${entry.id}`}>
+              routerLink={`/my/services/${entry.id}`}>
               <IonThumbnail slot="end">
                 <IonImg src={entry.image} />
               </IonThumbnail>

@@ -1,4 +1,4 @@
-import { IonContent, IonButton, IonHeader, IonPage, IonTitle, IonToolbar, IonFooter } from '@ionic/react';
+import { IonContent, IonButton, IonHeader, IonPage, IonTitle, IonToolbar, IonFooter, IonRow, IonCol } from '@ionic/react';
 import React, { useState, useEffect } from "react";
 import HeaderImage from '../components/HeaderImage';
 import rommmeimage from'../images/roomme.png';
@@ -16,9 +16,9 @@ const Homescreen: React.FC = () => {
         <IonToolbar>
           <IonButton routerLink="/login" style={{
             position: "absolute",
-            width: "100px", 
-            fontSize:"15px", 
-            height:"8vw",
+            width: "30vw", 
+            fontSize:"15", 
+            height:"40px",
             top: "2.5px",
             right: "20px"
           }}>Sign in</IonButton>
@@ -38,9 +38,14 @@ const Homescreen: React.FC = () => {
       }}>
         <IonToolbar>
           <IonTitle>
-            <IonButton routerLink="/register">
-              Join Room-Me       
-            </IonButton>
+            <IonRow class="ion-align-items-center">
+              <IonCol size="12" class="ion-text-center">
+
+                <IonButton routerLink="/register">
+                  Join Room-Me       
+                </IonButton>
+              </IonCol>
+            </IonRow>
           </IonTitle>
         </IonToolbar>
       </IonFooter>

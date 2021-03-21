@@ -2,9 +2,9 @@ import { isPlatform } from '@ionic/react';
 import { CameraResultType, CameraSource, Plugins } from '@capacitor/core';
 import React, { useState, useEffect, useRef } from 'react';
 import { useHistory } from 'react-router';
-import { useAuth } from '../auth';
-import { firestore, storage } from '../firebase';
-import AddEntryComponent from '../components/AddEntryComponent';
+import { useAuth } from '../../auth';
+import { firestore, storage } from '../../firebase';
+import AddEntryComponent from '../../components/AddEntryComponent';
 const { Camera } = Plugins;
 
 async function savePicture(blobUrl, userId) {
@@ -22,20 +22,23 @@ const AddEntryPage: React.FC = () => {
   const history = useHistory();
   const [date, setDate] = useState('');
   const [title, setTitle] = useState('');
-  const [pictureUrl, setPictureUrl] = useState('/assets/placeholder.png');
+  const [image, setimage] = useState('/assets/placeholder.png');
   const [description, setDescription] = useState('');
+  const [mediaLink, setMediaLink] = useState('');
+  const [category, setCategory] = useState('room')
+
   const fileInputRef = useRef<HTMLInputElement>();
   useEffect(() => () => {
-    if (pictureUrl.startsWith('blob:')) {
-      URL.revokeObjectURL(pictureUrl);
+    if (image.startsWith('blob:')) {
+      URL.revokeObjectURL(image);
     }
-  }, [pictureUrl]);
+  }, [image]);
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files.length > 0) {
       const file = event.target.files.item(0);
-      const pictureUrl = URL.createObjectURL(file);
-      setPictureUrl(pictureUrl);
+      const image = URL.createObjectURL(file);
+      setimage(image);
     }
   };
 
@@ -47,7 +50,7 @@ const AddEntryPage: React.FC = () => {
           source: CameraSource.Prompt,
           width: 600,
         });
-        setPictureUrl(photo.webPath);
+        setimage(photo.webPath);
       } catch (error) {
         console.log('Camera error:', error);
       }
@@ -57,30 +60,34 @@ const AddEntryPage: React.FC = () => {
   };
 
   const handleSave = async () => {
-    const entriesRef = firestore.collection('users').doc(userId)
-      .collection('entries');
-    const entryData = { date, title, pictureUrl, description };
-    if (!pictureUrl.startsWith('/assets')) {
-      entryData.pictureUrl = await savePicture(pictureUrl, userId);
+    const entriesRef = firestore.collection('services')
+    const entryData = { date, title, image, description };
+    if (!image.startsWith('/assets')) {
+      entryData.image = await savePicture(image, userId);
     }
     const entryRef = await entriesRef.add(entryData);
     console.log('saved:', entryRef.id);
     history.goBack();
   };
 
+  
   return (
-    <AddEntryComponent 
+    <AddEntryComponent
       date={date}
       setDate={setDate}
       title={title}
       setTitle={setTitle}
-      pictureUrl={pictureUrl}
+      image={image}
       fileInputRef={fileInputRef}
       handleFileChange={handleFileChange}
       handlePictureClick={handlePictureClick}
       handleSave={handleSave}
       description={description}
       setDescription={setDescription}
+      category={category}
+      setCategory={setCategory}
+      mediaLink={mediaLink}
+      setMediaLink={setMediaLink}
     />
   );
 };

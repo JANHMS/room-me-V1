@@ -44,7 +44,7 @@ const DashboardPage: React.FC = () => {
             console.log(servicesData)
             await setServices(servicesData)
           })
-  
+      fetchServices()
       setLoading(false)
         });
     }, [])

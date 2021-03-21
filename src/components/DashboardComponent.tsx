@@ -36,15 +36,16 @@ return (
       <IonText>Hi {user.fullName}</IonText>
 
       <IonList>
-          {services.map((entry: { id: React.Key | null | undefined; pictureUrl: any; date: any; title: boolean | React.ReactChild | React.ReactFragment | React.ReactPortal | null | undefined; }) =>
+          {services.map((entry) =>
             <IonItem button key={entry.id}
               routerLink={`/my/services/view/${entry.id}`}>
               <IonThumbnail slot="end">
-                <IonImg src={entry.pictureUrl} />
+                <IonImg src={entry.image} />
               </IonThumbnail>
               <IonLabel>
-                <h2>{formatDate(entry.date)}</h2>
-                <h3>{entry.title}</h3>
+                <h2>{entry.title}</h2>
+                <h3>{formatDate(entry.date)}</h3>
+
               </IonLabel>
             </IonItem>
           )}

@@ -1,14 +1,24 @@
-import { IonBackButton, IonButtons, IonContent, IonHeader, IonLabel, IonPage, IonTitle, IonToolbar, IonButton, IonItem, IonTextarea } from "@ionic/react"
+import { IonBackButton, IonButtons, IonContent, IonHeader, IonLabel, IonPage, IonTitle, IonToolbar, IonButton, IonItem, IonTextarea, IonInput, IonDatetime } from "@ionic/react"
 import React from "react"
 
 interface Props {
   handleChange: any;
   handleSubmit: any;
+  handlePictureClick: any;
+  fileInputRef: any;
+  image: any;
+  date: any;
+  setDate;
 }
 
 const CreateServiceComponent: React.FC<Props> = ({
   handleChange,
-  handleSubmit
+  handleSubmit,
+  handlePictureClick,
+  fileInputRef,
+  image,
+  date,
+  setDate
 }) => {
   
 return (
@@ -34,11 +44,9 @@ return (
                 <div className="control">
                   <div className="select">
                     <select name="category" onChange={handleChange}>
-                      <option value="mathematics">Mathematics</option>
-                      <option value="programming">Programming</option>
-                      <option value="painting">Painting</option>
-                      <option value="singing">Singing</option>
-                      <option value="english">English</option>
+                      <option value="room">room</option>
+                      <option value="apparment">apparment</option>
+                      <option value="house">house</option>
                     </select>
                   </div>
                 </div>
@@ -48,15 +56,34 @@ return (
                 <IonItem>
                 <IonLabel position="stacked">Title</IonLabel>
                 <div className="control">
-                  <input
-                    onChange={handleChange}
+                  <IonInput
+                    onIonChange={handleChange}
                     name="title"
                     className="input"
                     type="text"
                     placeholder="Text input" />
                 </div>
               </IonItem>
+              
               </div>
+              <IonItem>
+                <IonLabel position="stacked">Date</IonLabel>
+                <IonDatetime value={date}
+                  onIonChange={(event) => setDate(event.detail.value)}
+                />
+              </IonItem>
+
+              <IonItem>
+                <IonLabel position="stacked">Picture</IonLabel><br />
+                <input type="file" accept="image/*" hidden ref={fileInputRef}
+                  onChange={handleChange}
+                />
+                <img src={image} alt="" style={{ cursor: 'pointer' }}
+                  onClick={handlePictureClick}
+                />
+              </IonItem>
+
+              
               <div className="field">
                 <IonItem>
                 <IonLabel position="stacked">Description</IonLabel>
@@ -74,8 +101,8 @@ return (
                 <IonItem>
                 <IonLabel position="stacked">Image Url</IonLabel>
                 <div className="control">
-                  <input
-                    onChange={handleChange}
+                  <IonInput
+                    onIonChange={handleChange}
                     name="image"
                     className="input"
                     type="text"
@@ -87,8 +114,8 @@ return (
                 <IonItem>
                 <IonLabel position="stacked">Price per Hour</IonLabel>
                 <div className="control">
-                  <input
-                    onChange={handleChange}
+                  <IonInput
+                    onIonChange={handleChange}
                     name="price"
                     className="input"
                     type="number"

@@ -6,7 +6,7 @@ import {
 import React from 'react';
 import { Redirect, Route } from 'react-router-dom';
 import { useAuth } from './auth';
-import AddEntryPage from './pages/AddEntryPage';
+import AddEntryPage from './pages/services/AddEntryPage';
 import EntryPage from './pages/EntryPage';
 import DashboardPage from './pages/DashboardPage';
 import SettingsPage from './pages/SettingsPage';

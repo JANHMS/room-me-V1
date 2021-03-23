@@ -96,12 +96,3 @@ export default
   withAuthorization(
     connect(mapStateToProps, {collaborate})(SentOffersWithToast))
 
-
-
-
-
-
-
-
-
-

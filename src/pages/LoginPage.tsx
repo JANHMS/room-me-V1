@@ -39,7 +39,7 @@ const LoginPage: React.FC = () => {
   };
 
   if (loggedIn) {
-    return <Redirect to="/my/entries" />;
+    return <Redirect to="/my" />;
   }
   return (
     <LoginForm

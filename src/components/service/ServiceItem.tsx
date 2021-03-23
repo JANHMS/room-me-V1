@@ -20,7 +20,7 @@ const ServiceItem = ({
       <IonHeader>
         <IonToolbar>
           <IonButtons slot="start">
-            <IonBackButton defaultHref="/my/entries"/>
+            <IonBackButton defaultHref="/my"/>
           </IonButtons>
           <IonTitle>Service</IonTitle>
         </IonToolbar>

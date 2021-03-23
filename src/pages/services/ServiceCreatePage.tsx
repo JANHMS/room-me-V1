@@ -76,7 +76,7 @@ const ServiceCreate: React.FC = () => {
 
   if (redirect) {
     toast("Sucessfully created")
-    return <Redirect to="/my/entries" />
+    return <Redirect to="/my" />
   }
 
   return (

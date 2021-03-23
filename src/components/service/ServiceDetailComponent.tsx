@@ -28,7 +28,7 @@ return(
       <IonCard>
         <img 
           style={{
-            width:"12em", height:"12em", 
+            width:"20em", height:"20em", 
             display: "block",
              marginLeft: "auto", 
              marginRight: "auto"

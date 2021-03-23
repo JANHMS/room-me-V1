@@ -4,7 +4,7 @@ import { toast } from '../../../src/toast'
 import { createRef, createOffer } from '../../actions'
 import { IonInput, IonContent, IonPage } from "@ionic/react";
 
-const OfferModal = ({service, auth}) => {
+const OfferModal = ({service, auth, user}) => {
 
   const [ offer, setOffer ] = useState({
     fromUser: '',
@@ -29,7 +29,7 @@ const OfferModal = ({service, auth}) => {
     const offerCopy = { ...offer }
 
     offerCopy.fromUser = createRef('profiles', auth.user.uid)
-    offerCopy.toUser = createRef('profiles', service.user.id)
+    offerCopy.toUser = createRef('profiles', service.userId)
     offerCopy.service = createRef('services', service.id)
     offerCopy.time = parseInt(offer.time, 10)
 
@@ -74,7 +74,7 @@ const OfferModal = ({service, auth}) => {
       </div>
       <div className="service-price has-text-centered">
         <div className="service-price-title">
-          {service.user && `Uppon acceptance ${service.user.fullName}" will charge you:`}
+          {user && `Uppon acceptance ${user.fullName}" will charge you:`}
         </div>
         <div className="service-price-value">
           <h1 className="title">{offer.price}$</h1>

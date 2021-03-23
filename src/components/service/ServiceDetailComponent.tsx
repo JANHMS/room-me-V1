@@ -43,7 +43,11 @@ return(
       <h4>Published by user</h4>
       <h2>{user.fullName}</h2>
       <img style={{width:"6em", height:"6em"}} src={user.avatar }/>
+    
+      
+
         </IonCardContent>
+
       </IonCard>
     </IonContent>
   </IonPage>

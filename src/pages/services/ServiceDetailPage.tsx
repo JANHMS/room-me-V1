@@ -39,7 +39,7 @@ const ServiceDetail = props => {
       auth={auth}
       user={user}
       service={service}
-    /> : <Spinner />
+    /> : <Spinner /> 
   )
 }
 

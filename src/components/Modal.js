@@ -1,4 +1,4 @@
-import { IonButton, IonContent, IonPage } from '@ionic/react'
+import { IonButton, IonContent, IonPage, IonCard, IonCardContent, IonCardHeader, IonFooter } from '@ionic/react'
 import React, { useState } from 'react'
 
 const Modal = props => {
@@ -10,37 +10,36 @@ const Modal = props => {
   return (
     <IonPage>
       <IonContent>
-    <div>
+        <IonCard>
+
       <IonButton
         onClick={() => changeModalState(true)}
         data-toggle="modal"
         data-target="#exampleModal">
         { props.openIonButtonText || 'Open' }
       </IonButton>
-      <div className={`modal ${isActive ? 'is-active' : ''}`}>
-        <div className="modal-background"></div>
-        <div className="modal-card">
-          <header className="modal-card-head">
-            <p className="modal-card-title">Make a Deal</p>
-            <IonButton 
-              onClick={() => changeModalState(false)}
-              className="delete" 
-              aria-label="close"></IonButton>
-          </header>
+      <IonCardHeader>
+        <div className={`modal ${isActive ? 'is-active' : ''}`}>
+          <p>Sent a request</p>
+          <IonButton 
+            onClick={() => changeModalState(false)}
+            >Request</IonButton>
+        </div>
+        </IonCardHeader>
+        <IonCardContent>
           <section className="modal-card-body">
             { props.children }
           </section>
-          <footer className="modal-card-foot">
+          <IonFooter>
             <IonButton 
               onClick={() => props.onModalSubmit(() => changeModalState(false))}
-              className="IonButton is-success">Save changes</IonButton>
+              >Save changes</IonButton>
             <IonButton 
               onClick={() => changeModalState(false)}
               className="IonButton">Cancel</IonButton>
-          </footer>
-        </div>
-      </div>
-    </div>
+          </IonFooter>
+        </IonCardContent>
+      </IonCard>
     </IonContent>
   </IonPage>
   )

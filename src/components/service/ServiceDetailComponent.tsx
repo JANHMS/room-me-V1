@@ -1,4 +1,4 @@
-import { IonBackButton, IonButtons, IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from "@ionic/react";
+import { IonBackButton, IonButtons, IonCard, IonCardContent, IonCardHeader, IonContent, IonHeader, IonImg, IonLabel, IonPage, IonTitle, IonToolbar } from "@ionic/react";
 import React from "react";
 import OfferModal from "./OfferModal";
 
@@ -24,35 +24,25 @@ return(
       </IonToolbar>
     </IonHeader>
     <IonContent>
-    <figure className="image is-4by3">
-       <img src={service.image} alt="Description" />
-    </figure>
-    
+      <IonCard>
+        <img src={service.image} />
+       <IonCardHeader>
+         <IonLabel>Owner {user.fullName}</IonLabel>
+       </IonCardHeader>
 
-      <p className="title is-4">{user.fullName}</p>
-      <p className="subtitle is-6">Owner</p>
-
-      
-      <p className="title is-4">${service.price}</p>
-      <p className="subtitle is-6">Per Hour</p>
-
-      <h1 className="title service-title is-2">
-          {service.title}
-      </h1>
-      
-      <div className="tag is-large service-category">
+     <IonCardContent>
+       <p>Categoryr</p>
         {service.category}
-      </div>
-      <h2 className="subtitle is-4">
-          {service.description}
-      </h2>
-      <br />
+       <p>Per Hour</p>
+       <IonLabel>{service.price}</IonLabel>
+       <br />
+       
+      <IonLabel>{service.description}</IonLabel>
 
       <h1>{user.fullName}</h1>
       <p>{user.avatar }</p>
-      <div className="has-text-centered">
-      </div>
-          
+        </IonCardContent>
+      </IonCard>
     </IonContent>
   </IonPage>
   )

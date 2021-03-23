@@ -6,6 +6,8 @@ import { useAuth } from '../../auth';
 import { firestore, storage } from '../../firebase';
 import AddEntryComponent from '../../components/AddEntryComponent';
 import withAuthorization from '../../hoc/withAuthorization';
+import * as api from '../../api';
+
 import { toast } from '../../toast';
 const { Camera } = Plugins;
 
@@ -67,12 +69,13 @@ const AddEntryPage: React.FC<Props> = ({
   
   const handleSave = async () => {
     const entriesRef = firestore.collection('services')
-    const userRef = firestore.doc('profiles/' + userId)
-    const entryData = { category, description, date,image, price, title, userRef };
+    const user = firestore.doc('profiles/' + userId)
+    const entryData = { category, description, date,image, price, title, user };
     if (!image.startsWith('/assets')) {
       entryData.image = await savePicture(image, userId);
     }
     const entryRef = await entriesRef.add(entryData).then(()=> {
+      entryData.user = api.createRef('profiles', userId)
       history.goBack();
     })
 

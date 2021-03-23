@@ -19,7 +19,7 @@ const ServiceDetail = props => {
   const { service, auth } = props
   const { user } = service
 
-  if (isFetching || serviceId !== service.id) { return <Spinner /> }
+  // if (isFetching) { return <Spinner /> }
 
   return (
     auth && user ?

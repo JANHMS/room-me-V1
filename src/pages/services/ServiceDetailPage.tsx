@@ -34,7 +34,7 @@ const ServiceDetail = props => {
   // if (isFetching) { return <Spinner /> }
 
   return (
-  user && !loading ?
+  user && !loading && auth ?
     <ServiceDeatilComponent
       auth={auth}
       user={user}

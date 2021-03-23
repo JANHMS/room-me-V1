@@ -7,6 +7,7 @@ interface Props {
   user: any;
   auth: any;
 }
+
 const ServiceDeatilComponent:React.FC<Props> = ({
   service,
   user,
@@ -31,16 +32,17 @@ return(
        </IonCardHeader>
 
      <IonCardContent>
-       <p>Categoryr</p>
+       <p>Type of housing</p>
         {service.category}
-       <p>Per Hour</p>
+       <p>Rent per Month in EUR</p>
        <IonLabel>{service.price}</IonLabel>
-       <br />
+       <br/>
        
       <IonLabel>{service.description}</IonLabel>
-
-      <h1>{user.fullName}</h1>
-      <p>{user.avatar }</p>
+      
+      <h4>Published by user</h4>
+      <h2>{user.fullName}</h2>
+      <img style={{width:"6em", height:"6em"}} src={user.avatar }/>
         </IonCardContent>
       </IonCard>
     </IonContent>

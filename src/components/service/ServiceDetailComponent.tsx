@@ -1,4 +1,4 @@
-import { IonContent, IonPage } from "@ionic/react";
+import { IonBackButton, IonButtons, IonContent, IonHeader, IonPage, IonTitle, IonToolbar } from "@ionic/react";
 import React from "react";
 import OfferModal from "./OfferModal";
 
@@ -15,6 +15,14 @@ const ServiceDeatilComponent:React.FC<Props> = ({
   
 return(
   <IonPage>
+    <IonHeader>
+      <IonToolbar>
+        <IonButtons slot="start">
+          <IonBackButton />
+        </IonButtons>
+        <IonTitle>{service.title}</IonTitle>
+      </IonToolbar>
+    </IonHeader>
     <IonContent>
     <figure className="image is-4by3">
        <img src={service.image} alt="Description" />
@@ -39,9 +47,9 @@ return(
           {service.description}
       </h2>
       <br />
-      
-            <h1>{user.fullName}</h1>
-            <p>{user.avatar }</p>
+
+      <h1>{user.fullName}</h1>
+      <p>{user.avatar }</p>
       <div className="has-text-centered">
       </div>
           

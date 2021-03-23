@@ -7,15 +7,19 @@ import Spinner from '../../components/Spinner/SpinnerComponent';
 import ServiceDeatilComponent from '../../components/service/ServiceDetailComponent';
 
 const ServiceDetail = props => {
-
+  const [offer, setOffer] = useState(false)
   const { serviceId } = useParams<{serviceId: string}>()
   const { fetchServiceById, isFetching } = props
-
+  
   useEffect(() => {
     fetchServiceById(serviceId)
     fetchUser()
   }, [serviceId, fetchServiceById])
 
+  const handleOfferClick = (_:any) => {
+    setOffer(!offer)
+    console.log(offer)
+  }
 
   const { service, auth } = props
   const { userId } = service
@@ -39,6 +43,8 @@ const ServiceDetail = props => {
       auth={auth}
       user={user}
       service={service}
+      offer={offer}
+      handleOfferClick={handleOfferClick}
     /> : <Spinner /> 
   )
 }

@@ -1,12 +1,11 @@
-
-
-import React from 'react'
-import withAuthorization from '../../hoc/withAuthorization'
+import React from 'react';
+import { IonPage, IonHeader, IonToolbar, IonButtons, IonTitle, IonBackButton, IonContent } from "@react/ionic";
+import withAuthorization from '../../hoc/withAuthorization';
 import { withToastManager } from 'react-toast-notifications';
-import ServiceItem from '../../components/service/ServiceItem'
-import { connect } from 'react-redux'
-import { newMessage, newCollaboration } from '../../helpers/offers'
-import { fetchSentOffers, collaborate } from '../../actions'
+import ServiceItem from '../../components/service/ServiceItem';
+import { connect } from 'react-redux';
+import { newMessage, newCollaboration } from '../../helpers/offers';
+import { fetchSentOffers, collaborate } from '../../actions';
 
 import Spinner from 'components/Spinner'
 
@@ -37,9 +36,16 @@ class SentOffers extends React.Component {
     if (isFetching) { return <Spinner />}
 
     return (
-      <div className="container">
-        <div className="content-wrapper">
-          <h1 className="title">Sent Offers</h1>
+      <IonPage>
+        <IonHeader>
+          <IonToolbar>
+            <IonButtons slot="start">
+              <IonBackButton />
+            </IonButtons>
+            <IonTitle>Sent Offers</IonTitle>
+          </IonToolbar>
+        </IonHeader>
+        <IonContent>
           { !isFetching && offers.length === 0 &&
             <span className="tag is-warning is-large">You don't have any send offers :(</span>
           }
@@ -83,8 +89,8 @@ class SentOffers extends React.Component {
               ))
             }
           </div>
-        </div>
-      </div>
+        </IonContent>
+    </IonPage>
     )
   }
 }
@@ -95,4 +101,3 @@ const SentOffersWithToast = withToastManager(SentOffers)
 export default 
   withAuthorization(
     connect(mapStateToProps, {collaborate})(SentOffersWithToast))
-

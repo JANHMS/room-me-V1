@@ -26,7 +26,14 @@ return(
     </IonHeader>
     <IonContent>
       <IonCard>
-        <img src={service.image} />
+        <img 
+          style={{
+            width:"12em", height:"12em", 
+            display: "block",
+             marginLeft: "auto", 
+             marginRight: "auto"
+           }}
+          src={service.image} />
        <IonCardHeader>
          <IonLabel>Owner {user.fullName}</IonLabel>
        </IonCardHeader>

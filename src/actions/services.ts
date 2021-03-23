@@ -5,6 +5,7 @@ import {
   FETCH_USER_SERVICES_SUCCESS } from '../types'
 
 import * as api from '../api';
+import { firestore } from '../firebase';
 
 export const fetchServices = () => dispatch =>
    api
@@ -29,10 +30,10 @@ export const fetchServiceById = serviceId => (dispatch, getState) => {
   dispatch({type: REQUEST_SERVICE})
   return api
     .fetchServiceById(serviceId)
-    .then(async service => {
-      
-      // service.user = await api.getUserProfile(service.user)
-      console.log("This is the service",service)
+    .then(async (service: any) => {
+    
+      const user = await api.getUserProfile(service.userId)
+      console.log("This is the user", user)
       // const user = await service.user.get()
       // service.user = user.data()
       // service.user.id = user.id

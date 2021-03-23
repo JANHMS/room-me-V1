@@ -17,8 +17,10 @@ import {
   IonToolbar,
 } from '@ionic/react';
 import React from 'react';
+import withAuthorization from '../hoc/withAuthorization';
 
 interface Props {
+  auth?: any;
   date?: string;
   setDate?: any;
   title?: string;
@@ -35,9 +37,12 @@ interface Props {
   setMediaLink?: any;
   category?: string;
   setCategory?: any;
+  price: string;
+  setPrice: any;
 }
 
 const AddEntryComponent: React.FC <Props> = ({
+  auth,
   date,
   setDate,
   title,
@@ -52,7 +57,9 @@ const AddEntryComponent: React.FC <Props> = ({
   category,
   setCategory,
   mediaLink,
-  setMediaLink
+  setMediaLink,
+  price,
+  setPrice
 }) => {
   return (
     <IonPage>
@@ -68,15 +75,12 @@ const AddEntryComponent: React.FC <Props> = ({
         
         <IonItem>
         <IonLabel position="stacked">Room Category</IonLabel>
-        <div className="control">
-          <div className="select">
-            <IonSelect value={category} onIonChange={(category) => setCategory(category.detail.value)}>
-              <IonSelectOption value="room">room</IonSelectOption>
-              <IonSelectOption value="apparment">apparment</IonSelectOption>
-              <IonSelectOption value="house">house</IonSelectOption>
-            </IonSelect>
-          </div>
-        </div>
+
+      <IonSelect value={category} onIonChange={(category) => setCategory(category.detail.value)}>
+        <IonSelectOption value="room">room</IonSelectOption>
+        <IonSelectOption value="apparment">apparment</IonSelectOption>
+        <IonSelectOption value="house">house</IonSelectOption>
+      </IonSelect>
         
       </IonItem>
         <IonItem>
@@ -85,13 +89,22 @@ const AddEntryComponent: React.FC <Props> = ({
             onIonChange={(event) => setDate(event.detail.value)}
           />
         </IonItem>
+        
+        <IonItem>
+          <IonLabel position="stacked">Title</IonLabel>
+          <IonInput value={title}
+            onIonChange={(event) => setTitle(event.detail.value)}
+          />
+        </IonItem>
+        
+        <IonItem>
+          <IonLabel position="stacked">Cost per month</IonLabel>
+          <IonInput value={price} type="number"
+            onIonChange={(event) => setPrice(event.detail.value)}
+          />
+        </IonItem>
+        
         <IonList>
-          <IonItem>
-            <IonLabel position="stacked">Title</IonLabel>
-            <IonInput value={title}
-              onIonChange={(event) => setTitle(event.detail.value)}
-            />
-          </IonItem>
           <IonItem>
             <IonLabel position="stacked">Picture of you :)</IonLabel><br />
             <input type="file" accept="image/*" hidden ref={fileInputRef}

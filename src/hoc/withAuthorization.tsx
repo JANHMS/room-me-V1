@@ -2,8 +2,12 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 
+interface Props {
+  auth: any;
+  props?: any;
+}
 
-const withAuthorization = ({
+const withAuthorization= ({
   auth,
   props
 }) => {

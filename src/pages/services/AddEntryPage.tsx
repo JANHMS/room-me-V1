@@ -5,6 +5,8 @@ import { useHistory } from 'react-router';
 import { useAuth } from '../../auth';
 import { firestore, storage } from '../../firebase';
 import AddEntryComponent from '../../components/AddEntryComponent';
+import withAuthorization from '../../hoc/withAuthorization';
+import { toast } from '../../toast';
 const { Camera } = Plugins;
 
 async function savePicture(blobUrl, userId) {
@@ -16,8 +18,12 @@ async function savePicture(blobUrl, userId) {
   console.log('saved picture:', url);
   return url;
 }
-
-const AddEntryPage: React.FC = () => {
+interface Props {
+  auth: any;
+}
+const AddEntryPage: React.FC<Props> = ({
+  auth
+}) => {
   const { userId } = useAuth();
   const history = useHistory();
   const [date, setDate] = useState('');
@@ -26,7 +32,7 @@ const AddEntryPage: React.FC = () => {
   const [description, setDescription] = useState('');
   const [mediaLink, setMediaLink] = useState('');
   const [category, setCategory] = useState('room')
-
+  const [price, setPrice] = useState('')
   const fileInputRef = useRef<HTMLInputElement>();
   useEffect(() => () => {
     if (image.startsWith('blob:')) {
@@ -58,21 +64,28 @@ const AddEntryPage: React.FC = () => {
       fileInputRef.current.click();
     }
   };
-
+  
   const handleSave = async () => {
     const entriesRef = firestore.collection('services')
-    const entryData = { date, title, image, description };
+    const userRef = firestore.doc('users/' + userId)
+    const entryData = { category, description, date,image, price, title, userRef };
     if (!image.startsWith('/assets')) {
       entryData.image = await savePicture(image, userId);
     }
-    const entryRef = await entriesRef.add(entryData);
-    console.log('saved:', entryRef.id);
+    const entryRef = await entriesRef.add(entryData).then(()=> {
+      history.goBack();
+    })
+
+    console.log('saved:', entryRef);
+    toast("Sucessfully created")
     history.goBack();
   };
 
-  
   return (
     <AddEntryComponent
+      auth={auth}
+      price={price}
+      setPrice={setPrice}
       date={date}
       setDate={setDate}
       title={title}

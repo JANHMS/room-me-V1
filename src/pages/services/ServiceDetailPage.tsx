@@ -13,7 +13,6 @@ const ServiceDetail = props => {
 
   useEffect(() => {
     fetchServiceById(serviceId)
-    console.log(service)
   }, [serviceId, fetchServiceById])
 
 

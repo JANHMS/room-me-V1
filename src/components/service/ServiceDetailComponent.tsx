@@ -20,12 +20,6 @@ return(
        <img src={service.image} alt="Description" />
     </figure>
     
-    <figure className="image is-48x48">
-      <img
-        className="is-rounded"
-        src={user.avatar}
-        alt={user.fullName} />
-    </figure>
 
       <p className="title is-4">{user.fullName}</p>
       <p className="subtitle is-6">Owner</p>
@@ -37,6 +31,7 @@ return(
       <h1 className="title service-title is-2">
           {service.title}
       </h1>
+      
       <div className="tag is-large service-category">
         {service.category}
       </div>
@@ -44,12 +39,10 @@ return(
           {service.description}
       </h2>
       <br />
+      
+            <h1>{user.fullName}</h1>
+            <p>{user.avatar }</p>
       <div className="has-text-centered">
-        { auth.isAuth && auth.user.uid !== service.user.uid &&
-          <OfferModal 
-            auth={auth}
-            service={service}/>
-        }
       </div>
           
     </IonContent>

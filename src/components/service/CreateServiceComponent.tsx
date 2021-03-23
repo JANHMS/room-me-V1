@@ -4,21 +4,13 @@ import React from "react"
 interface Props {
   handleChange: any;
   handleSubmit: any;
-  handlePictureClick: any;
-  fileInputRef: any;
-  image: any;
-  date: any;
-  setDate;
+  auth: any;
 }
 
 const CreateServiceComponent: React.FC<Props> = ({
   handleChange,
   handleSubmit,
-  handlePictureClick,
-  fileInputRef,
-  image,
-  date,
-  setDate
+  auth
 }) => {
   
 return (
@@ -66,7 +58,7 @@ return (
               </IonItem>
               
               </div>
-              <IonItem>
+              {/* <IonItem>
                 <IonLabel position="stacked">Date</IonLabel>
                 <IonDatetime value={date}
                   onIonChange={(event) => setDate(event.detail.value)}
@@ -81,7 +73,7 @@ return (
                 <img src={image} alt="" style={{ cursor: 'pointer' }}
                   onClick={handlePictureClick}
                 />
-              </IonItem>
+              </IonItem> */}
 
               
               <div className="field">

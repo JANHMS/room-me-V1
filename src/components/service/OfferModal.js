@@ -15,17 +15,14 @@ const OfferModal = ({
     toUser: '',
     service: '',
     status: 'pending',
-    price: 0,
-    time: 0,
     note: ''
   })
 
   const handleChange = ({ target: {value, name}}) => {
-    if (name === 'time') {
-      const price = Math.round(value * service.price * 100) / 100
-      return setOffer({...offer, [name]: value, price})
-    }
-
+    // if (name === 'time') {
+      // const price = Math.round(value * service.price * 100) / 100
+    //   return setOffer({...offer, [name]: value})
+    // }
     return setOffer({...offer, [name]: value})
   }
 
@@ -35,7 +32,7 @@ const OfferModal = ({
     offerCopy.fromUser = createRef('profiles', auth.user.uid)
     offerCopy.toUser = createRef('profiles', service.userId)
     offerCopy.service = createRef('services', service.id)
-    offerCopy.time = parseInt(offer.time, 10)
+    // offerCopy.time = parseInt(offer.time, 10)
 
     createOffer(offerCopy)
       .then(_ => {
@@ -55,7 +52,9 @@ const OfferModal = ({
     <Modal
       onModalSubmit={handleSubmit}>
         <IonInput
-           onChange={handleChange}
+           onIonChange={handleChange}           
+           name="note"
+           type="text"
            placeholder="Write some catchy note"
            max="5"
            min="0"/>

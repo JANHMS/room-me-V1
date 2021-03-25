@@ -62,7 +62,7 @@ return(
         </IonFab>
         
       {
-        auth.user.uid !== service.userId && 
+        auth.user.uid === service.userId && 
         <IonAlert
           isOpen={offer}
           cssClass='my-custom-class'
@@ -74,7 +74,7 @@ return(
       }
       
       </IonCardContent>
-      { auth.isAuth && auth.user.uid === service.userId && offer &&
+      { auth.isAuth && auth.user.uid !== service.userId && offer &&
         <OfferModal 
           auth={auth}
           service={service}

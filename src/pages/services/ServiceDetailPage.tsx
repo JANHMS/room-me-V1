@@ -41,7 +41,7 @@ const ServiceDetail = props => {
   serviceUser && !loading && auth ?
     <ServiceDeatilComponent
       auth={auth}
-      serviceUser={serviceUser}
+      user={serviceUser}
       service={service}
       offer={offer}
       handleOfferClick={handleOfferClick}

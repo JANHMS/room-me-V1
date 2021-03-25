@@ -1,6 +1,6 @@
 import React from 'react'
 import withAuthorization from '../../hoc/withAuthorization'
-import { IonPage, IonHeader } from "@ionic/react";
+import { IonPage, IonHeader, IonTitle, IonToolbar, IonButtons, IonBackButton } from "@ionic/react";
 import ServiceItem from '../../components/service/ServiceItem'
 import { connect } from 'react-redux'
 import Spinner from '../../components/Spinner/SpinnerComponent'
@@ -35,7 +35,14 @@ class ReceivedOffers extends React.Component {
 
     return (
       <IonPage>
-        <IonHeader>Received Offers</IonHeader>
+        <IonHeader>
+          <IonToolbar>
+            <IonButtons slot="start">
+              <IonBackButton />
+            </IonButtons>
+            <IonTitle>Received Offers</IonTitle>
+          </IonToolbar>
+        </IonHeader>
         { !isFetching && offers.length === 0 &&
           <span className="tag is-warning is-large">You don't have any received offers :(</span>
         }
@@ -58,9 +65,6 @@ class ReceivedOffers extends React.Component {
                 </div>
                 <div>
                   <span className="label">Note:</span> {offer.note}
-                </div>
-                <div>
-                  <span className="label">Price:</span> ${offer.price}
                 </div>
                 <div>
                   <span className="label">Time:</span> {offer.time} hours

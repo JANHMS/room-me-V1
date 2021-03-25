@@ -50,8 +50,6 @@ const AppTabs: React.FC = (): JSX.Element => {
         <Route path="/my/entries/view/:id" component={EntryPage} exact />
 
         <Route path="/my/services/me" component={UserServicesPage} exact />
-
-        <Route path="/my/services/new" component={ServiceCreatePage} exact />
         
         <Route path="/my/services/:serviceId" component={ServiceDetailPage} exact />
 

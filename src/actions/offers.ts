@@ -1,4 +1,3 @@
-
 import { 
   FETCH_OFFERS_SUCCESS, 
   CHANGE_OFFER_STATUS,
@@ -66,16 +65,3 @@ export const changeOfferStatus = (offerId, status) => dispatch =>
   api.changeOfferStatus(offerId, status)
     .then(_ => 
       dispatch({type: CHANGE_OFFER_STATUS, offerId, status, offersType: 'received'})) 
-
-
-
-
-
-
-
-
-
-
-
-
-

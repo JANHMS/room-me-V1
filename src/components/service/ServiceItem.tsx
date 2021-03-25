@@ -3,8 +3,14 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import HeaderImage from '../HeaderImage'
 
-const ServiceItem = ({
+interface Props {
+  service: any;
+  children?: any;
+}
+
+const ServiceItem: React.FC<Props> = ({
   service,
+  children
 }) => {
 
   const shortText = (text, maxLength = 50) => {
@@ -38,6 +44,12 @@ const ServiceItem = ({
         <div className="card-text">
            <p>{shortText(service.description)}</p>
         </div>
+        
+        { children &&
+          <div className="card-text">
+            { children }
+          </div>
+        }
 
         <div className="card-action">
            <Link 

@@ -1,5 +1,5 @@
 import React from 'react';
-import { IonPage, IonHeader, IonToolbar, IonButtons, IonTitle, IonBackButton, IonContent } from "@ionic/react";
+import { IonPage, IonHeader, IonToolbar, IonButtons, IonTitle, IonButton, IonBackButton, IonContent } from "@ionic/react";
 import withAuthorization from '../../hoc/withAuthorization';
 import { withToastManager } from 'react-toast-notifications';
 import ServiceItem from '../../components/service/ServiceItem';
@@ -37,14 +37,6 @@ class SentOffers extends React.Component {
 
     return (
       <IonPage>
-        <IonHeader>
-          <IonToolbar>
-            <IonButtons slot="start">
-              <IonBackButton />
-            </IonButtons>
-            <IonTitle>Sent Offers</IonTitle>
-          </IonToolbar>
-        </IonHeader>
         <IonContent>
           { !isFetching && offers.length === 0 &&
             <span className="tag is-warning is-large">You don't have any send offers :(</span>
@@ -79,9 +71,9 @@ class SentOffers extends React.Component {
                   { offer.status === 'accepted' && !offer.collaborationCreated &&
                     <div>
                       <hr />
-                      <button 
+                      <IonButton 
                         onClick={() => this.createCollaboration(offer)}
-                        className="button is-success">Collaborate</button>
+                        className="button is-success">Collaborate</IonButton>
                     </div>
                   }
                 </ServiceItem>

@@ -34,7 +34,7 @@ const HeaderBar: React.FC<Props> = ({
             <IonItem>
               <IonLabel>RommMe Actions</IonLabel>
               <IonSelect okText="Okay" cancelText="Dismiss" onIonChange={e => setUrl(e.detail.value)}>
-                <IonSelectOption value="/my/services/new">            
+                <IonSelectOption value="/my/entries/add">            
                   Create Service
                 </IonSelectOption>
                 

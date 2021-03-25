@@ -23,17 +23,10 @@ const DashboardPage: React.FC = () => {
   const [services, setServices] = useState<any>();
   
   useEffect(() => {
-    const entriesRef = firestore.collection('users').doc(userId)
-      .collection('entries');
-    return entriesRef.orderBy('date', 'desc').limit(7)
-      .onSnapshot(({ docs }) => setEntries(docs.map(toEntry)))
-  }, [userId]);
-  
-  useEffect(() => {
     setLoading(true)
     firestore.collection("profiles").doc(userId)
       .onSnapshot(async (doc) => {
-        var source = doc.metadata.hasPendingWrites ? "Local" : "Server";
+        // var source = doc.metadata.hasPendingWrites ? "Local" : "Server";
         const userData = doc.data()
         await setUser(userData)
         

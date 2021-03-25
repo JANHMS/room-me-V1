@@ -14,7 +14,7 @@ const ServiceDetail = props => {
   useEffect(() => {
     fetchServiceById(serviceId)
     fetchUser()
-  }, [serviceId, fetchServiceById])
+  }, [])
 
   const handleOfferClick = (_:any) => {
     setOffer(!offer)
@@ -35,7 +35,7 @@ const ServiceDetail = props => {
     console.log(user)
     setLoading(false)
   }
-  // if (isFetching) { return <Spinner /> }
+  if (isFetching || serviceId !== service.id || loading) { return <Spinner /> }
 
   return (
   user && !loading && auth ?

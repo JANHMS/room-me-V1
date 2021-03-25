@@ -22,6 +22,8 @@ import RegisterPage from './pages/RegisterPage';
 import Homescreen from './components/Homescreen';
 import LoginPage from './pages/LoginPage';
 
+import SentOffersPage from "./pages/offers/SentOffers"
+import ReceivedOffersPage from "./pages/offers/ReceivedOffers"
 
 const AppTabs: React.FC = (): JSX.Element => {
   const { loggedIn } = useAuth();
@@ -37,6 +39,11 @@ const AppTabs: React.FC = (): JSX.Element => {
           <RegisterPage />
         </Route>
         
+        {/* <Route path="my/collaborations/me" component={ReceivedCollaborationsPage} exact />
+        <Route path="my/collaborations/:id" component={CollaborationDetailPage} exact /> */}
+        <Route path="/my/offers/sent" component={SentOffersPage} exact />
+        <Route path="/my/offers/recieved" component={ReceivedOffersPage} exact />
+
         <Route path="/my" component={DashboardPage} exact />
         <Route path="/my/entries/add" component={AddEntryPage} exact />
         <Route path="/my/entries/view/:id" component={EntryPage} exact />

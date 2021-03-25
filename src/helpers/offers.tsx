@@ -1,5 +1,4 @@
-
-import { Timestamp } from 'db'
+import { Timestamp } from '../firebase'
 
 export const newCollaboration = ({offer: { service, time, toUser, id}, fromUser}) => ({
   serviceId: service.id, // define ID on offer.service

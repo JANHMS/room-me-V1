@@ -1,5 +1,5 @@
 import React from 'react';
-import { IonPage, IonHeader, IonToolbar, IonButtons, IonTitle, IonBackButton, IonContent } from "@react/ionic";
+import { IonPage, IonHeader, IonToolbar, IonButtons, IonTitle, IonBackButton, IonContent } from "@ionic/react";
 import withAuthorization from '../../hoc/withAuthorization';
 import { withToastManager } from 'react-toast-notifications';
 import ServiceItem from '../../components/service/ServiceItem';
@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 import { newMessage, newCollaboration } from '../../helpers/offers';
 import { fetchSentOffers, collaborate } from '../../actions';
 
-import Spinner from 'components/Spinner'
+import Spinner from '../../components/Spinner/SpinnerComponent';
 
 class SentOffers extends React.Component {
 

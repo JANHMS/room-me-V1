@@ -60,6 +60,7 @@ return(
             <IonIcon icon={chatbox} />
           </IonFabButton>
         </IonFab>
+        
       {
         auth.user.uid !== service.userId && 
         <IonAlert

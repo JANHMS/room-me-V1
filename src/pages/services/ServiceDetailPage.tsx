@@ -26,22 +26,22 @@ const ServiceDetail = props => {
     
   // console.log(userId)
   
-  const [user, setUser] = useState<any>()
+  const [serviceUser, setServiceUser] = useState<any>()
   const [loading, setLoading] = useState(true)
   
   async function fetchUser () {
-    const user = await api.getUserProfile(userId)
-    await setUser(user)
-    console.log(user)
+    const ServiceUser = await api.getUserProfile(userId)
+    await setServiceUser(ServiceUser)
+    console.log(ServiceUser)
     setLoading(false)
   }
   if (isFetching || serviceId !== service.id || loading) { return <Spinner /> }
 
   return (
-  user && !loading && auth ?
+  serviceUser && !loading && auth ?
     <ServiceDeatilComponent
       auth={auth}
-      user={user}
+      serviceUser={serviceUser}
       service={service}
       offer={offer}
       handleOfferClick={handleOfferClick}

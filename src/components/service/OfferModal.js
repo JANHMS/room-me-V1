@@ -2,9 +2,13 @@ import React, { useState } from 'react'
 import Modal from '../Modal'
 import { toast } from '../../../src/toast'
 import { createRef, createOffer } from '../../actions'
-import { IonInput, IonContent, IonPage } from "@ionic/react";
+import { IonInput, IonContent, IonPage, IonText } from "@ionic/react";
 
-const OfferModal = ({service, auth, user}) => {
+const OfferModal = ({
+  service,
+  auth,
+  user
+}) => {
 
   const [ offer, setOffer ] = useState({
     fromUser: '',
@@ -49,22 +53,19 @@ const OfferModal = ({service, auth, user}) => {
     <IonContent>
 
     <Modal
-      onModalSubmit={handleSubmit}
-      openButtonText="Make an offer">
+      onModalSubmit={handleSubmit}>
         <IonInput
            onChange={handleChange}
            placeholder="Write some catchy note"
            max="5"
            min="0"/>
-        <p className="help">Note can increase chance of getting the service</p>
-        <IonInput
-           onChange={handleChange}
-           type="number"
-           placeholder="How long you need service for ?"
-         />
-        <p className="help">Enter time in hours</p>
-          {user && `Uppon acceptance ${user.fullName}" will charge you:`}
-          <h1 className="title">{offer.price}$</h1>
+        <IonText >Note can increase chance of being accapted to chat</IonText>
+        
+      <br />
+      <br />
+      <IonText color="primary">
+        {user && `Uppon acceptance ${user.fullName}" will come back to you.`}
+      </IonText>
     </Modal>
   </IonContent>
   </IonPage>

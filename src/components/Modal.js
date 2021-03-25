@@ -1,42 +1,25 @@
-import { IonButton, IonContent, IonPage, IonCard, IonCardContent, IonCardHeader, IonFooter } from '@ionic/react'
+import { IonButton, IonTitle, IonContent, IonPage, IonCard, IonCardContent, IonCardHeader, IonFooter } from '@ionic/react'
 import React, { useState } from 'react'
+import { useHistory } from "react-router-dom";
 
-const Modal = props => {
-
-  const [ isActive, setIsActive ] = useState(false)
-
-  const changeModalState = modalState => setIsActive(modalState)
+const Modal = (props, setOffer) => {
+  let history = useHistory();
 
   return (
     <IonPage>
       <IonContent>
         <IonCard>
-
-      <IonButton
-        onClick={() => changeModalState(true)}
-        data-toggle="modal"
-        data-target="#exampleModal">
-        { props.openIonButtonText || 'Open' }
-      </IonButton>
-      <IonCardHeader>
-        <div className={`modal ${isActive ? 'is-active' : ''}`}>
-          <p>Sent a request</p>
-          <IonButton 
-            onClick={() => changeModalState(false)}
-            >Request</IonButton>
-        </div>
-        </IonCardHeader>
+          <IonTitle>          
+            <p>Request a chat</p>
+          </IonTitle>   
         <IonCardContent>
           <section className="modal-card-body">
             { props.children }
           </section>
           <IonFooter>
             <IonButton 
-              onClick={() => props.onModalSubmit(() => changeModalState(false))}
-              >Save changes</IonButton>
-            <IonButton 
-              onClick={() => changeModalState(false)}
-              className="IonButton">Cancel</IonButton>
+              onClick={() => props.onModalSubmit(() => history.goBack())}
+              >Request Chat</IonButton>
           </IonFooter>
         </IonCardContent>
       </IonCard>

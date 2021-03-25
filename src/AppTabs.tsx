@@ -3,6 +3,7 @@ import {
   IonTabBar,
   IonTabs,
 } from '@ionic/react';
+import { connect } from 'react-redux'
 import React from 'react';
 import { Redirect, Route } from 'react-router-dom';
 import { useAuth } from './auth';
@@ -66,4 +67,6 @@ const AppTabs: React.FC = (): JSX.Element => {
   );
 };
 
-export default AppTabs;
+const mapStateToProps = state => ({auth: state.auth})
+  
+export default connect(mapStateToProps)(AppTabs);

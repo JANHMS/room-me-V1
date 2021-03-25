@@ -94,5 +94,6 @@ const mapDispatchToProps = () => ({
   fetchReceivedOffers
 })
 
-export default 
-    connect(mapStateToProps, mapDispatchToProps())(ReceivedOffers)
+export default  
+  withAuthorization(
+      connect(mapStateToProps, mapDispatchToProps())(ReceivedOffers))

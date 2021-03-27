@@ -5,7 +5,7 @@ import {
 } from '@ionic/react';
 import { connect } from 'react-redux'
 import React from 'react';
-import { Redirect, Route } from 'react-router-dom';
+import { Redirect, Route, Switch } from 'react-router-dom';
 import { useAuth } from './auth';
 import AddEntryPage from './pages/services/AddEntryPage';
 import EntryPage from './pages/EntryPage';
@@ -29,7 +29,10 @@ import SentOffersPage from "./pages/offers/SentOffers";
 import ReceivedOffersPage from "./pages/offers/ReceivedOffers";
 import ReceivedOffersSinglePage from './pages/offers/ReceivedOffersSingle';
 
+import ReceivedMessagesPage from './pages/messages/ReceivedMessagesPage';
+
 import ReceivedMessages from './components/messages/ReceivedMessages';
+import { IonReactRouter } from '@ionic/react-router';
 
 
 const AppTabs: React.FC = (): JSX.Element => {
@@ -37,8 +40,8 @@ const AppTabs: React.FC = (): JSX.Element => {
   if (!loggedIn) {
     return <Redirect to="/login" />;
   }
-  return (    
-    <IonTabs>  
+  return (                 
+    <IonReactRouter>
       <IonRouterOutlet>
         <Route path="/login" component={LoginPage} exact />
         <Route path="/" component={Homescreen} exact/>
@@ -51,7 +54,7 @@ const AppTabs: React.FC = (): JSX.Element => {
         <Route path="/my/offers/sent" component={SentOffersPage} exact />
         <Route path="/my/offers/received" component={ReceivedOffersPage} exact />
         <Route path="/my/offers/received/:id" component={ReceivedOffersSinglePage} exact />
-
+        <Route path="/my/messages/received" component={ReceivedMessagesPage} exact/>
         <Route path="/my/messages/received" component={ReceivedMessages} exact />
 
         <Route path="/my" component={DashboardPage} exact />
@@ -66,11 +69,10 @@ const AppTabs: React.FC = (): JSX.Element => {
         
         <Route path="/my/profile" component={ProfilePage} exact />
         <Route path="/my/settings" component={SettingsPage} exact />
+        <ToggleBar />
       </IonRouterOutlet>
-          <IonTabBar slot="bottom">
-            <ToggleBar />
-        </IonTabBar>
-      </IonTabs>
+      </IonReactRouter>
+
   );
 };
 

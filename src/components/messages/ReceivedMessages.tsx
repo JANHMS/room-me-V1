@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { getMessages } from '../../reducers'
 import { markMessageAsRead } from '../../actions'
 import { useHistory } from 'react-router-dom'
+import { IonCard, IonCardContent, IonCardHeader, IonCardSubtitle, IonContent, IonItem, IonList, IonPage } from '@ionic/react'
 
 const ReceivedMessages = ({dispatch, messages}) => {
 
@@ -20,7 +21,18 @@ const ReceivedMessages = ({dispatch, messages}) => {
   const renderMessages = messages => {
     
     const filteredMessages = messages.filter(m => !m.isRead).map(message => (
-        <div key={message.id}>
+      <IonPage>
+        <IonContent>
+        <IonList>
+        <IonItem key={message.id}
+          style={{height: "900px"}}>
+          <IonCard>
+            <img src={message.fromUser.image} />
+          <IonCardHeader>
+            <IonCardSubtitle>{message.fromUser.name}</IonCardSubtitle>
+          </IonCardHeader>
+          <IonCardContent>
+
           <div className="from-user">
             <span>From: </span>{message.fromUser.name}
           </div>
@@ -36,7 +48,13 @@ const ReceivedMessages = ({dispatch, messages}) => {
               onClick={() => handleMessageAsRead(message)}
               className="button is-warning">Later</button>
           </div>
-        </div>
+          </IonCardContent>
+        </IonCard>
+
+          </IonItem>
+        </IonList>
+      </IonContent>
+      </IonPage>
       )
     )
 

@@ -5,7 +5,7 @@ import React from "react";
 const ToggleCar: React.FC = () => {
   return(
     <IonTabBar slot="bottom">
-      <IonTabButton tab="tab1" href="/my/messages/recieved">
+      <IonTabButton tab="tab1" href="/my/messages/received">
         <IonIcon icon={chatbubbles} />
         <IonLabel>Chat</IonLabel>
       </IonTabButton>

@@ -4,6 +4,8 @@ import { getMessages } from '../../reducers'
 import { markMessageAsRead } from '../../actions'
 import { useHistory } from 'react-router-dom'
 import { IonCard, IonCardContent, IonCardHeader, IonCardSubtitle, IonContent, IonItem, IonList, IonPage } from '@ionic/react'
+import HeaderBar from '../HeaderBar'
+import HeaderImage from '../HeaderImage'
 
 const ReceivedMessages = ({dispatch, messages}) => {
 
@@ -22,6 +24,8 @@ const ReceivedMessages = ({dispatch, messages}) => {
     
     const filteredMessages = messages.filter(m => !m.isRead).map(message => (
       <IonPage>
+        <HeaderBar 
+        />
         <IonContent>
         <IonList>
         <IonItem key={message.id}
@@ -59,7 +63,7 @@ const ReceivedMessages = ({dispatch, messages}) => {
     )
 
     if (filteredMessages.length === 0) {
-      return <div className="navbar-item">No Messages :(</div>
+      return <div><HeaderBar/>No Messages :(</div>
     }
 
     return filteredMessages

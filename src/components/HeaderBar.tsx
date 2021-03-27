@@ -32,10 +32,14 @@ const HeaderBar: React.FC<Props> = ({
           }}>Logout</IonButton>
           <div className="dropdown">
             <IonItem>
-              <IonLabel>RommMe Actions</IonLabel>
+              <IonLabel>RoomMe Actions</IonLabel>
               <IonSelect okText="Okay" cancelText="Dismiss" onIonChange={e => setUrl(e.detail.value)}>
                 <IonSelectOption value="/my/entries/add">            
                   Create Service
+                </IonSelectOption>
+                
+                <IonSelectOption value="/my/messages/received">            
+                  Messages received
                 </IonSelectOption>
                 
                 <IonSelectOption value="/my/services/me">            

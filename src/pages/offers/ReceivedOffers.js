@@ -1,6 +1,6 @@
 import React from 'react'
 import withAuthorization from '../../hoc/withAuthorization'
-import { IonPage, IonHeader, IonTitle, IonThumbnail, IonLabel,  IonImg, IonToolbar, IonContent, IonButtons, IonBackButton, IonButton, IonList, IonItem } from "@ionic/react";
+import { IonPage, IonHeader, IonTitle, IonThumbnail, IonLabel,IonCard,IonCardHeader,IonCardSubtitle,IonCardTitle, IonCardContent, IonImg, IonToolbar, IonContent, IonButtons, IonBackButton, IonButton, IonList, IonItem } from "@ionic/react";
 import ServiceItem from '../../components/service/ServiceItem'
 import { connect } from 'react-redux'
 import Spinner from '../../components/Spinner/SpinnerComponent'
@@ -51,16 +51,32 @@ class ReceivedOffers extends React.Component {
         {offers.map((offer) => 
           <IonItem
             key={offer.id} button key={offer.id}
-              routerLink={`/my/offers/${offer.id}`}>
-              <IonThumbnail slot="end">
-                <IonImg src={offer.image} />
-              </IonThumbnail>
-              <IonLabel>
-                <h2>{offer.title}</h2>
-                <h4>{offer.status}</h4>
-                <h5><span className="label">From User:</span> {offer.fromUser.fullName}</h5>
-                <h5>status: {offer.status}</h5>
-              </IonLabel>
+              routerLink={`/my/offers/${offer.id}`}
+              style={{height: "900px"}}>
+                <IonCard>
+                  <img src={offer.service.image} />
+                  <IonCardHeader>
+                    <IonCardSubtitle>{offer.title}</IonCardSubtitle>
+                    <IonCardSubtitle>{offer.status}</IonCardSubtitle>
+                  </IonCardHeader>
+                <IonCardContent>
+                  <h5><span className="label">From User:</span> {offer.fromUser.fullName}</h5>
+                  <div>
+                    <span className="label">Note:</span> {offer.note}
+                  </div>
+                { offer.status === 'pending' &&
+                  <div>
+                    <hr />
+                    <button 
+                      onClick={() => this.acceptOffer(offer.id)} 
+                      className="button is-success s-m-r">Accept</button>
+                    <button 
+                      onClick={() => this.declineOffer(offer.id)} 
+                      className="button is-danger">Decline</button>
+                  </div>
+                }
+                </IonCardContent>
+              </IonCard>
             </IonItem>
           )}
         </IonList>

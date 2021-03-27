@@ -51,7 +51,7 @@ const HeaderBar: React.FC<Props> = ({
                   Received Offers
                 </IonSelectOption>
                 
-                <IonSelectOption value="/my/collaborations/recieved">            
+                <IonSelectOption value="/my/collaborations/me">            
                   Received Collaborations
                 </IonSelectOption>
               </IonSelect>

@@ -1,5 +1,5 @@
 /* eslint jsx-a11y/anchor-is-valid: 0 */
-
+import { IonCardSubtitle, IonCard, IonCardHeader, IonPage, IonCardContent } from "@ionic/react";
 import React from 'react'
 import { Link } from 'react-router-dom'
 
@@ -14,20 +14,20 @@ const ServiceItem = ({service, children, className, noButton}) => {
   }
 
   return (
-    <div
-      className="column is-one-third">
-      <div 
-        className={`feature-card is-bordered has-text-centered revealOnScroll delay-1 ${className}`} 
-        data-animation="fadeInLeft">
-        <div className="card-title">
-           <h4>{service.title}</h4>
-        </div>
-        <div className="card-icon">
-           <img src={service.image} alt=""/>
-        </div>
-        <div className="card-text">
-           <p>{shortText(service.description)}</p>
-        </div>
+    <IonPage>
+      <IonCard>
+        <img src={service.image} alt=""/>
+        <IonCardHeader>
+          <IonCardSubtitle>
+            {service.title}
+            
+          </IonCardSubtitle>
+        </IonCardHeader>  
+        <IonCardContent>
+        {shortText(service.description)}
+
+      {shortText(service.description)}
+      
         { children &&
           <div className="card-text">
             { children }
@@ -40,8 +40,10 @@ const ServiceItem = ({service, children, className, noButton}) => {
                 className="button btn-align-md accent-btn raised">Learn More</Link>
           </div>
         }
-      </div>
-    </div>
+      </IonCardContent>
+
+      </IonCard>
+    </IonPage>
   )
 }
 

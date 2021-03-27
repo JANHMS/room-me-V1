@@ -16,15 +16,18 @@ import ProfilePage from './pages/ProfilePage';
 
 import ServicesPage from './pages/services/ServicesPage';
 import ServiceDetailPage from './pages/services/ServiceDetailPage';
-import ServiceCreatePage from './pages/services/ServiceCreatePage';
+// import ServiceCreatePage from './pages/services/ServiceCreatePage';
 import UserServicesPage from './pages/services/UserServicesPage';
 import ServiceHome from './pages/ServiceHome';
 import RegisterPage from './pages/RegisterPage';
 import Homescreen from './components/Homescreen';
 import LoginPage from './pages/LoginPage';
+import ReceivedCollaborationsPage from "./pages/collaborations/ReceivedCollaborations";
+import CollaborationDetailPage from "./pages/collaborations/CollaborationDetail";
 
 import SentOffersPage from "./pages/offers/SentOffers"
 import ReceivedOffersPage from "./pages/offers/ReceivedOffers"
+import ReceivedMessages from './components/messages/ReceivedMessages';
 
 const AppTabs: React.FC = (): JSX.Element => {
   const { loggedIn } = useAuth();
@@ -40,10 +43,12 @@ const AppTabs: React.FC = (): JSX.Element => {
           <RegisterPage />
         </Route>
         
-        {/* <Route path="my/collaborations/me" component={ReceivedCollaborationsPage} exact />
-        <Route path="my/collaborations/:id" component={CollaborationDetailPage} exact /> */}
+        <Route path="/my/collaborations/me" component={ReceivedCollaborationsPage} exact />
+        <Route path="/my/collaborations/:id" component={CollaborationDetailPage} exact />
         <Route path="/my/offers/sent" component={SentOffersPage} exact />
         <Route path="/my/offers/recieved" component={ReceivedOffersPage} exact />
+
+        <Route path="/my/messages/recieved" component={ReceivedMessages} exact />
 
         <Route path="/my" component={DashboardPage} exact />
         <Route path="/my/entries/add" component={AddEntryPage} exact />

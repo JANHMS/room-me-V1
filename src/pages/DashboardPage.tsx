@@ -8,7 +8,6 @@ import { useHistory } from "react-router";
 import DashboardComponent from '../components/DashboardComponent';
 import { toast } from '../toast';
 import { getUserProfile } from '../api';
-import Spinner from '../components/Spinner/SpinnerComponent';
 import { IonLoading } from '@ionic/react';
 import { connect } from 'react-redux' // HOC
 import { fetchServices } from '../actions';

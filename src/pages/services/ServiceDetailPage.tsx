@@ -3,8 +3,8 @@ import { useParams } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { fetchServiceById } from '../../actions';
 import * as api from "../../api";
-import Spinner from '../../components/Spinner/SpinnerComponent';
 import ServiceDeatilComponent from '../../components/service/ServiceDetailComponent';
+import { IonLoading } from '@ionic/react';
 
 const ServiceDetail = props => {
   const [offer, setOffer] = useState(false)
@@ -35,7 +35,7 @@ const ServiceDetail = props => {
     console.log(ServiceUser)
     setLoading(false)
   }
-  if (isFetching || serviceId !== service.id || loading) { return <Spinner /> }
+  if (isFetching || serviceId !== service.id || loading) { return <IonLoading isOpen={loading} /> }
 
   return (
   serviceUser && !loading && auth ?
@@ -45,7 +45,7 @@ const ServiceDetail = props => {
       service={service}
       offer={offer}
       handleOfferClick={handleOfferClick}
-    /> : <Spinner /> 
+    /> : <IonLoading isOpen={loading}/> 
   )
 }
 

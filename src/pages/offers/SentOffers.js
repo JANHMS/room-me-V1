@@ -1,13 +1,11 @@
 import React from 'react';
-import { IonPage, IonHeader, IonToolbar, IonButtons, IonTitle, IonButton, IonBackButton, IonContent } from "@ionic/react";
+import { IonPage, IonLoading, IonButton, IonContent } from "@ionic/react";
 import withAuthorization from '../../hoc/withAuthorization';
 import { withToastManager } from 'react-toast-notifications';
 import ServiceItem from '../../components/service/ServiceItem';
 import { connect } from 'react-redux';
 import { newMessage, newCollaboration } from '../../helpers/offers';
 import { fetchSentOffers, collaborate } from '../../actions';
-
-import Spinner from '../../components/Spinner/SpinnerComponent';
 
 class SentOffers extends React.Component {
 
@@ -33,7 +31,7 @@ class SentOffers extends React.Component {
   render() {
     const { offers, isFetching } = this.props
 
-    if (isFetching) { return <Spinner />}
+    if (isFetching) { return <IonLoading isOpen={isFetching} />}
 
     return (
       <IonPage>

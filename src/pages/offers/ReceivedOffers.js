@@ -1,9 +1,8 @@
 import React from 'react'
 import withAuthorization from '../../hoc/withAuthorization'
-import { IonPage, IonHeader, IonTitle, IonThumbnail, IonLabel,IonCard,IonCardHeader,IonCardSubtitle,IonCardTitle, IonCardContent, IonImg, IonToolbar, IonContent, IonButtons, IonBackButton, IonButton, IonList, IonItem } from "@ionic/react";
+import { IonPage, IonHeader, IonTitle, IonLoading, IonLabel,IonCard,IonCardHeader,IonCardSubtitle,IonCardTitle, IonCardContent, IonImg, IonToolbar, IonContent, IonButtons, IonBackButton, IonButton, IonList, IonItem } from "@ionic/react";
 import ServiceItem from '../../components/service/ServiceItem'
 import { connect } from 'react-redux'
-import Spinner from '../../components/Spinner/SpinnerComponent'
 
 import { fetchReceivedOffers, changeOfferStatus } from '../../actions'
 
@@ -31,7 +30,7 @@ class ReceivedOffers extends React.Component {
   render() {
     const { offers, isFetching } = this.props
 
-    if (isFetching) { return <Spinner />}
+    if (isFetching) { return <IonLoading isOpen={isFetching} />}
 
     return (
       <IonPage>

@@ -1,5 +1,6 @@
 import React from 'react'
 import moment from 'moment'
+import { IonPage } from "@ionic/react";
 
 const ChatMessages = ({messages, authUser}) => {
 
@@ -9,6 +10,7 @@ const ChatMessages = ({messages, authUser}) => {
         // Message is from currently logged in USER
         if (message.user.uid === authUser.uid) {
           return (
+            <IonPage>
             <div key={message.id} className="viewWrapItemLeft">
               <div className="viewWrapItemLeft3">
                 <img
@@ -21,6 +23,7 @@ const ChatMessages = ({messages, authUser}) => {
               </div>
               <span className="textTimeLeft">{moment(message.timestamp).fromNow()}</span>
             </div>
+          </IonPage>
           )
         }
 

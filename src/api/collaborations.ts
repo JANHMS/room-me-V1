@@ -1,4 +1,3 @@
-
 import firebase from 'firebase/app'
 import { firestore } from '../firebase'
 import { createRef } from './index'

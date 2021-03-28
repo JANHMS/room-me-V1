@@ -63,14 +63,3 @@ const initAuth = () => {
 
 const auth = initAuth()
 export default auth
-
-
-
-
-
-
-
-
-
-
-

@@ -3,6 +3,7 @@ import { chatbubbles, home, person } from "ionicons/icons";
 import React from "react";
 
 const ToggleCar: React.FC = () => {
+  //if needed we could add a hard refresh here, but thats not recommended
   const handleClick = () => {
     window.location.reload();
   }

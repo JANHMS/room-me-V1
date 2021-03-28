@@ -14,8 +14,9 @@ import { connect } from 'react-redux' // HOC
 import { fetchServices } from '../actions';
 
 const DashboardPage: React.FC = () => {
+  
   const history = useHistory()
-
+  
   const { userId } = useAuth();
   const [entries, setEntries] = useState<Entry[]>([]);
   const [user, setUser] = useState<any>()
@@ -41,7 +42,7 @@ const DashboardPage: React.FC = () => {
       setLoading(false)
         });
     }, [])
-    
+  
   const [loadingLogout, setLoadingLogout] = useState(false)
 
   async function logout() {
@@ -70,5 +71,3 @@ const DashboardPage: React.FC = () => {
 const mapStateToProps = state => ({services: state.services.all})
     
 export default connect(mapStateToProps, {fetchServices})(DashboardPage)
-
-

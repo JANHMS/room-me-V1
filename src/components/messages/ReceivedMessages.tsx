@@ -18,70 +18,50 @@ const ReceivedMessages = ({dispatch, messages}) => {
 
   const goToCollaboration = message => {
     markMessageAsRead(message)
-    history.push(message.cta)
+    history.push("my" + message.cta)
   }
 
-  const renderMessages = messages => {
-    
-    const filteredMessages = messages.filter(m => !m.isRead).map(message => (
-      <IonPage>
-        <HeaderBar />
-        <IonContent>
-          <IonList>
-            <IonItem key={message.id}
-              style={{height: "900px"}}>
-              <IonCard>
-                <img src={message.fromUser.image} />
-                  <IonCardHeader>
-                    <IonCardSubtitle>{message.fromUser.name}</IonCardSubtitle>
-                  </IonCardHeader>
-                    <IonCardContent>
+return(   
+    <IonPage>
+      <HeaderBar />
+      <IonContent>
+        <IonList>
+          {messages.filter(m => !m.isRead).map(message => 
+          <IonItem key={message.id}
+            style={{height: "900px"}}>
+            <IonCard>
+              <img src={message.fromUser.avatar} />
+                <IonCardHeader>
+                  <IonCardSubtitle>{message.fromUser.name}</IonCardSubtitle>
+                </IonCardHeader>
+                  <IonCardContent>
 
-                    <div className="from-user">
-                      <span>From: </span>{message.fromUser.name}
+                  <div className="from-user">
+                    <span>From: </span>{message.fromUser.name}
+                  </div>
+                  <hr />
+                  <div className="navbar-item navbar-item-message">
+                    <div>
+                      { message.text }
                     </div>
-                    <hr />
-                    <div className="navbar-item navbar-item-message">
-                      <div>
-                        { message.text }
-                      </div>
-                      <div onClick={() => goToCollaboration(message)}>
-                        <div className="button is-success">Join</div>
-                      </div>
-                      <button
-                        onClick={() => handleMessageAsRead(message)}
-                        className="button is-warning">Later</button>
+                    <div onClick={() => goToCollaboration(message)}>
+                      <div className="button is-success">Join</div>
                     </div>
-                    </IonCardContent>
-                  </IonCard>
+                    <button
+                      onClick={() => handleMessageAsRead(message)}
+                      className="button is-warning">Later</button>
+                  </div>
+                  </IonCardContent>
+                </IonCard>
 
-                </IonItem>
-            </IonList>
-          </IonContent>
-        <ToggleBar/>
-      </IonPage>
-      )
+              </IonItem>
+            )}
+          </IonList>
+        </IonContent>
+      <ToggleBar/>
+    </IonPage>
     )
-
-    if (filteredMessages.length === 0) {
-      return (
-        <IonPage>
-          <HeaderBar/>
-            <IonContent>
-              No Messages
-            </IonContent>
-          <ToggleBar/>
-      </IonPage>
-      )
-    }
-
-    return filteredMessages
-  }
-
-
-  return renderMessages(messages)
 }
-
 
 const mapStateToProps = (state) => ({messages: getMessages(state)})
 

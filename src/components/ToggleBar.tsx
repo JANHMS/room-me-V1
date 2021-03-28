@@ -3,10 +3,13 @@ import { chatbubbles, home, person } from "ionicons/icons";
 import React from "react";
 
 const ToggleCar: React.FC = () => {
+  const handleClick = () => {
+    window.location.reload();
+  }
   return(
     <IonTabBar slot="bottom">
-      <IonTabButton tab="tab1" href="/my/messages/received">
-        <IonIcon icon={chatbubbles} />
+      <IonTabButton tab="tab1" href="/my/messages/received" >
+        <IonIcon icon={chatbubbles}/>
         <IonLabel>Chat</IonLabel>
       </IonTabButton>
       <IonTabButton tab="tab2" href="/my">

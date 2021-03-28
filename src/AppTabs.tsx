@@ -69,7 +69,6 @@ const AppTabs: React.FC = (): JSX.Element => {
         
         <Route path="/my/profile" component={ProfilePage} exact />
         <Route path="/my/settings" component={SettingsPage} exact />
-        <ToggleBar />
       </IonRouterOutlet>
       </IonReactRouter>
 

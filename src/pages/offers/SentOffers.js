@@ -1,5 +1,5 @@
 import React from 'react';
-import { IonPage, IonLoading, IonButton, IonContent } from "@ionic/react";
+import { IonPage, IonBackButton, IonItem, IonCardContent, IonCardSubtitle, IonCardHeader, IonList, IonCard, IonHeader, IonTitle, IonButtons, IonToolbar, IonLoading, IonButton, IonContent } from "@ionic/react";
 import withAuthorization from '../../hoc/withAuthorization';
 import { withToastManager } from 'react-toast-notifications';
 import ServiceItem from '../../components/service/ServiceItem';
@@ -35,23 +35,30 @@ class SentOffers extends React.Component {
 
     return (
       <IonPage>
+        <IonHeader>
+          <IonToolbar>
+            <IonButtons slot="start">
+              <IonBackButton />
+            </IonButtons>
+            <IonTitle>Sent Offers</IonTitle>
+          </IonToolbar>
+        </IonHeader>
         <IonContent>
           { !isFetching && offers.length === 0 &&
             <span className="tag is-warning is-large">You don't have any send offers :(</span>
           }
-          <div className="columns">
+          <IonList>
             { offers.map(offer => (
-              <div 
+              <IonItem 
                 key={offer.id}
-                className="column is-one-third">
-                <ServiceItem
-                  noButton
-                  className="offer-card"
-                  service={offer.service}>
-                  <div className="tag is-large">
-                    {offer.status}
-                  </div>
-                  <hr />
+                style={{height: "900px"}}>
+                <IonCard>
+                  <img src={offer.service.image} />
+                  <IonCardHeader>
+                    <IonCardSubtitle>{offer.title}</IonCardSubtitle>
+                    <IonCardSubtitle>{offer.status}</IonCardSubtitle>
+                  </IonCardHeader>
+                <IonCardContent>
                   <div className="service-offer">
                     <div>
                       <span className="label">To User:</span> {offer.toUser.fullName}
@@ -74,11 +81,12 @@ class SentOffers extends React.Component {
                         className="button is-success">Collaborate</IonButton>
                     </div>
                   }
-                </ServiceItem>
-              </div>
+                </IonCardContent>
+              </IonCard>
+            </IonItem>
               ))
             }
-          </div>
+          </IonList>
         </IonContent>
     </IonPage>
     )

@@ -4,6 +4,7 @@ import withAuthorization from '../../hoc/withAuthorization'
 import { withRouter } from 'react-router-dom'
 import { Timestamp } from '../../firebase'
 import moment from 'moment'
+import { IonPage, IonLoading } from "@ionic/react";
 import { 
   subToCollaboration, 
   joinCollaboration,
@@ -15,7 +16,6 @@ import {
 import JoinedPeople from '../../components/collaboration/JoinedPeople'
 import ChatMessages from '../../components/collaboration/ChatMessages'
 import Timer from '../../components/collaboration/Timer'
-import Spinner from '../../components/Spinner/SpinnerComponent'
 
 class CollaborationDetail extends React.Component {
 
@@ -119,10 +119,10 @@ class CollaborationDetail extends React.Component {
 
     const status = this.getCollaborationStatus(collaboration)
 
-    if (status === 'loading') { return <Spinner /> }
+    if (status === 'loading') { return <IonLoading isOpen={status === 'loading'} /> }
 
     return (
-       <div className="content-wrapper">
+      <IonPage>
         <div className="root">
           <div className="body">
             <div className="viewListUser">
@@ -177,7 +177,7 @@ class CollaborationDetail extends React.Component {
             </div>
           </div>
         </div>
-      </div>
+      </IonPage>
     )
   }
 }
@@ -199,17 +199,3 @@ const mapStateToProps = ({collaboration}) => {
 
 const Collaboration = withAuthorization(withRouter(CollaborationDetail))
 export default connect(mapStateToProps, mapDispatchToProps())(Collaboration)
-
-
-
-
-
-
-
-
-
-
-
-
-
-

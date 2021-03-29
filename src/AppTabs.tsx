@@ -27,7 +27,6 @@ import CollaborationDetailPage from "./pages/collaborations/CollaborationDetail"
 
 import SentOffersPage from "./pages/offers/SentOffers";
 import ReceivedOffersPage from "./pages/offers/ReceivedOffers";
-import ReceivedOffersSinglePage from './pages/offers/ReceivedOffersSingle';
 
 import ReceivedMessagesPage from './pages/messages/ReceivedMessagesPage';
 
@@ -53,7 +52,6 @@ const AppTabs: React.FC = (): JSX.Element => {
         <Route path="/my/collaborations/:id" component={CollaborationDetailPage} exact />
         <Route path="/my/offers/sent" component={SentOffersPage} exact />
         <Route path="/my/offers/received" component={ReceivedOffersPage} exact />
-        <Route path="/my/offers/received/:id" component={ReceivedOffersSinglePage} exact />
         <Route path="/my/messages/received" component={ReceivedMessagesPage} exact />
 
         <Route path="/my" component={DashboardPage} exact />

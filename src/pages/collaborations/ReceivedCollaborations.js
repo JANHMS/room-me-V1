@@ -1,9 +1,10 @@
-import React from 'react'
-import { Link } from "react-router-dom"
-import withAuthorization from '../../hoc/withAuthorization'
-import { fetchCollaborations } from '../../actions'
-import moment from 'moment'
-import { Timestamp } from '../../firebase'
+import React from 'react';
+import { Link } from "react-router-dom";
+import withAuthorization from '../../hoc/withAuthorization';
+import { fetchCollaborations } from '../../actions';
+import moment from 'moment';
+import { IonPage } from "@ionic/react";
+import { Timestamp } from '../../firebase';
 
 class ReceivedCollaborations extends React.Component {
 
@@ -30,6 +31,7 @@ class ReceivedCollaborations extends React.Component {
     return collaborations.map(c => {
       const {className, status} = this.getCollaborationStatus(c.expiresAt)
       return (
+        <IonPage>
         <article 
           key={c.id} 
           className="post">
@@ -37,7 +39,8 @@ class ReceivedCollaborations extends React.Component {
           <div className="media">
             <div className="media-left">
               <p className="image is-32x32">
-                <img src={c.image} alt={c.title}/>
+                <img src={c.image} alt={c.title}
+                style={{width: "40px"}}/>
               </p>
             </div>
             <div className="media-content">
@@ -58,6 +61,7 @@ class ReceivedCollaborations extends React.Component {
             </div>
           </div>
         </article>
+      </IonPage>
       )
     })
   }
@@ -78,7 +82,3 @@ class ReceivedCollaborations extends React.Component {
 }
 
 export default withAuthorization(ReceivedCollaborations)
-
-
-
-

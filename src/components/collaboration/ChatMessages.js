@@ -1,6 +1,6 @@
 import React from 'react'
 import moment from 'moment'
-import { IonPage } from "@ionic/react";
+import { IonPage, IonList, IonItem } from "@ionic/react";
 
 const ChatMessages = ({messages, authUser}) => {
 
@@ -10,34 +10,36 @@ const ChatMessages = ({messages, authUser}) => {
         // Message is from currently logged in USER
         if (message.user.uid === authUser.uid) {
           return (
-            <div key={message.id} className="viewWrapItemLeft">
-              <div className="viewWrapItemLeft3">
-                <img
-                  src={message.user.avatar}
-                  alt="avatar"
-                  className="peerAvatarLeft" />
-                <div className="viewItemLeft">
-                  <span className="textContentItem">{message.content}</span>
+              <IonItem key={message.id} className="viewWrapItemLeft">
+                <div className="viewWrapItemLeft3">
+                  <img
+                    src={message.user.avatar}
+                    alt="avatar"
+                    className="peerAvatarLeft" 
+                    style={{width: "100px"}}/>
+                  <div className="viewItemLeft">
+                    <span className="textContentItem">{message.content}</span>
+                  </div>
                 </div>
-              </div>
-              <span className="textTimeLeft">{moment(message.timestamp).fromNow()}</span>
-            </div>
+                <span className="textTimeLeft">{moment(message.timestamp).fromNow()}</span>
+              </IonItem>
           )
         }
 
         return (
-          <div key={message.id} className="viewWrapItemRight">
+          <IonItem key={message.id} className="viewWrapItemLeft">
             <div className="viewWrapItemRight3">
               <img
                 src={message.user.avatar}
                 alt="avatar"
-                className="peerAvatarLeft" />
+                className="peerAvatarLeft" 
+                style={{width: "100px"}}/>
               <div className="viewItemRight">
                 <span className="textContentItem">{message.content}</span>
               </div>
             </div>
             <span className="textTimeLeft">{moment(message.timestamp).fromNow()}</span>
-          </div>
+        </IonItem>
         )
       })
     }

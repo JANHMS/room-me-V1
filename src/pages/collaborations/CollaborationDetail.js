@@ -4,7 +4,7 @@ import withAuthorization from '../../hoc/withAuthorization'
 import { withRouter } from 'react-router-dom'
 import { Timestamp } from '../../firebase'
 import moment from 'moment'
-import { IonPage, IonLoading } from "@ionic/react";
+import { IonPage, IonLoading, IonButton, IonInput, IonList } from "@ionic/react";
 import { 
   subToCollaboration, 
   joinCollaboration,
@@ -81,10 +81,10 @@ class CollaborationDetail extends React.Component {
   }
 
   onStartCollaboration = collaboration => {
-    const { id, time } = collaboration
+    const { id } = collaboration
     const nowSeconds = Timestamp.now().seconds
 
-    const expiresAt = new Timestamp(nowSeconds + time, 0)
+    const expiresAt = new Timestamp(nowSeconds + 20000, 0)
     startCollaboration(id, expiresAt)
   }
 
@@ -123,60 +123,44 @@ class CollaborationDetail extends React.Component {
 
     return (
       <IonPage>
-        <div className="root">
-          <div className="body">
-            <div className="viewListUser">
-              <JoinedPeople users={joinedPeople} />
+          <JoinedPeople users={joinedPeople} />
+            <div className="headerChatUser">
+              <span className="textHeaderChatBoard">{user.fullName}</span>
             </div>
-            <div className="viewBoard">
-              <div className="viewChatBoard">
-                <div className="headerChatBoard">
-                  <div className="headerChatUser">
-                    <img className="viewAvatarItem" src="https://i.imgur.com/cVDadwb.png" alt="icon avatar" />
-                    <span className="textHeaderChatBoard">{user.fullName}</span>
-                  </div>
-                  { status === 'notStarted' &&
-                    <div className="headerChatButton">
-                      <button 
-                        onClick={() => this.onStartCollaboration(collaboration)}
-                        className="button is-success">Start Collaboration</button>
-                    </div>
-                  }
-                  { status === 'active' &&
-                    <Timer 
-                      seconds={collaboration.expiresAt.seconds - Timestamp.now().seconds}
-                      timeOutCallback={() => this.setState({reload: true})}/>
-                  }
-                  { status === 'finished' &&
-                    <span className="tag is-warning is-large"> 
-                      Collaboration has been finished
-                    </span>
-                  }
-                </div>
-                <div className="viewListContentChat">
-                  <ChatMessages 
-                    authUser={user}
-                    messages={messages} />
-                  <div style={{float: "left", clear: "both"}}></div>
-                </div>
-                <div className="viewBottom">
-                  <input 
-                    onChange={(e) => this.setState({inputValue: e.target.value})}
-                    onKeyPress={this.onKeyboardPress}
-                    // disabled={status === 'finished' || status === 'notStarted'}
-                    value={inputValue}
-                    className="viewInput" 
-                    placeholder="Type your message..." />
-                  <button 
-                    onClick={() => this.onSendMessage(inputValue)}
-                    // disabled={status === 'finished' || status === 'notStarted'}
-                    className="button is-primary is-large">Send
-                  </button>
-                </div>
-              </div>
-            </div>
+            { status === 'notStarted' &&
+                <IonButton 
+                  onClick={() => this.onStartCollaboration(collaboration)}
+                  className="IonButton is-success">Start Collaboration</IonButton>
+            }
+            { status === 'active' &&
+              <Timer 
+                seconds={20000 - Timestamp.now().seconds}
+                timeOutCallback={() => this.setState({reload: true})}/>
+            }
+            { status === 'finished' &&
+              <span className="tag is-warning is-large"> 
+                Collaboration has been finished
+              </span>
+            }
+          <IonList>
+          <div className="viewListContentChat">
+            <ChatMessages 
+              authUser={user}
+              messages={messages} />
+            <div style={{float: "left", clear: "both"}}></div>
           </div>
-        </div>
+            <IonInput 
+              onIonChange={(e) => this.setState({inputValue: e.target.value})}
+              onKeyPress={this.onKeyboardPress}
+              // disabled={status === 'finished' || status === 'notStarted'}
+              value={inputValue}
+              placeholder="Type your message..." />
+            <IonButton 
+              onClick={() => this.onSendMessage(inputValue)}
+              // disabled={status === 'finished' || status === 'notStarted'}
+              >Send
+            </IonButton>
+          </IonList>
       </IonPage>
     )
   }

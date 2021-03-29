@@ -4,7 +4,7 @@ import withAuthorization from '../../hoc/withAuthorization'
 import { withRouter } from 'react-router-dom'
 import { Timestamp } from '../../firebase'
 import moment from 'moment'
-import { IonPage, IonLoading, IonButton, IonInput, IonList } from "@ionic/react";
+import { IonContent, IonBackButton, IonToolbar, IonHeader, IonButtons, IonTitle, IonPage, IonLoading, IonButton, IonInput, IonList } from "@ionic/react";
 import { 
   subToCollaboration, 
   joinCollaboration,
@@ -123,26 +123,19 @@ class CollaborationDetail extends React.Component {
 
     return (
       <IonPage>
-          <JoinedPeople users={joinedPeople} />
-            <div className="headerChatUser">
-              <span className="textHeaderChatBoard">{user.fullName}</span>
-            </div>
-            { status === 'notStarted' &&
-                <IonButton 
-                  onClick={() => this.onStartCollaboration(collaboration)}
-                  className="IonButton is-success">Start Collaboration</IonButton>
-            }
-            { status === 'active' &&
-              <Timer 
-                seconds={20000 - Timestamp.now().seconds}
-                timeOutCallback={() => this.setState({reload: true})}/>
-            }
-            { status === 'finished' &&
-              <span className="tag is-warning is-large"> 
-                Collaboration has been finished
-              </span>
-            }
-          <IonList>
+
+        <IonHeader>
+          <IonToolbar>
+            <IonButtons slot="start">
+              <IonBackButton />
+            </IonButtons>
+            <IonTitle>Chat</IonTitle>
+          </IonToolbar>
+        </IonHeader>
+
+        <IonContent>
+
+          <IonList>            
           <div className="viewListContentChat">
             <ChatMessages 
               authUser={user}
@@ -161,6 +154,7 @@ class CollaborationDetail extends React.Component {
               >Send
             </IonButton>
           </IonList>
+        </IonContent>
       </IonPage>
     )
   }

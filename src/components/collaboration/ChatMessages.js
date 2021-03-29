@@ -1,6 +1,6 @@
 import React from 'react'
 import moment from 'moment'
-import { IonPage, IonList, IonItem } from "@ionic/react";
+import { IonSkeletonText, IonText, IonThumbnail, IonImg, IonItem } from "@ionic/react";
 
 const ChatMessages = ({messages, authUser}) => {
 
@@ -10,35 +10,31 @@ const ChatMessages = ({messages, authUser}) => {
         // Message is from currently logged in USER
         if (message.user.uid === authUser.uid) {
           return (
-              <IonItem key={message.id} className="viewWrapItemLeft">
-                <div className="viewWrapItemLeft3">
-                  <img
-                    src={message.user.avatar}
-                    alt="avatar"
-                    className="peerAvatarLeft" 
-                    style={{width: "100px"}}/>
-                  <div className="viewItemLeft">
-                    <span className="textContentItem">{message.content}</span>
-                  </div>
-                </div>
-                <span className="textTimeLeft">{moment(message.timestamp).fromNow()}</span>
+              <IonItem key={message.id}>
+                  <IonThumbnail slot="start">
+                    <IonImg
+                      src={message.user.avatar}
+                      alt="avatar"
+                      style={{width: "50px", }}/>
+                  </IonThumbnail>
+                    <IonText>{message.content}</IonText>
+                  <br />
+                <IonText slot="end">{moment(message.timestamp).fromNow()}</IonText>
               </IonItem>
           )
         }
 
         return (
-          <IonItem key={message.id} className="viewWrapItemLeft">
-            <div className="viewWrapItemRight3">
-              <img
-                src={message.user.avatar}
-                alt="avatar"
-                className="peerAvatarLeft" 
-                style={{width: "100px"}}/>
-              <div className="viewItemRight">
-                <span className="textContentItem">{message.content}</span>
+          <IonItem key={message.id} >
+              <IonThumbnail slot="end">
+                <IonImg
+                  src={message.user.avatar}
+                  style={{width: "50px"}}/>
+                </IonThumbnail>
+              <div>
+                <IonText >{message.content}</IonText>
               </div>
-            </div>
-            <span className="textTimeLeft">{moment(message.timestamp).fromNow()}</span>
+            <IonText slot="start">{moment(message.timestamp).fromNow()}</IonText>
         </IonItem>
         )
       })

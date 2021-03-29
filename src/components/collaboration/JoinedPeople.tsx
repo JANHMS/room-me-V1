@@ -12,8 +12,6 @@ const JoinedPeople = ({
 
   return (
     (users.length > 0) ?
-    <IonPage>
-      <IonContent>
         <IonList>
           {users.map(user => 
           <IonItem key={user.id}>
@@ -32,9 +30,7 @@ const JoinedPeople = ({
             </IonCard>
           </IonItem>
         )}
-      </IonList>
-    </IonContent>
-  </IonPage> : null
+      </IonList> : null
   )
 }
 

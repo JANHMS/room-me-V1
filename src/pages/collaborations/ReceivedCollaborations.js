@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import withAuthorization from '../../hoc/withAuthorization';
 import { fetchCollaborations } from '../../actions';
 import moment from 'moment';
-import { IonPage } from "@ionic/react";
+import { IonContent, IonItem, IonBackButton, IonToolbar, IonHeader, IonButtons, IonTitle, IonPage, IonLoading, IonButton, IonInput, IonList } from "@ionic/react";
 import { Timestamp } from '../../firebase';
 
 class ReceivedCollaborations extends React.Component {
@@ -31,9 +31,9 @@ class ReceivedCollaborations extends React.Component {
     return collaborations.map(c => {
       const {className, status} = this.getCollaborationStatus(c.expiresAt)
       return (
-        <IonPage>
+        <IonItem key={c.id} >
         <article 
-          key={c.id} 
+          
           className="post">
           <h4>{c.title}</h4>
           <div className="media">
@@ -52,16 +52,12 @@ class ReceivedCollaborations extends React.Component {
                 </p>
               </div>
             </div>
-            <div className="media-right">
-              <span className="has-text-grey-light">
-                <Link to={`/collaborations/${c.id}`}>
-                  <button className="button">Enter</button>
+                <Link to={`/my/collaborations/individual/${c.id}`}>
+                  <IonButton className="button">Enter</IonButton>
                 </Link>
-              </span>
             </div>
-          </div>
         </article>
-      </IonPage>
+      </IonItem>
       )
     })
   }
@@ -69,14 +65,20 @@ class ReceivedCollaborations extends React.Component {
   render() {
     const { collaborations } = this.state
     return (
-      <div className="content-wrapper">
-        <div className="container">
-          <h1 className="title">Collaborations</h1>
+      <IonPage>
+        <IonHeader>
+          <IonToolbar>
+            <IonButtons slot="start">
+              <IonBackButton />
+            </IonButtons>
+            <IonTitle>Collaborations</IonTitle>
+          </IonToolbar>
+        </IonHeader>
+
           <div className="box content">
             { this.renderCollaborations(collaborations) }
           </div>
-        </div>
-      </div>
+      </IonPage>
     )
   }
 }

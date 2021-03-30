@@ -6,7 +6,7 @@ import ServiceItem from '../../components/service/ServiceItem';
 import { connect } from 'react-redux';
 import { newMessage, newCollaboration } from '../../helpers/offers';
 import { fetchSentOffers, collaborate } from '../../actions';
-
+import { toast } from "../../toast";
 class SentOffers extends React.Component {
 
   componentDidMount() {
@@ -22,9 +22,7 @@ class SentOffers extends React.Component {
 
     this.props.collaborate({collaboration, message})
       .then(_ => 
-        toastManager.add('Collaboration was Created!', {
-          appearance: 'success',
-          autoDismiss: true })
+        toast('Collaboration was Created!')
       )
   } 
 

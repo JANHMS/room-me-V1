@@ -24,8 +24,8 @@ const RecievedMessagesPage = (props) => {
   }
 
   const goToCollaboration = message => {
-    markMessageAsRead(message)
-    history.push('/my'+ message.cta)
+    // markMessageAsRead(message)
+    history.push('/my/collaborations/individual/'+ (message.cta.split('/')[2]))
   }
 
   const getMessages =  (userId) => firestore.collection('profiles')

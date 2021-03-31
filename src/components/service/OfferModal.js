@@ -37,7 +37,7 @@ const OfferModal = ({
     createOffer(offerCopy)
       .then(_ => {
         closeModal()
-        toast('Offer was succefuly created!')
+        toast('Message request was succefuly created!')
       }, (error) => {
         console.log(error)
       })

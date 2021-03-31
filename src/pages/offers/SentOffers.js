@@ -4,6 +4,7 @@ import withAuthorization from '../../hoc/withAuthorization';
 import { withToastManager } from 'react-toast-notifications';
 import ServiceItem from '../../components/service/ServiceItem';
 import { connect } from 'react-redux';
+import ToggleBar from "../../components/ToggleBar";
 import { newMessage, newCollaboration } from '../../helpers/offers';
 import { fetchSentOffers, collaborate } from '../../actions';
 import { toast } from "../../toast";
@@ -86,6 +87,7 @@ class SentOffers extends React.Component {
             }
           </IonList>
         </IonContent>
+      <ToggleBar />
     </IonPage>
     )
   }

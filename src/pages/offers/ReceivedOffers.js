@@ -3,6 +3,7 @@ import withAuthorization from '../../hoc/withAuthorization'
 import { IonPage, IonHeader, IonTitle, IonLoading, IonLabel,IonCard,IonCardHeader,IonCardSubtitle,IonCardTitle, IonCardContent, IonImg, IonToolbar, IonContent, IonButtons, IonBackButton, IonButton, IonList, IonItem } from "@ionic/react";
 import ServiceItem from '../../components/service/ServiceItem'
 import { connect } from 'react-redux'
+import ToggleBar from "../../components/ToggleBar";
 
 import { fetchReceivedOffers, changeOfferStatus } from '../../actions'
 
@@ -50,10 +51,10 @@ class ReceivedOffers extends React.Component {
         {offers.map((offer) => 
           <IonItem
             key={offer.id} button key={offer.id}
-              routerLink={`/my/offers/${offer.id}`}
+              routerLink={`/my`}
               style={{height: "900px"}}>
                 <IonCard>
-                  <img src={offer.service.image} />
+                  <img src={offer.fromUser.avatar} />
                   <IonCardHeader>
                     <IonCardSubtitle>{offer.title}</IonCardSubtitle>
                     <IonCardSubtitle>{offer.status}</IonCardSubtitle>
@@ -66,12 +67,12 @@ class ReceivedOffers extends React.Component {
                 { offer.status === 'pending' &&
                   <div>
                     <hr />
-                    <button 
+                    <IonButton color="success"
                       onClick={() => this.acceptOffer(offer.id)} 
-                      className="button is-success s-m-r">Accept</button>
-                    <button 
+                      className="button is-success s-m-r">Accept</IonButton>
+                    <IonButton color="warning"
                       onClick={() => this.declineOffer(offer.id)} 
-                      className="button is-danger">Decline</button>
+                      className="button is-danger">Decline</IonButton>
                   </div>
                 }
                 </IonCardContent>
@@ -81,6 +82,8 @@ class ReceivedOffers extends React.Component {
         </IonList>
 
         </IonContent>
+        <ToggleBar/>
+
     </IonPage>
     )
   }

@@ -30,14 +30,13 @@ import ReceivedOffersPage from "./pages/offers/ReceivedOffers";
 
 import ReceivedMessagesPage from './pages/messages/ReceivedMessagesPage';
 
-import ReceivedMessages from './components/messages/ReceivedMessages';
 import { IonReactRouter } from '@ionic/react-router';
 
 
 const AppTabs: React.FC = (): JSX.Element => {
   const { loggedIn } = useAuth();
   if (!loggedIn) {
-    return <Redirect to="/login" />;
+    return <Redirect to="/my" />;
   }
   return (                 
     <IonReactRouter>

@@ -5,7 +5,6 @@ import { useHistory } from "react-router-dom";
 
 import { useAuth } from "../../auth";
 import HeaderBar from "../../components/HeaderBar";
-import ReceivedMessages from "../../components/messages/ReceivedMessages";
 import ToggleBar from "../../components/ToggleBar";
 import { firestore } from "../../firebase";
 import { getMessages } from "../../reducers";
@@ -77,11 +76,7 @@ const RecievedMessagesPage = (props) => {
                           { message.text }
                         </div>
                         <IonButton onClick={() => goToCollaboration(message)} color="success">
-                          Join
-                        </IonButton>
-                        <IonButton
-                          onClick={() => handleMessageAsRead(message)} color="warning">
-                          Later
+                          Chat
                         </IonButton>
                       </IonCardContent>
                     </IonCard>

@@ -20,7 +20,7 @@ const QuestionInputComponent: React.FC<Props> = ({
       <IonToolbar>
         <IonTitle>About you</IonTitle>
       </IonToolbar>
-      <h1>{question.text}</h1>
+      <h1>{question}</h1>
     </IonHeader>
       <IonContent>
         <IonInput style={{

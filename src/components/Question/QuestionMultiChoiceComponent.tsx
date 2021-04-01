@@ -8,20 +8,20 @@ interface Props {
 }
 
 
-const QuestionInputComponent: React.FC<Props> = ({
+const QuestionMultiChoiceComponent: React.FC<Props> = ({
   handleNextClick,
   question,
   answers
 }) => {
   
   return (
-    <IonItem>
+    <IonPage>
       <IonHeader translucent>
       <IonToolbar>
         <IonTitle>About you</IonTitle>
       </IonToolbar>
-      <h1>{question.text}</h1>
     </IonHeader>
+    <h1 style={{position: "relative", textAlign: 'center'}}>{question}</h1>
       <IonContent>
       <IonList  style={{
           position: "fixed",
@@ -29,20 +29,28 @@ const QuestionInputComponent: React.FC<Props> = ({
           left: "50%",
           marginTop: "-50px",
           marginLeft: "-100px",
+          border: "5px solid black",
+          width: "200px"
         }}>
         { answers.map((answer) => (
+          
           <IonItem key={answer.id}>
             <IonLabel>{answer.text}</IonLabel>
             <IonCheckbox color="primary" checked slot="start"></IonCheckbox>
           </IonItem>
         ))
         }
-        </IonList>
+        </IonList>      
       </IonContent>
-      <IonButton onClick={handleNextClick}>
+      <IonButton onClick={handleNextClick}
+        style={{
+          marginBottom: "35px",
+        }}>
+        Next
       </IonButton>
-    </IonItem>
+  </IonPage>
+
   )
 }
 
-export default QuestionInputComponent;
+export default QuestionMultiChoiceComponent;

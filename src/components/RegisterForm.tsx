@@ -41,7 +41,7 @@ const RegisterForm: React.FC<Props> = ({
         <HeaderImage />
         </IonToolbar>
       </IonHeader>
-      <h2>Login</h2>
+      <h2 style={{position: "relative", margin: "10px auto"}}>Finish Register with credentials</h2>
      <IonContent className="ion-padding">
        <IonList>
          <IonItem>

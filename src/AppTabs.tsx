@@ -49,7 +49,7 @@ const AppTabs: React.FC = (): JSX.Element => {
           <RegisterPage />
         </Route>
         
-        <Route path="/my/register/question" component={QuestionRoutes} exact/>
+        <Route path="/my/register/question/:id" component={QuestionRoutes} exact/>
 
         <Route path="/my/collaborations/me" component={ReceivedCollaborationsPage} exact />
         <Route path="/my/collaborations/individual/:id" component={CollaborationDetailPage} exact />

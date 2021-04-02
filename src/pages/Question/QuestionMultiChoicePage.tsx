@@ -4,12 +4,11 @@ import QuestionMultiChoiceComponent from "../../components/Question/QuestionMult
 import { firestore } from "../../firebase";
 
 const QuestionMultiChoicePage = ({
-  id,
   loading,
   question,
   questionData,
   answers,
-  handleNextClick
+  handleNextClick,
 }) => {
 
   return(

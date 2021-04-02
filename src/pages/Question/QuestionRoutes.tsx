@@ -4,10 +4,13 @@
 // move hole useEffect here 
 import { IonButton } from "@ionic/react";
 import React, { useEffect, useState } from "react";
-import { Route } from "react-router-dom";
+import { Route, useParams } from "react-router-dom";
 import { firestore } from "../../firebase";
 import QuestionMultiChoicePage from "./QuestionMultiChoicePage";
 
+interface RouteParams {
+  id: string;
+}
 
 const QuestionRoutes = () => {
   
@@ -29,15 +32,15 @@ const QuestionRoutes = () => {
   const handleNextClick = () => {
     console.log(questionData)
   }
-  const id = '0'
+  const { id } = useParams<RouteParams>();
   return (
+    !loading && questionData &&
     <QuestionMultiChoicePage
       question={questionData[id].question}
       answers={questionData[id].answers}
       handleNextClick={handleNextClick}
       questionData={questionData}
       loading={loading}
-      id={id}
     />
   )
 }

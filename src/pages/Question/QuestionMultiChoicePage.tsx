@@ -9,6 +9,8 @@ const QuestionMultiChoicePage = ({
   questionData,
   answers,
   handleNextClick,
+  checked,
+  setChecked
 }) => {
 
   return(
@@ -17,6 +19,8 @@ const QuestionMultiChoicePage = ({
       answers={answers}
       question={question}
       handleNextClick={handleNextClick}
+      checked={checked}
+      setChecked={setChecked}
     /> : <IonLoading isOpen={loading}/>
   )
 }

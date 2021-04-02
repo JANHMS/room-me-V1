@@ -5,13 +5,17 @@ interface Props {
   answers: any[];
   handleNextClick: any;
   question: any;
+  checked: boolean;
+  setChecked: (checked: boolean) => void
 }
 
 
 const QuestionMultiChoiceComponent: React.FC<Props> = ({
   handleNextClick,
   question,
-  answers
+  answers,
+  checked,
+  setChecked
 }) => {
   
   return (
@@ -25,9 +29,9 @@ const QuestionMultiChoiceComponent: React.FC<Props> = ({
       <IonContent>
       <IonList  style={{
           position: "fixed",
-          top: "50%",
+          top: "30%",
           left: "50%",
-          marginTop: "-50px",
+          marginTop: "-20px",
           marginLeft: "-100px",
           border: "5px solid black",
           width: "200px"
@@ -36,7 +40,7 @@ const QuestionMultiChoiceComponent: React.FC<Props> = ({
           
           <IonItem key={answer.id}>
             <IonLabel>{answer.text}</IonLabel>
-            <IonCheckbox color="primary" checked slot="start"></IonCheckbox>
+            <IonCheckbox color="primary" slot="end" checked={checked} onIonChange={e => setChecked(e.detail.checked)}></IonCheckbox>
           </IonItem>
         ))
         }

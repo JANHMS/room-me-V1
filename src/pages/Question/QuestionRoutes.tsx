@@ -5,6 +5,7 @@
 import { IonButton } from "@ionic/react";
 import React, { useEffect, useState } from "react";
 import { Route, useParams } from "react-router-dom";
+import { useAuth } from "../../auth";
 import { firestore } from "../../firebase";
 import QuestionMultiChoicePage from "./QuestionMultiChoicePage";
 
@@ -13,7 +14,7 @@ interface RouteParams {
 }
 
 const QuestionRoutes = () => {
-  
+  const [checked, setChecked] = useState(false)
   const [questionData, setQuestionData] = useState<any>()
   const [loading, setLoading] = useState(true)
   useEffect(() => {
@@ -28,9 +29,13 @@ const QuestionRoutes = () => {
     )
   },[])
   // questionData is a array of objects with the qu\estions and the answers
+  const { userId } = useAuth()
 
   const handleNextClick = () => {
-    console.log(questionData)
+    firestore.collection('profiles')
+      .doc(userId)
+      .collection('character')
+      .add([questionData[id].question, questionData[id].answer])
   }
   const { id } = useParams<RouteParams>();
   return (
@@ -41,6 +46,8 @@ const QuestionRoutes = () => {
       handleNextClick={handleNextClick}
       questionData={questionData}
       loading={loading}
+      checked={checked}
+      setChecked={setChecked}
     />
   )
 }

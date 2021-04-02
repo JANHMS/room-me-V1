@@ -58,7 +58,7 @@ const App: React.FC = () => {
             <Route path="/my">
               <AppTabs />
             </Route>
-            <Redirect exact path="/" to="/my/entries" />
+            <Redirect exact path="/" to="/my" />
             <Route>
               <NotFoundPage />
             </Route>

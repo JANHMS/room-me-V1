@@ -32,6 +32,7 @@ import ReceivedMessagesPage from './pages/messages/ReceivedMessagesPage';
 
 import { IonReactRouter } from '@ionic/react-router';
 import QuestionMultiChoicePage from './pages/Question/QuestionMultiChoicePage';
+import QuestionRoutes from './pages/Question/QuestionRoutes';
 
 
 const AppTabs: React.FC = (): JSX.Element => {
@@ -48,7 +49,8 @@ const AppTabs: React.FC = (): JSX.Element => {
           <RegisterPage />
         </Route>
         
-        <Route path="/my/register/question/1" component={QuestionMultiChoicePage} exact/>
+        <Route path="/my/register/question" component={QuestionRoutes} exact/>
+
         <Route path="/my/collaborations/me" component={ReceivedCollaborationsPage} exact />
         <Route path="/my/collaborations/individual/:id" component={CollaborationDetailPage} exact />
         <Route path="/my/offers/sent" component={SentOffersPage} exact />

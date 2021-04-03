@@ -15,10 +15,12 @@ interface RouteParams {
 }
 
 const QuestionRoutes = () => {
+  const { id } = useParams<RouteParams>();
+
   const [checked, setChecked] = useState(false)
   const [questionData, setQuestionData] = useState<any>()
   const [loading, setLoading] = useState(true)
-  
+  const [selectedAnswers, setSelectedAnswers] = useState()
   // the array is sorted by id, but id is a string hence after 1 comes 11 but we want 2 to be the next one
   var compare = function(a, b) {
     return parseInt(a.id) - parseInt(b.id);
@@ -38,14 +40,15 @@ const QuestionRoutes = () => {
   
   // questionData is a array of objects with the questions and the answers
   const { userId } = useAuth()
+  
 
+  
   const handleNextClick = () => {
     firestore.collection('profiles')
       .doc(userId)
       .collection('character')
-      .add([questionData[id].question, questionData[id].answer])
-  }
-  const { id } = useParams<RouteParams>();
+      .add([questionData[id].question])
+    }
   
   return (
     !loading && questionData &&

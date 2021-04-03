@@ -6,7 +6,7 @@ interface Props {
   handleNextClick: any;
   question: any;
   checked: boolean;
-  handleChecked: (checked: any) => void
+  handleChecked: any;
 }
 
 
@@ -40,7 +40,7 @@ const QuestionMultiChoiceComponent: React.FC<Props> = ({
           
           <IonItem key={answer.id}>
             <IonLabel>{answer.text}</IonLabel>
-            <IonCheckbox color="primary" slot="end" checked={checked} onClick={handleChecked}></IonCheckbox>
+            <IonCheckbox color="primary" slot="end" checked={checked[answer.id]} onClick={handleChecked}></IonCheckbox>
           </IonItem>
         ))
         }

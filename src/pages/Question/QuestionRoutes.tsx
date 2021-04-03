@@ -14,9 +14,16 @@ import { useHistory } from "react-router-dom";
 interface RouteParams {
   id: string;
 }
+
+
 const NUMBEROFQUESTIONS = 14
 const QuestionRoutes = () => {
-  
+  const checkedList = [
+    {id: 0, checked: false}, 
+    {id: 1, checked: false}, 
+    {id: 2, checked: false}
+  ]
+
   const { id } = useParams<RouteParams>();
 
   const [checked, setChecked] = useState(false)
@@ -27,12 +34,16 @@ const QuestionRoutes = () => {
   var compare = function(a, b) {
     return parseInt(a.id) - parseInt(b.id);
   }
-  
-  const handleChecked = (e: any) => { 
+
+  const handleChecked = (answer) => {
     setChecked(!checked)
-    console.log(checked)
+    var foundIndex = checkedList.findIndex(x => x.id == answer.id);
+    checkedList[foundIndex] = {
+      id: foundIndex,
+      checked: checked
+    };
+    console.log(checkedList)
   }
-  
   useEffect(() => {
     firestore.collection('questions')
     .get()
@@ -65,7 +76,6 @@ const QuestionRoutes = () => {
     //     history.push(`/my/register/question/${id+1}`)
     //   )
     }
-  
   return (
     !loading && questionData &&
     <QuestionMultiChoicePage
@@ -74,7 +84,7 @@ const QuestionRoutes = () => {
       handleNextClick={handleNextClick}
       questionData={questionData}
       loading={loading}
-      checked={checked}
+      checked={checkedList[1].checked}
       handleChecked={handleChecked}
     />
   )

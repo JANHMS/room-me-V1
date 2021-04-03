@@ -19,7 +19,7 @@ const QuestionMultiChoiceComponent: React.FC<Props> = ({
 }) => {
   
   return (
-    <IonPage>
+    <IonPage key={question.id}>
       <IonHeader translucent>
       <IonToolbar>
         <IonTitle>About you</IonTitle>

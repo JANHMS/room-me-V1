@@ -14,8 +14,9 @@ import { useHistory } from "react-router-dom";
 interface RouteParams {
   id: string;
 }
-
+const NUMBEROFQUESTIONS = 14
 const QuestionRoutes = () => {
+  
   const { id } = useParams<RouteParams>();
 
   const [checked, setChecked] = useState(false)
@@ -48,7 +49,13 @@ const QuestionRoutes = () => {
   const { userId } = useAuth()
   
   const handleNextClick = async () => {
-    history.push(`/my/register/question/${parseInt(id)+1}`)
+    
+    if(parseInt(id) < NUMBEROFQUESTIONS) {
+      history.push(`/my/register/question/${parseInt(id)+1}`)
+    }
+    else {
+      history.push('/my')
+    }
     // 
     // await firestore.collection('profiles')
     //   .doc(userId)

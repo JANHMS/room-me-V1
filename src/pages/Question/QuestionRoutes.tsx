@@ -9,6 +9,7 @@ import { useAuth } from "../../auth";
 import { firestore } from "../../firebase";
 import QuestionMultiChoicePage from "./QuestionMultiChoicePage";
 import _ from "lodash";
+import { useHistory } from "react-router-dom";
 
 interface RouteParams {
   id: string;
@@ -20,10 +21,15 @@ const QuestionRoutes = () => {
   const [checked, setChecked] = useState(false)
   const [questionData, setQuestionData] = useState<any>()
   const [loading, setLoading] = useState(true)
-  const [selectedAnswers, setSelectedAnswers] = useState()
+  const history = useHistory()
   // the array is sorted by id, but id is a string hence after 1 comes 11 but we want 2 to be the next one
   var compare = function(a, b) {
     return parseInt(a.id) - parseInt(b.id);
+  }
+  
+  const handleChecked = (e: any) => { 
+    setChecked(!checked)
+    console.log(checked)
   }
   
   useEffect(() => {
@@ -41,13 +47,16 @@ const QuestionRoutes = () => {
   // questionData is a array of objects with the questions and the answers
   const { userId } = useAuth()
   
-
-  
-  const handleNextClick = () => {
-    firestore.collection('profiles')
-      .doc(userId)
-      .collection('character')
-      .add([questionData[id].question])
+  const handleNextClick = async () => {
+    history.push(`/my/register/question/${parseInt(id)+1}`)
+    // 
+    // await firestore.collection('profiles')
+    //   .doc(userId)
+    //   .collection('character')
+    //   .add([questionData[id].question])
+    //   .then(
+    //     history.push(`/my/register/question/${id+1}`)
+    //   )
     }
   
   return (
@@ -59,7 +68,7 @@ const QuestionRoutes = () => {
       questionData={questionData}
       loading={loading}
       checked={checked}
-      setChecked={setChecked}
+      handleChecked={handleChecked}
     />
   )
 }

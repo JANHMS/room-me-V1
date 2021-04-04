@@ -3,7 +3,7 @@
 // determine the current route with useState
 // move hole useEffect here 
 import { IonButton } from "@ionic/react";
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { Route, useParams } from "react-router-dom";
 import { useAuth } from "../../auth";
 import { firestore } from "../../firebase";
@@ -34,16 +34,18 @@ const QuestionRoutes = () => {
   var compare = function(a, b) {
     return parseInt(a.id) - parseInt(b.id);
   }
+  const handleChecked = ((answerId) => {
+      setChecked(!checked)
+      const foundIndex = checkedList.findIndex(x => x.id == answerId);
+      checkedList[foundIndex] = {
+        id: foundIndex,
+        checked: checked
+      };
+      console.log("this is the id", answerId, "and list", checkedList)
+    })
 
-  const handleChecked = (answer) => {
-    setChecked(!checked)
-    var foundIndex = checkedList.findIndex(x => x.id == answer.id);
-    checkedList[foundIndex] = {
-      id: foundIndex,
-      checked: checked
-    };
-    console.log(checkedList)
-  }
+  
+  
   useEffect(() => {
     firestore.collection('questions')
     .get()
@@ -84,7 +86,7 @@ const QuestionRoutes = () => {
       handleNextClick={handleNextClick}
       questionData={questionData}
       loading={loading}
-      checked={checkedList[1].checked}
+      checked={() => checkedList.map((c) => c.checked)}
       handleChecked={handleChecked}
     />
   )

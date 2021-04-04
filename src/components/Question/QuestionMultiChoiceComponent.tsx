@@ -40,7 +40,7 @@ const QuestionMultiChoiceComponent: React.FC<Props> = ({
           
           <IonItem key={answer.id}>
             <IonLabel>{answer.text}</IonLabel>
-            <IonCheckbox color="primary" slot="end" checked={checked[answer.id]} onClick={handleChecked}></IonCheckbox>
+            <IonCheckbox color="primary" slot="end" checked={checked[answer.id]} onIonChange={() => handleChecked(answer.id)}></IonCheckbox>
           </IonItem>
         ))
         }

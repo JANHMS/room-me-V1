@@ -10,6 +10,7 @@ import { firestore } from "../../firebase";
 import QuestionMultiChoicePage from "./QuestionMultiChoicePage";
 import _ from "lodash";
 import { useHistory } from "react-router-dom";
+import { toast } from "../../toast";
 
 interface RouteParams {
   id: string;
@@ -18,10 +19,15 @@ interface RouteParams {
 
 const NUMBEROFQUESTIONS = 14
 const QuestionRoutes = () => {
+  
   const checkedList = [
     {id: 0, checked: false}, 
     {id: 1, checked: false}, 
-    {id: 2, checked: false}
+    {id: 3, checked: false},
+    {id: 4, checked: false},
+    {id: 5, checked: false},
+    {id: 6, checked: false},
+    {id: 7, checked: false}
   ]
 
   const { id } = useParams<RouteParams>();
@@ -30,21 +36,20 @@ const QuestionRoutes = () => {
   const [questionData, setQuestionData] = useState<any>()
   const [loading, setLoading] = useState(true)
   const history = useHistory()
+  
   // the array is sorted by id, but id is a string hence after 1 comes 11 but we want 2 to be the next one
   var compare = function(a, b) {
     return parseInt(a.id) - parseInt(b.id);
   }
+  
   const handleChecked = ((answerId) => {
-      setChecked(!checked)
+      setChecked(!checkedList[answerId].checked)
       const foundIndex = checkedList.findIndex(x => x.id == answerId);
       checkedList[foundIndex] = {
         id: foundIndex,
         checked: checked
       };
-      console.log("this is the id", answerId, "and list", checkedList)
     })
-
-  
   
   useEffect(() => {
     firestore.collection('questions')
@@ -64,29 +69,30 @@ const QuestionRoutes = () => {
   const handleNextClick = async () => {
     
     if(parseInt(id) < NUMBEROFQUESTIONS) {
-      history.push(`/my/register/question/${parseInt(id)+1}`)
+      await firestore.collection('profiles')
+      .doc(userId)
+      .collection('character')
+      .add([questionData[id].question, checkedList])
+      .then(() => {
+        toast("Document successfully written!")
+
+        history.push(`/my/register/question/${id+1}`)
+      })
     }
     else {
       history.push('/my')
     }
-    // 
-    // await firestore.collection('profiles')
-    //   .doc(userId)
-    //   .collection('character')
-    //   .add([questionData[id].question])
-    //   .then(
-    //     history.push(`/my/register/question/${id+1}`)
-    //   )
+    
     }
   return (
-    !loading && questionData &&
+    !loading && questionData && checkedList &&
     <QuestionMultiChoicePage
       question={questionData[id].question}
       answers={questionData[id].answers}
       handleNextClick={handleNextClick}
       questionData={questionData}
       loading={loading}
-      checked={() => checkedList.map((c) => c.checked)}
+      checkedList={checkedList}
       handleChecked={handleChecked}
     />
   )

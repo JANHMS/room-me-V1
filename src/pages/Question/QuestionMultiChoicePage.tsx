@@ -9,17 +9,17 @@ const QuestionMultiChoicePage = ({
   questionData,
   answers,
   handleNextClick,
-  checked,
+  checkedList,
   handleChecked
 }) => {
 
   return(
-    !loading && questionData ?
+    !loading && questionData && checkedList ?
     <QuestionMultiChoiceComponent
       answers={answers}
       question={question}
       handleNextClick={handleNextClick}
-      checked={checked}
+      checkedList={checkedList}
       handleChecked={handleChecked}
     /> : <IonLoading isOpen={loading}/>
   )

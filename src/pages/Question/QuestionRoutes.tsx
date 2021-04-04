@@ -36,11 +36,30 @@ const QuestionRoutes = () => {
   const [questionData, setQuestionData] = useState<any>()
   const [loading, setLoading] = useState(true)
   const history = useHistory()
-  
+  const { userId } = useAuth()
+
   // the array is sorted by id, but id is a string hence after 1 comes 11 but we want 2 to be the next one
   var compare = function(a, b) {
     return parseInt(a.id) - parseInt(b.id);
   }
+  
+  useEffect(() => {
+    const checkedList  = []
+
+    firestore.collection('questions')
+    .get()
+    .then(async snapshot => {
+      await setQuestionData(
+        snapshot.docs.map(doc => ({id: doc.id, ...doc.data()})).sort(compare)
+      )
+      if (questionData) {
+        const data = questionData[id].answers.map((answer) => checkedList.push({id: answer.id, checked: false}))
+        console.log(data)
+      } else return;
+      setLoading(false)
+      }
+    )
+  },[])
   
   const handleChecked = ((answerId) => {
       setChecked(!checkedList[answerId].checked)
@@ -51,20 +70,7 @@ const QuestionRoutes = () => {
       };
     })
   
-  useEffect(() => {
-    firestore.collection('questions')
-    .get()
-    .then(async snapshot => {
-      await setQuestionData(
-        snapshot.docs.map(doc => ({id: doc.id, ...doc.data()})).sort(compare)
-      )
-        setLoading(false)
-      }
-    )
-  },[])
-  
   // questionData is a array of objects with the questions and the answers
-  const { userId } = useAuth()
   
   const handleNextClick = async () => {
     
@@ -72,20 +78,21 @@ const QuestionRoutes = () => {
       await firestore.collection('profiles')
       .doc(userId)
       .collection('character')
-      .add([questionData[id].question, checkedList])
+      .doc(id)
+      .set({question: questionData[id].question, checkedList: checkedList})
       .then(() => {
         toast("Document successfully written!")
 
-        history.push(`/my/register/question/${id+1}`)
+        history.push(`/my/register/question/${parseInt(id)+1}`)
       })
     }
-    else {
-      history.push('/my')
+      else {
+        history.push('/my')
+      }
     }
-    
-    }
+
   return (
-    !loading && questionData && checkedList &&
+    !loading && questionData && checkedList.length > 0 &&
     <QuestionMultiChoicePage
       question={questionData[id].question}
       answers={questionData[id].answers}

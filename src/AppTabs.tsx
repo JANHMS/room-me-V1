@@ -38,7 +38,7 @@ import QuestionRoutes from './pages/Question/QuestionRoutes';
 const AppTabs: React.FC = (): JSX.Element => {
   const { loggedIn } = useAuth();
   if (!loggedIn) {
-    return <Redirect to="/my" />;
+    return <Redirect to="/" />;
   }
   return (                 
     <IonReactRouter>

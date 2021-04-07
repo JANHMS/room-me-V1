@@ -1,8 +1,4 @@
-// here I create the routes
-// fetch the questions and navigate to the questions the currently selected question 
-// determine the current route with useState
-// move hole useEffect here 
-import { IonButton } from "@ionic/react";
+import { IonButton, IonLoading } from "@ionic/react";
 import React, { useCallback, useEffect, useState } from "react";
 import { Route, useParams } from "react-router-dom";
 import { useAuth } from "../../auth";
@@ -11,11 +7,16 @@ import QuestionMultiChoicePage from "./QuestionMultiChoicePage";
 import _ from "lodash";
 import { useHistory } from "react-router-dom";
 import { toast } from "../../toast";
+import useStateWithPromise from "./helper";
 
 interface RouteParams {
   id: string;
 }
 
+// the array is sorted by id, but id is a string hence after 1 comes 11 but we want 2 to be the next one
+var compare = function(a, b) {
+  return parseInt(a.id) - parseInt(b.id);
+}
 
 const NUMBEROFQUESTIONS = 14
 const QuestionRoutes = () => {
@@ -27,7 +28,9 @@ const QuestionRoutes = () => {
     {id: 4, checked: false},
     {id: 5, checked: false},
     {id: 6, checked: false},
-    {id: 7, checked: false}
+    {id: 7, checked: false},
+    {id: 8, checked: false},
+    {id: 9, checked: false}
   ]
 
   const { id } = useParams<RouteParams>();
@@ -37,29 +40,25 @@ const QuestionRoutes = () => {
   const [loading, setLoading] = useState(true)
   const history = useHistory()
   const { userId } = useAuth()
-
-  // the array is sorted by id, but id is a string hence after 1 comes 11 but we want 2 to be the next one
-  var compare = function(a, b) {
-    return parseInt(a.id) - parseInt(b.id);
-  }
   
   useEffect(() => {
-    const checkedList  = []
-
     firestore.collection('questions')
     .get()
     .then(async snapshot => {
       await setQuestionData(
         snapshot.docs.map(doc => ({id: doc.id, ...doc.data()})).sort(compare)
-      )
-      if (questionData) {
-        const data = questionData[id].answers.map((answer) => checkedList.push({id: answer.id, checked: false}))
-        console.log(data)
-      } else return;
-      setLoading(false)
-      }
+      )}
     )
   },[])
+  
+  useEffect(() => {
+    setLoading(false)
+    if(questionData){
+      const data = questionData[id].answers.map((answer) => checkedList.push({id: answer.id, checked: false}))
+      console.log(data)
+    } else return;
+  },[questionData])
+  
   
   const handleChecked = ((answerId) => {
       setChecked(!checkedList[answerId].checked)
@@ -92,7 +91,7 @@ const QuestionRoutes = () => {
     }
 
   return (
-    !loading && questionData && checkedList.length > 0 &&
+    !loading && questionData ? 
     <QuestionMultiChoicePage
       question={questionData[id].question}
       answers={questionData[id].answers}
@@ -101,7 +100,7 @@ const QuestionRoutes = () => {
       loading={loading}
       checkedList={checkedList}
       handleChecked={handleChecked}
-    />
+    /> : <IonLoading isOpen={loading}/>
   )
 }
 

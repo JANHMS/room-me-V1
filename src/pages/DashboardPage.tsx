@@ -45,9 +45,9 @@ const DashboardPage: React.FC = () => {
   const [loadingLogout, setLoadingLogout] = useState(false)
 
   async function logout() {
+  history.push('/home')
   setLoadingLogout(true)
   toast("Logged out")
-  history.replace('/')
   setLoadingLogout(false)
   auth.signOut()
   }

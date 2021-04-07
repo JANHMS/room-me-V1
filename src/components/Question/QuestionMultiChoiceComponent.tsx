@@ -1,4 +1,4 @@
-import { IonButton, IonCard, IonCardContent, IonCardHeader, IonCardSubtitle, IonCheckbox, IonContent, IonHeader, IonImg, IonInput, IonItem, IonLabel, IonList, IonPage, IonTitle, IonToolbar } from '@ionic/react'
+import { IonBackButton, IonButton, IonButtons, IonCard, IonCardContent, IonCardHeader, IonCardSubtitle, IonCheckbox, IonContent, IonHeader, IonImg, IonInput, IonItem, IonLabel, IonList, IonPage, IonTitle, IonToolbar } from '@ionic/react'
 import React from 'react';
 
 interface Props {
@@ -22,6 +22,9 @@ const QuestionMultiChoiceComponent: React.FC<Props> = ({
     <IonPage key={question.id}>
       <IonHeader translucent>
       <IonToolbar>
+        <IonButtons slot="start">
+          <IonBackButton />
+        </IonButtons>
         <IonTitle>About you</IonTitle>
       </IonToolbar>
     </IonHeader>
@@ -32,14 +35,15 @@ const QuestionMultiChoiceComponent: React.FC<Props> = ({
           top: "30%",
           left: "50%",
           marginTop: "-20px",
-          marginLeft: "-100px",
-          border: "5px solid black",
-          width: "200px"
+          marginLeft: "-140px",
+          border: "2px solid black",
+          borderRadius: "10px",
+          width: "280px"
         }}>
         { answers.map((answer) => (
           
-          <IonItem key={answer.id}>
-            <IonLabel>{answer.text}</IonLabel>
+          <IonItem key={answer.id} style={{height: "50px"}}>
+            <IonLabel style={{fontSize: "14px"}}>{answer.text}</IonLabel>
             <IonCheckbox 
               color="primary" 
               slot="end" 

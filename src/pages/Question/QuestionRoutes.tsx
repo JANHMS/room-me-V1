@@ -7,18 +7,13 @@ import QuestionMultiChoicePage from "./QuestionMultiChoicePage";
 import _ from "lodash";
 import { useHistory } from "react-router-dom";
 import { toast } from "../../toast";
-import useStateWithPromise from "./helper";
+import { fetchQuestions } from "../../api/questions";
 
 interface RouteParams {
   id: string;
 }
 
-// the array is sorted by id, but id is a string hence after 1 comes 11 but we want 2 to be the next one
-var compare = function(a, b) {
-  return parseInt(a.id) - parseInt(b.id);
-}
-
-const NUMBEROFQUESTIONS = 14
+const NUMBEROFQUESTIONS = 15
 const QuestionRoutes = () => {
   
   const checkedList = [
@@ -30,7 +25,9 @@ const QuestionRoutes = () => {
     {id: 6, checked: false},
     {id: 7, checked: false},
     {id: 8, checked: false},
-    {id: 9, checked: false}
+    {id: 9, checked: false},
+    {id: 10, checked: false}
+
   ]
 
   const { id } = useParams<RouteParams>();
@@ -42,13 +39,7 @@ const QuestionRoutes = () => {
   const { userId } = useAuth()
   
   useEffect(() => {
-    firestore.collection('questions')
-    .get()
-    .then(async snapshot => {
-      await setQuestionData(
-        snapshot.docs.map(doc => ({id: doc.id, ...doc.data()})).sort(compare)
-      )}
-    )
+    fetchQuestions(setQuestionData)
   },[])
   
   useEffect(() => {

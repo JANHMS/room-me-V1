@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Redirect } from 'react-router';
+import { Redirect, useHistory } from 'react-router';
 import { useAuth } from '../auth';
 import RegisterForm from '../components/RegisterForm';
 import { useToasts } from 'react-toast-notifications'
@@ -16,6 +16,7 @@ const RegisterPage: React.FC = () => {
   const [password, setPassword] = useState('');
   const [cpassword, setCPassword] = useState('');
   const [status, setStatus] = useState({ loading: false, error: false });
+  const history = useHistory();
 
   const handleRegister = async () => {
     if(password === cpassword) {
@@ -23,8 +24,9 @@ const RegisterPage: React.FC = () => {
       setStatus({ loading: true, error: false });
         register({email, password, fullName, avatar})
         .then(
-          _ => () => {},
-          errorMessage => toast(errorMessage))
+          _ => () => history.push("/my/register/question/0"),
+          errorMessage => toast(errorMessage),
+        )
     } catch (error) {
       setStatus({ loading: false, error: true });
       console.log('error:', error);
@@ -33,10 +35,7 @@ const RegisterPage: React.FC = () => {
     return toast("Passwords do not match")
   }
   };
-
-  if (loggedIn) {
-    return <Redirect to="/my" />;
-  }
+  
   return (
     <RegisterForm 
       email={email}

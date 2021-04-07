@@ -71,7 +71,7 @@ const QuestionRoutes = () => {
       .doc(id)
       .set({question: questionData[id].question, checkedList: checkedList})
       .then(() => {
-        toast("Document successfully written!")
+        toast("Data stored!")
 
         history.push(`/my/register/question/${parseInt(id)+1}`)
       })

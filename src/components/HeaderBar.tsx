@@ -35,29 +35,29 @@ const HeaderBar: React.FC<Props> = ({
               <IonLabel>RoomMe Actions</IonLabel>
               <IonSelect okText="Okay" cancelText="Dismiss" onIonChange={e => setUrl(e.detail.value)}>
                 <IonSelectOption value="/my/entries/add">            
-                  Create Service
+                  Create living place
+                </IonSelectOption>
+        
+                <IonSelectOption value="/my/messages/received">            
+                  User Chat
                 </IonSelectOption>
                 
-                <IonSelectOption value="/my/messages/received">            
-                  Messages received
+                <IonSelectOption value="/my/collaborations/me">            
+                  House Chats
                 </IonSelectOption>
                 
                 <IonSelectOption value="/my/services/me">            
                   My Services
                 </IonSelectOption>
-
-
+                
                 <IonSelectOption value="/my/offers/sent">            
-                  Offers Sent
+                   Sent
                 </IonSelectOption>
                 
                 <IonSelectOption value="/my/offers/received">            
-                  Received Offers
+                   Requests
                 </IonSelectOption>
-                
-                <IonSelectOption value="/my/collaborations/me">            
-                  Received Collaborations
-                </IonSelectOption>
+
               </IonSelect>
             </IonItem>
             </div>

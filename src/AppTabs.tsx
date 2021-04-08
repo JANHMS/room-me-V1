@@ -31,9 +31,9 @@ import ReceivedOffersPage from "./pages/offers/ReceivedOffers";
 import ReceivedMessagesPage from './pages/messages/ReceivedMessagesPage';
 
 import { IonReactRouter } from '@ionic/react-router';
-import QuestionMultiChoicePage from './pages/Question/QuestionMultiChoicePage';
 import QuestionMultichoiceRoutes from './pages/Question/QuestionMultichoiceRoutes';
 import QuestionInputRoutes from './pages/Question/QuestionInputRoutes';
+import AddUserPicturePage from './pages/Question/AddUserPicturePage';
 
 const AppTabs: React.FC = (): JSX.Element => {
   const { loggedIn } = useAuth();
@@ -50,6 +50,8 @@ const AppTabs: React.FC = (): JSX.Element => {
         </Route>
         
         <Route path="/my/register/question/:id" component={QuestionMultichoiceRoutes} exact/>
+        <Route path="/my/register/picture" component={AddUserPicturePage} exact/>
+
         <Route path="/my/register/inputquestion/:id" component={QuestionInputRoutes} exact/>
 
         <Route path="/my/collaborations/me" component={ReceivedCollaborationsPage} exact />

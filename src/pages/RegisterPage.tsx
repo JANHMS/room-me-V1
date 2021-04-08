@@ -24,7 +24,7 @@ const RegisterPage: React.FC = () => {
       setStatus({ loading: true, error: false });
         register({email, password, fullName, avatar})
         .then(
-          () => history.push("/my/register/question/0"),
+          () => history.push("/my/register/picture"),
           errorMessage => toast(errorMessage),
         )
     } catch (error) {

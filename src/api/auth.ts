@@ -12,7 +12,7 @@ export const register = async ({email, password, fullName, avatar}) => {
   try {
     const res = await firebase.auth().createUserWithEmailAndPassword(email, password)
     const { user } = res
-    const userProfile = { uid: user.uid, fullName, email, avatar, services: [], description: ''}
+    const userProfile = { uid: user.uid, fullName, email, avatar, services: []}
     await createUserProfile(userProfile)
     return userProfile
   } catch(error) {

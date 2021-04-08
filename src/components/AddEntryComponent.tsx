@@ -37,8 +37,10 @@ interface Props {
   setMediaLink?: any;
   category?: string;
   setCategory?: any;
-  price: string;
-  setPrice: any;
+  price?: string;
+  setPrice?: any;
+  location?: string;
+  setLocation?: (l: string) => void
 }
 
 const AddEntryComponent: React.FC <Props> = ({
@@ -59,7 +61,9 @@ const AddEntryComponent: React.FC <Props> = ({
   mediaLink,
   setMediaLink,
   price,
-  setPrice
+  setPrice,
+  location,
+  setLocation
 }) => {
   return (
     <IonPage>
@@ -98,7 +102,7 @@ const AddEntryComponent: React.FC <Props> = ({
         </IonItem>
         
         <IonItem>
-          <IonLabel position="stacked">Cost per month</IonLabel>
+          <IonLabel position="stacked">Total Cost per month</IonLabel>
           <IonInput value={price} type="number"
             onIonChange={(event) => setPrice(event.detail.value)}
           />
@@ -106,7 +110,7 @@ const AddEntryComponent: React.FC <Props> = ({
         
         <IonList>
           <IonItem>
-            <IonLabel position="stacked">Picture of you :)</IonLabel><br />
+            <IonLabel position="stacked">Pictures</IonLabel><br />
             <input type="file" accept="image/*" hidden ref={fileInputRef}
               onChange={handleFileChange}
             />
@@ -122,7 +126,14 @@ const AddEntryComponent: React.FC <Props> = ({
           </IonItem>
           
           <IonItem>
-            <IonLabel position="stacked">Link Social Media</IonLabel>
+            <IonLabel position="stacked">City</IonLabel>
+            <IonTextarea value={location}
+              onIonChange={(event) => setLocation(event.detail.value)}
+            />
+          </IonItem>
+          
+          <IonItem>
+            <IonLabel position="stacked">Link to your Social Media</IonLabel>
             <IonInput value={mediaLink}
               onIonChange={(event) => setMediaLink(event.detail.value)}
             />

@@ -4,11 +4,10 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useHistory } from 'react-router';
 import { useAuth } from '../../auth';
 import { firestore, storage } from '../../firebase';
-import AddEntryComponent from '../../components/AddEntryComponent';
-import withAuthorization from '../../hoc/withAuthorization';
-import * as api from '../../api';
+
 
 import { toast } from '../../toast';
+import AddUserPictureComponent from '../../components/Question/AddUserPictureComponent';
 const { Camera } = Plugins;
 
 async function savePicture(blobUrl, userId) {
@@ -28,14 +27,7 @@ const AddEntryPage: React.FC<Props> = ({
 }) => {
   const { userId } = useAuth();
   const history = useHistory();
-  const [date, setDate] = useState('');
-  const [title, setTitle] = useState('');
   const [image, setimage] = useState('/assets/placeholder.png');
-  const [description, setDescription] = useState('');
-  const [mediaLink, setMediaLink] = useState('');
-  const [location, setLocation] = useState('');
-  const [category, setCategory] = useState('room')
-  const [price, setPrice] = useState('')
   const fileInputRef = useRef<HTMLInputElement>();
 
   useEffect(() => () => {
@@ -70,44 +62,31 @@ const AddEntryPage: React.FC<Props> = ({
   };
   
   const handleSave = async () => {
-    const entriesRef = firestore.collection('services')
+    const entriesRef = firestore.collection('profiles').doc(userId)
     // const user = firestore.doc('profiles/' + userId)
-    const entryData = { category, description, date, image, price, title, location, mediaLink, userId };
+    const entryData = { image, userId };
     if (!image.startsWith('/assets')) {
       entryData.image = await savePicture(image, userId);
     }
-    const entryRef = await entriesRef.add(entryData).then(()=> {
+    //merge true does not override it just adds additional data
+    const entryRef = await entriesRef.set(entryData, { merge: true }).then(()=> {
       // entryData.user = api.createRef('profiles', userId)
-      history.goBack();
+      history.push("/my/register/question/1");
     })
 
     console.log('saved:', entryRef);
     toast("Sucessfully created")
-    history.goBack();
   };
 
   return (
-    <AddEntryComponent
+    <AddUserPictureComponent
       auth={auth}
-      price={price}
-      setPrice={setPrice}
-      date={date}
-      setDate={setDate}
-      title={title}
-      setTitle={setTitle}
       image={image}
       fileInputRef={fileInputRef}
       handleFileChange={handleFileChange}
       handlePictureClick={handlePictureClick}
       handleSave={handleSave}
-      description={description}
-      setDescription={setDescription}
-      category={category}
-      setCategory={setCategory}
-      mediaLink={mediaLink}
-      setMediaLink={setMediaLink}
-      location={location}
-      setLocation={setLocation}
+    
     />
   );
 };

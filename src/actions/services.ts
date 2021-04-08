@@ -33,7 +33,7 @@ export const fetchServiceById = serviceId => (dispatch, getState) => {
     .then(async (service: any) => {
     
       const user = await api.getUserProfile(service.userId)
-      console.log("This is the user", user)
+      // console.log("This is the user", user)
       // const user = await service.user.get()
       // service.user = user.data()
       // service.user.id = user.id

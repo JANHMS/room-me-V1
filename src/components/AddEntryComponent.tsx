@@ -25,6 +25,32 @@ interface Props {
   setDate?: any;
   title?: string;
   setTitle?: any;
+  
+  image1?: any;
+  fileInputRef1?: any;
+  handleFileChange1?: any;
+  handlePictureClick1?: any;
+  
+  image?: any;
+  fileInputRef?: any;
+  handleFileChange?: any;
+  handlePictureClick?: any;
+  
+  image2?: any;
+  fileInputRef2?: any;
+  handleFileChange2?: any;
+  handlePictureClick2?: any;
+  
+  image3?: any;
+  fileInputRef3?: any;
+  handleFileChange3?: any;
+  handlePictureClick3?: any;
+  
+  image4?: any;
+  fileInputRef4?: any;
+  handleFileChange4?: any;
+  handlePictureClick4?: any;
+  
   handleSave?: any;
   description?: string;
   setDescription?: any;
@@ -33,10 +59,8 @@ interface Props {
   setMediaLink?: any;
   category?: string;
   setCategory?: any;
-  price?: string;
-  setPrice?: any;
-  location?: string;
-  setLocation?: (l: string) => void
+  price: string;
+  setPrice: any;
 }
 
 const AddEntryComponent: React.FC <Props> = ({
@@ -45,6 +69,31 @@ const AddEntryComponent: React.FC <Props> = ({
   setDate,
   title,
   setTitle,
+  fileInputRef,
+  handleFileChange,
+  handlePictureClick,
+  image,
+  
+  fileInputRef1,
+  handleFileChange1,
+  handlePictureClick1,
+  image1,
+  
+  fileInputRef2,
+  handleFileChange2,
+  handlePictureClick2,
+  image2,
+  
+  fileInputRef3,
+  handleFileChange3,
+  handlePictureClick3,
+  image3,
+  
+  fileInputRef4,
+  handleFileChange4,
+  handlePictureClick4,
+  image4,
+  
   handleSave,
   description,
   setDescription,
@@ -53,9 +102,7 @@ const AddEntryComponent: React.FC <Props> = ({
   mediaLink,
   setMediaLink,
   price,
-  setPrice,
-  location,
-  setLocation
+  setPrice
 }) => {
   return (
     <IonPage>
@@ -94,14 +141,14 @@ const AddEntryComponent: React.FC <Props> = ({
         </IonItem>
         
         <IonItem>
-          <IonLabel position="stacked">Total Cost per month in EUR</IonLabel>
+          <IonLabel position="stacked">Cost per month</IonLabel>
           <IonInput value={price} type="number"
             onIonChange={(event) => setPrice(event.detail.value)}
           />
         </IonItem>
         
         <IonList>
-
+        
           <IonItem>
             <IonLabel position="stacked">Description of flat</IonLabel>
             <IonTextarea value={description}
@@ -110,20 +157,53 @@ const AddEntryComponent: React.FC <Props> = ({
           </IonItem>
           
           <IonItem>
-            <IonLabel position="stacked">City</IonLabel>
-            <IonTextarea value={location}
-              onIonChange={(event) => setLocation(event.detail.value)}
-            />
-          </IonItem>
-          
-          <IonItem>
-            <IonLabel position="stacked">Link to your Social Media</IonLabel>
+            <IonLabel position="stacked">Link Social Media</IonLabel>
             <IonInput value={mediaLink}
               onIonChange={(event) => setMediaLink(event.detail.value)}
             />
           </IonItem>
-        </IonList>
-        <IonButton expand="block" onClick={handleSave}>Add Pictures</IonButton>
+            <IonItem>
+              
+              <IonLabel position="stacked">Add some pictures</IonLabel><br />
+              <input type="file" accept="image/*" hidden ref={fileInputRef}
+                onChange={handleFileChange}
+              />
+              <img src={image} alt="" style={{ cursor: 'pointer' }}
+                onClick={handlePictureClick}
+              />
+            
+              <input type="file" accept="image/*" hidden ref={fileInputRef1}
+                onChange={handleFileChange1}
+              />
+              <img src={image1} alt="" style={{ cursor: 'pointer' }}
+                onClick={handlePictureClick1}
+              />
+            
+              <input type="file" accept="image/*" hidden ref={fileInputRef2}
+                onChange={handleFileChange2}
+              />
+              <img src={image2} alt="" style={{ cursor: 'pointer' }}
+                onClick={handlePictureClick2}
+              />
+            
+              <input type="file" accept="image/*" hidden ref={fileInputRef3}
+                onChange={handleFileChange3}
+              />
+              <img src={image3} alt="" style={{ cursor: 'pointer' }}
+                onClick={handlePictureClick3}
+              />
+              
+              <br />
+              <input type="file" accept="image/*" hidden ref={fileInputRef4}
+                onChange={handleFileChange4}
+              />
+              <img src={image4} alt="" style={{ cursor: 'pointer' }}
+                onClick={handlePictureClick4}
+              />
+              
+            </IonItem>    
+          </IonList>
+        <IonButton expand="block" onClick={handleSave}>Save</IonButton>
       </IonContent>
     </IonPage>
   )

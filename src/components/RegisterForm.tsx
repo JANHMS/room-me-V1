@@ -14,8 +14,8 @@ interface Props {
   fullName: string;
   setFullName: (name: string) => void;
   status: any;
-  avatar: string;
-  setAvatar: (avatar: string) => void;
+  socialMediaLink: string;
+  setSocialMediaLink: (socialMediaLink: string) => void;
   handleRegister: MouseEventHandler<HTMLIonButtonElement>;
 }
 
@@ -30,8 +30,8 @@ const RegisterForm: React.FC<Props> = ({
   handleRegister,
   fullName,
   setFullName,
-  avatar,
-  setAvatar
+  socialMediaLink,
+  setSocialMediaLink
 }) => {
   
   return(
@@ -70,9 +70,9 @@ const RegisterForm: React.FC<Props> = ({
          </IonItem>
          
          <IonItem>
-           <IonLabel position="stacked">Avatar</IonLabel>
-           <IonInput value={avatar}
-             onIonChange={(event) => setAvatar(event.detail.value)}
+           <IonLabel position="stacked">socialMediaLink</IonLabel>
+           <IonInput value={socialMediaLink}
+             onIonChange={(event) => setSocialMediaLink(event.detail.value)}
            />
          </IonItem> 
 

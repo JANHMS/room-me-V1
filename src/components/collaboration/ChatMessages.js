@@ -13,7 +13,7 @@ const ChatMessages = ({messages, authUser}) => {
               <IonItem key={message.id}>
                   <IonThumbnail slot="start">
                     <IonImg
-                      src={message.user.avatar}
+                      src={message.user.image}
                       alt="avatar"
                       style={{width: "50px", }}/>
                   </IonThumbnail>
@@ -28,7 +28,7 @@ const ChatMessages = ({messages, authUser}) => {
           <IonItem key={message.id} >
               <IonThumbnail slot="end">
                 <IonImg
-                  src={message.user.avatar}
+                  src={message.user.image}
                   style={{width: "50px"}}/>
                 </IonThumbnail>
               <div>

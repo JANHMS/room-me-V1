@@ -17,7 +17,7 @@ const JoinedPeople = ({
           <IonItem key={user.id}>
             <IonCard>
               <IonImg
-                  src={user.avatar}
+                  src={user.image}
                   alt="icon avatar"
               />
               <IonCardHeader>

@@ -22,7 +22,7 @@ export const newMessage = ({offer: { service, toUser }, fromUser}) => ({
   toUser: toUser.uid,
   fromUser: {
     name: fromUser.fullName,
-    avatar: fromUser.avatar
+    avatar: fromUser.image
   },
   serviceTitle: service.title,
   serviceLink: `/services/${service.id}`,

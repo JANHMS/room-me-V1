@@ -25,10 +25,6 @@ interface Props {
   setDate?: any;
   title?: string;
   setTitle?: any;
-  image?: any;
-  fileInputRef?: any;
-  handleFileChange?: any;
-  handlePictureClick?: any;
   handleSave?: any;
   description?: string;
   setDescription?: any;
@@ -49,10 +45,6 @@ const AddEntryComponent: React.FC <Props> = ({
   setDate,
   title,
   setTitle,
-  image,
-  fileInputRef,
-  handleFileChange,
-  handlePictureClick,
   handleSave,
   description,
   setDescription,
@@ -102,22 +94,14 @@ const AddEntryComponent: React.FC <Props> = ({
         </IonItem>
         
         <IonItem>
-          <IonLabel position="stacked">Total Cost per month</IonLabel>
+          <IonLabel position="stacked">Total Cost per month in EUR</IonLabel>
           <IonInput value={price} type="number"
             onIonChange={(event) => setPrice(event.detail.value)}
           />
         </IonItem>
         
         <IonList>
-          <IonItem>
-            <IonLabel position="stacked">Pictures</IonLabel><br />
-            <input type="file" accept="image/*" hidden ref={fileInputRef}
-              onChange={handleFileChange}
-            />
-            <img src={image} alt="" style={{ cursor: 'pointer' }}
-              onClick={handlePictureClick}
-            />
-          </IonItem>
+
           <IonItem>
             <IonLabel position="stacked">Description of flat</IonLabel>
             <IonTextarea value={description}
@@ -139,7 +123,7 @@ const AddEntryComponent: React.FC <Props> = ({
             />
           </IonItem>
         </IonList>
-        <IonButton expand="block" onClick={handleSave}>Save</IonButton>
+        <IonButton expand="block" onClick={handleSave}>Add Pictures</IonButton>
       </IonContent>
     </IonPage>
   )

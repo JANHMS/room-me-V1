@@ -22,7 +22,7 @@ interface Props {
   handleSave?: any;
 }
 
-const AddUserPictureComponent: React.FC <Props> = ({
+const AddPictureComponent: React.FC <Props> = ({
   auth,
   image,
   fileInputRef,
@@ -60,4 +60,4 @@ const AddUserPictureComponent: React.FC <Props> = ({
   )
 }
 
-export default AddUserPictureComponent;
+export default AddPictureComponent;

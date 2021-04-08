@@ -8,11 +8,11 @@ const createUserProfile = (userProfile) =>
     .doc(userProfile.uid)
     .set(userProfile)
 
-export const register = async ({email, password, fullName, avatar}) => {
+export const register = async ({email, password, fullName, socialMediaLink}) => {
   try {
     const res = await firebase.auth().createUserWithEmailAndPassword(email, password)
     const { user } = res
-    const userProfile = { uid: user.uid, fullName, email, avatar, services: []}
+    const userProfile = { uid: user.uid, fullName, email, socialMediaLink, services: []}
     await createUserProfile(userProfile)
     return userProfile
   } catch(error) {

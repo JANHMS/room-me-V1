@@ -11,7 +11,7 @@ const RegisterPage: React.FC = () => {
   const { loggedIn } = useAuth();
   const [email, setEmail] = useState('');
   const [fullName, setFullName] = useState('');
-  const [avatar, setAvatar] = useState('');
+  const [socialMediaLink, setSocialMediaLink] = useState('');
 
   const [password, setPassword] = useState('');
   const [cpassword, setCPassword] = useState('');
@@ -22,7 +22,7 @@ const RegisterPage: React.FC = () => {
     if(password === cpassword) {
     try {
       setStatus({ loading: true, error: false });
-        register({email, password, fullName, avatar})
+        register({email, password, fullName, socialMediaLink})
         .then(
           () => history.push("/my/register/picture"),
           errorMessage => toast(errorMessage),
@@ -46,8 +46,8 @@ const RegisterPage: React.FC = () => {
       setCPassword={setCPassword}
       status={status}
       handleRegister={handleRegister}
-      avatar={avatar}
-      setAvatar={setAvatar}
+      socialMediaLink={socialMediaLink}
+      setSocialMediaLink={setSocialMediaLink}
       fullName={fullName}
       setFullName={setFullName}
     />

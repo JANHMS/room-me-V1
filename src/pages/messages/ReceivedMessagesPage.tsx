@@ -62,7 +62,7 @@ const RecievedMessagesPage = (props) => {
               <IonItem key={message.id}
                 style={{height: "800px"}}>
                 <IonCard>
-                  <IonImg src={message.fromUser.avatar} />
+                  <IonImg src={message.fromUser.image} />
                     <IonCardHeader>
                       <IonCardSubtitle>{message.fromUser.name}</IonCardSubtitle>
                     </IonCardHeader>

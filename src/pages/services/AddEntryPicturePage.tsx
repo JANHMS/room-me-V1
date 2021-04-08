@@ -1,7 +1,7 @@
 import { isPlatform } from '@ionic/react';
 import { CameraResultType, CameraSource, Plugins } from '@capacitor/core';
 import React, { useState, useEffect, useRef } from 'react';
-import { useHistory } from 'react-router';
+import { useHistory, useParams } from 'react-router';
 import { useAuth } from '../../auth';
 import { firestore, storage } from '../../firebase';
 
@@ -22,9 +22,17 @@ async function savePicture(blobUrl, userId) {
 interface Props {
   auth: any;
 }
-const AddEntryPage: React.FC<Props> = ({
+
+interface RouteParams {
+  id: string;
+}
+
+const NUMBEROFPICTUES = 5
+
+const AddEntryPicturePage: React.FC<Props> = ({
   auth
 }) => {
+  const { id } = useParams<RouteParams>()
   const { userId } = useAuth();
   const history = useHistory();
   const [image, setimage] = useState('/assets/placeholder.png');
@@ -62,22 +70,26 @@ const AddEntryPage: React.FC<Props> = ({
   };
   
   const handleSave = async () => {
-    const entriesRef = firestore.collection('profiles').doc(userId)
-    // const user = firestore.doc('profiles/' + userId)
-    const entryData = { image, userId };
-    if (!image.startsWith('/assets')) {
-      entryData.image = await savePicture(image, userId);
+    if(parseInt(id) < NUMBEROFPICTUES) {
+      const entriesRef = firestore.collection('services').doc(userId)
+      // const user = firestore.doc('profiles/' + userId)
+      const entryData = { image, userId };
+      if (!image.startsWith('/assets')) {
+        entryData.image = await savePicture(image, userId);
+      }
+      //merge true does not override it just adds additional data
+      const entryRef = await entriesRef.set(entryData, { merge: true }).then(()=> {
+        // entryData.user = api.createRef('profiles', userId)
+        history.push(`/my/entries/add/picture/${parseInt(id) + 1}`);
+      })
+
+        console.log('saved:', entryRef);
+        toast("Sucessfully created")
+      }
+    else {
+      history.push('/my')
     }
-    //merge true does not override it just adds additional data
-    const entryRef = await entriesRef.set(entryData, { merge: true }).then(()=> {
-      // entryData.user = api.createRef('profiles', userId)
-      history.push("/my/register/question/0");
-    })
-
-    console.log('saved:', entryRef);
-    toast("Sucessfully created")
-  };
-
+  }
   return (
     <AddPictureComponent
       auth={auth}
@@ -86,8 +98,9 @@ const AddEntryPage: React.FC<Props> = ({
       handleFileChange={handleFileChange}
       handlePictureClick={handlePictureClick}
       handleSave={handleSave}
+    
     />
   );
 };
 
-export default AddEntryPage;
+export default AddEntryPicturePage;

@@ -30,55 +30,20 @@ const AddEntryPage: React.FC<Props> = ({
   const history = useHistory();
   const [date, setDate] = useState('');
   const [title, setTitle] = useState('');
-  const [image, setimage] = useState('/assets/placeholder.png');
   const [description, setDescription] = useState('');
   const [mediaLink, setMediaLink] = useState('');
   const [location, setLocation] = useState('');
   const [category, setCategory] = useState('room')
   const [price, setPrice] = useState('')
-  const fileInputRef = useRef<HTMLInputElement>();
-
-  useEffect(() => () => {
-    if (image.startsWith('blob:')) {
-      URL.revokeObjectURL(image);
-    }
-  }, [image]);
-
-  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (event.target.files.length > 0) {
-      const file = event.target.files.item(0);
-      const image = URL.createObjectURL(file);
-      setimage(image);
-    }
-  };
-
-  const handlePictureClick = async () => {
-    if (isPlatform('capacitor')) {
-      try {
-        const photo = await Camera.getPhoto({
-          resultType: CameraResultType.Uri,
-          source: CameraSource.Prompt,
-          width: 600,
-        });
-        setimage(photo.webPath);
-      } catch (error) {
-        console.log('Camera error:', error);
-      }
-    } else {
-      fileInputRef.current.click();
-    }
-  };
   
   const handleSave = async () => {
     const entriesRef = firestore.collection('services')
     // const user = firestore.doc('profiles/' + userId)
-    const entryData = { category, description, date, image, price, title, location, mediaLink, userId };
-    if (!image.startsWith('/assets')) {
-      entryData.image = await savePicture(image, userId);
-    }
+    const entryData = { category, description, date, price, title, location, mediaLink, userId };
+
     const entryRef = await entriesRef.add(entryData).then(()=> {
       // entryData.user = api.createRef('profiles', userId)
-      history.goBack();
+      history.push('/my/entries/add/picture/0');
     })
 
     console.log('saved:', entryRef);
@@ -95,10 +60,6 @@ const AddEntryPage: React.FC<Props> = ({
       setDate={setDate}
       title={title}
       setTitle={setTitle}
-      image={image}
-      fileInputRef={fileInputRef}
-      handleFileChange={handleFileChange}
-      handlePictureClick={handlePictureClick}
       handleSave={handleSave}
       description={description}
       setDescription={setDescription}

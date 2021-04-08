@@ -65,7 +65,7 @@ class CollaborationDetail extends React.Component {
     const message = {
       user: {
         uid: user.uid,
-        avatar: user.avatar,
+        avatar: user.image,
         name: user.fullName
       },
       timestamp: parseInt(timestamp, 10),

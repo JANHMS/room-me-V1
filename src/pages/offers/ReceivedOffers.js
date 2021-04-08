@@ -54,7 +54,7 @@ class ReceivedOffers extends React.Component {
               routerLink={`/my`}
               style={{height: "900px"}}>
                 <IonCard>
-                  <img src={offer.fromUser.avatar} />
+                  <img src={offer.fromUser.image} />
                   <IonCardHeader>
                     <IonCardSubtitle>{offer.title}</IonCardSubtitle>
                     <IonCardSubtitle>{offer.status}</IonCardSubtitle>

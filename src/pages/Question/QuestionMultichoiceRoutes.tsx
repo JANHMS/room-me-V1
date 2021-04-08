@@ -14,7 +14,7 @@ interface RouteParams {
 }
 
 const NUMBEROFQUESTIONS = 15
-const QuestionRoutes = () => {
+const QuestionMultichoiceRoutes = () => {
   
   const checkedList = [
     {id: 0, checked: false}, 
@@ -77,9 +77,10 @@ const QuestionRoutes = () => {
       })
     }
       else {
-        history.push('/my')
+        history.push(`/my/register/inputquestion/${parseInt(id)+1}`)
       }
     }
+
 
   return (
     !loading && questionData ? 
@@ -95,4 +96,4 @@ const QuestionRoutes = () => {
   )
 }
 
-export default QuestionRoutes;
+export default QuestionMultichoiceRoutes;

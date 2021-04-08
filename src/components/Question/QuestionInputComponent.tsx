@@ -1,41 +1,58 @@
-import { IonButton, IonCard, IonCardContent, IonCardHeader, IonCardSubtitle, IonContent, IonHeader, IonImg, IonInput, IonItem, IonList, IonPage, IonTitle, IonToolbar } from '@ionic/react'
+import { IonBackButton, IonButton,IonTextarea, IonButtons, IonCard, IonCardContent, IonCardHeader, IonCardSubtitle, IonContent, IonHeader, IonImg, IonInput, IonItem, IonList, IonPage, IonTitle, IonToolbar } from '@ionic/react'
 import React from 'react';
 
 interface Props {
-  InputAnswer: string;
+  setInputAnswer: (answer: string) => void;
   handleNextClick: any;
   question: any;
 }
 
 
 const QuestionInputComponent: React.FC<Props> = ({
-  InputAnswer,
+  setInputAnswer,
   handleNextClick,
   question
 }) => {
   
   return (
-    <IonItem>
+    <IonPage key={question.id}>
       <IonHeader translucent>
       <IonToolbar>
+        <IonButtons slot="start">
+          <IonBackButton />
+        </IonButtons>
         <IonTitle>About you</IonTitle>
       </IonToolbar>
-      <h1>{question}</h1>
     </IonHeader>
+    <h1 style={{position: "relative", textAlign: 'center'}}>{question}</h1>
+
       <IonContent>
-        <IonInput style={{
+        <IonTextarea
+          enterkeyhint="enter"
+          rows={10}
+          placeholder="your answer goes here..."
+          style={{
+            
             position: "fixed",
-            top: "50%",
+            top: "30%",
             left: "50%",
-            marginTop: "-50px",
-            marginLeft: "-100px",
+            marginTop: "-20px",
+            marginLeft: "-140px",
+            border: "2px solid black",
+            borderRadius: "10px",
+            height: "200px",
+            width: "290px"
           }}
-          value={InputAnswer}
+          onIonChange={(event) => setInputAnswer(event.detail.value)}
         />
       </IonContent>
-      <IonButton onClick={handleNextClick}>
+      <IonButton onClick={handleNextClick}         
+        style={{
+          marginBottom: "35px",
+        }}>
+        Save
       </IonButton>
-    </IonItem>
+    </IonPage>
   )
 }
 

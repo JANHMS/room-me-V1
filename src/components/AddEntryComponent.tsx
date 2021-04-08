@@ -193,7 +193,6 @@ const AddEntryComponent: React.FC <Props> = ({
                 onClick={handlePictureClick3}
               />
               
-              <br />
               <input type="file" accept="image/*" hidden ref={fileInputRef4}
                 onChange={handleFileChange4}
               />

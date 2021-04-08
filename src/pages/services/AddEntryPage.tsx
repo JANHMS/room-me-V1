@@ -20,6 +20,16 @@ async function savePicture(blobUrl, userId) {
   return url;
 }
 
+async function savePicture4(blobUrl, userId) {
+  const pictureRef = storage.ref(`/users/${userId}/pictures/${Date.now()}`);
+  const response = await fetch(blobUrl);
+  const blob = await response.blob();
+  const snapshot = await pictureRef.put(blob);
+  const url = await snapshot.ref.getDownloadURL();
+  console.log('saved picture:', url);
+  return url;
+}
+
 interface Props {
   auth: any;
 }
@@ -79,12 +89,30 @@ const AddEntryPage: React.FC<Props> = ({
       URL.revokeObjectURL(image4);
     }
   }, [image4]);
-
+  
+  // 0 picture
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files.length > 0) {
       const file = event.target.files.item(0);
       const image = URL.createObjectURL(file);
       setimage(image);
+    }
+  };
+  
+  const handlePictureClick = async () => {
+    if (isPlatform('capacitor')) {
+      try {
+        const photo = await Camera.getPhoto({
+          resultType: CameraResultType.Uri,
+          source: CameraSource.Prompt,
+          width: 600,
+        });
+        setimage(photo.webPath)
+      } catch (error) {
+        console.log('Camera error:', error);
+      }
+    } else {
+      fileInputRef.current.click();
     }
   };
   
@@ -169,8 +197,8 @@ const AddEntryPage: React.FC<Props> = ({
   const handleFileChange4 = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files.length > 0) {
       const file = event.target.files.item(0);
-      const image3 = URL.createObjectURL(file);
-      setimage3(image3);
+      const image4 = URL.createObjectURL(file);
+      setimage4(image4);
     }
   };
 
@@ -190,22 +218,8 @@ const AddEntryPage: React.FC<Props> = ({
       fileInputRef4.current.click();
     }
   };
-  const handlePictureClick = async () => {
-    if (isPlatform('capacitor')) {
-      try {
-        const photo = await Camera.getPhoto({
-          resultType: CameraResultType.Uri,
-          source: CameraSource.Prompt,
-          width: 600,
-        });
-        setimage(photo.webPath)
-      } catch (error) {
-        console.log('Camera error:', error);
-      }
-    } else {
-      fileInputRef.current.click();
-    }
-  };
+  
+
   
   const handleSave = async () => {
     const entriesRef = firestore.collection('services')
@@ -213,18 +227,14 @@ const AddEntryPage: React.FC<Props> = ({
     const entryData = { category, description, date, image, image1, image2, image3, image4, price, title, userId };
     if (!image.startsWith('/assets')) {
       entryData.image = await savePicture(image, userId);
-    }
-    if (!image1.startsWith('/assets')) {
-      entryData.image = await savePicture(image, userId);
-    }
-    if (!image2.startsWith('/assets')) {
-      entryData.image = await savePicture(image, userId);
-    }
-    if (!image3.startsWith('/assets')) {
-      entryData.image = await savePicture(image, userId);
-    }
-    if (!image4.startsWith('/assets')) {
-      entryData.image = await savePicture(image, userId);
+
+      entryData.image1 = await savePicture(image1, userId);
+
+      entryData.image2 = await savePicture(image2, userId);
+  
+      entryData.image3 = await savePicture(image3, userId);
+
+      entryData.image4 = await savePicture(image4, userId);
     }
     const entryRef = await entriesRef.add(entryData).then(()=> {
       // entryData.user = api.createRef('profiles', userId)

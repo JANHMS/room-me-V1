@@ -171,28 +171,28 @@ const AddEntryComponent: React.FC <Props> = ({
               <img src={image} alt="" style={{ cursor: 'pointer' }}
                 onClick={handlePictureClick}
               />
-            
+            <br/>
               <input type="file" accept="image/*" hidden ref={fileInputRef1}
                 onChange={handleFileChange1}
               />
               <img src={image1} alt="" style={{ cursor: 'pointer' }}
                 onClick={handlePictureClick1}
               />
-            
+            <br/>
               <input type="file" accept="image/*" hidden ref={fileInputRef2}
                 onChange={handleFileChange2}
               />
               <img src={image2} alt="" style={{ cursor: 'pointer' }}
                 onClick={handlePictureClick2}
               />
-            
+            <br/>
               <input type="file" accept="image/*" hidden ref={fileInputRef3}
                 onChange={handleFileChange3}
               />
               <img src={image3} alt="" style={{ cursor: 'pointer' }}
                 onClick={handlePictureClick3}
               />
-              
+            <br/>
               <input type="file" accept="image/*" hidden ref={fileInputRef4}
                 onChange={handleFileChange4}
               />

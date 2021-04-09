@@ -1,4 +1,4 @@
-import { IonAlert, IonBackButton, IonButtons, IonCard, IonCardContent, IonCardHeader, IonContent, IonFab, IonFabButton, IonHeader, IonIcon, IonImg, IonLabel, IonPage, IonText, IonTitle, IonToolbar } from "@ionic/react";
+import { IonAlert, IonBackButton, IonButtons, IonCard, IonCardContent, IonCardHeader, IonContent, IonFab, IonFabButton, IonHeader, IonIcon, IonImg, IonItem, IonLabel, IonList, IonPage, IonSlide, IonSlides, IonText, IonTitle, IonToolbar } from "@ionic/react";
 import { add, chatbox } from "ionicons/icons";
 import React from "react";
 import OfferModal from "./OfferModal";
@@ -18,7 +18,8 @@ const ServiceDeatilComponent:React.FC<Props> = ({
   offer,
   handleOfferClick
 }) => {
-  
+// creating an array to map over
+const serviceImages = [service.image, service.image1, service.image2, service.image3, service.image54]
 return(
   <IonPage>
     <IonHeader>
@@ -31,14 +32,15 @@ return(
     </IonHeader>
     <IonContent>
       <IonCard>
-        <img 
-          style={{
-            width:"20em", height:"20em", 
-            display: "block",
-             marginLeft: "auto", 
-             marginRight: "auto"
-           }}
-          src={service.image} />
+        <IonSlides>
+          {serviceImages.map((image, idx) => (
+            <IonSlide key={idx} className="img-container">
+              <img
+                src={image}
+              />
+            </IonSlide>
+          ))}
+        </IonSlides>
        <IonCardHeader>
          <IonLabel>Owner {user.fullName}</IonLabel>
        </IonCardHeader>

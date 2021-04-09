@@ -54,7 +54,7 @@ class ReceivedCollaborations extends React.Component {
         <IonHeader>
           <IonToolbar>
             <IonButtons slot="start">
-              <IonBackButton defaultHref="/my" />
+              <IonBackButton defaultHref="/my/dashboard" />
             </IonButtons>
             <IonTitle>Chats</IonTitle>
           </IonToolbar>

@@ -26,7 +26,7 @@ const ServiceItem: React.FC<Props> = ({
       <IonHeader>
         <IonToolbar>
           <IonButtons slot="start">
-            <IonBackButton defaultHref="/my"/>
+            <IonBackButton defaultHref="/my/dashboard"/>
           </IonButtons>
           <IonTitle>Service</IonTitle>
         </IonToolbar>

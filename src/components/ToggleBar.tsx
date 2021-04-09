@@ -28,7 +28,7 @@ const ToggleCar: React.FC = () => {
         <IonLabel>Sent</IonLabel>
       </IonTabButton>
       
-      <IonTabButton tab="tab5" href="/my">
+      <IonTabButton tab="tab5" href="/my/dashboard">
         <IonIcon icon={search} />
         <IonLabel>Find</IonLabel>
       </IonTabButton>

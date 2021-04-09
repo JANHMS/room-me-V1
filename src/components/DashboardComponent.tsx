@@ -54,10 +54,9 @@ return (
         <IonFab vertical="bottom" horizontal="end">
           <IonFabButton routerLink="/my/entries/add">
             <IonIcon icon={addIcon} />
-            <ToggleBar/>
           </IonFabButton>
         </IonFab>
-        
+
     </IonContent>
     <ToggleBar />
 

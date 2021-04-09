@@ -17,21 +17,22 @@ const ToggleCar: React.FC = () => {
         <IonIcon icon={home} />
         <IonLabel>house chat</IonLabel>
       </IonTabButton>
-      <IonTabButton tab="tab3" href="/my">
-        <IonIcon icon={search} />
-        <IonLabel>Find</IonLabel>
-      </IonTabButton>
 
-      <IonTabButton tab="tab4" href="/my/offers/received">
+      <IonTabButton tab="tab3" href="/my/offers/received">
         <IonIcon icon={personAddOutline} />
         <IonLabel>Requests</IonLabel>
       </IonTabButton>
       
-      <IonTabButton tab="tab5" href="/my/offers/sent">
+      <IonTabButton tab="tab4" href="/my/offers/sent">
         <IonIcon icon={telescopeOutline} />
         <IonLabel>Sent</IonLabel>
       </IonTabButton>
       
+      <IonTabButton tab="tab5" href="/my">
+        <IonIcon icon={search} />
+        <IonLabel>Find</IonLabel>
+      </IonTabButton>
+
       <IonTabButton tab="tab6" href="/my/profile">
         <IonIcon icon={personOutline} />
         <IonLabel>Me</IonLabel>

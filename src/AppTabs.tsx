@@ -60,7 +60,7 @@ const AppTabs: React.FC = (): JSX.Element => {
         <Route path="/my/collaborations/individual/:id" component={CollaborationDetailPage} exact />
         <Route path="/my/offers/sent" component={SentOffersPage} exact />
         <Route path="/my/offers/received" component={ReceivedOffersPage} exact />
-        <Route path="/my/messages/received" component={AddEntryPicturePage} exact />
+        <Route path="/my/messages/received" component={ReceivedMessagesPage} exact />
 
         <Route path="/my" component={DashboardPage} exact />
         <Route path="/my/entries/add" component={AddEntryPage} exact />

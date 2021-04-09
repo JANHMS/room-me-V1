@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import Modal from '../Modal'
 import { toast } from '../../../src/toast'
 import { createRef, createOffer } from '../../actions'
-import { IonInput, IonContent, IonPage, IonText } from "@ionic/react";
+import { IonInput, IonItem, IonTextarea, IonCard, IonList, IonModal, IonContent, IonPage, IonText } from "@ionic/react";
 
 const OfferModal = ({
   service,
@@ -47,26 +47,31 @@ const OfferModal = ({
 
   return (
     <IonPage>
-    <IonContent>
+      <IonContent>
+        <IonCard style={{position: "flexible", bottom: "-300px"}}>
+        <Modal
+          onModalSubmit={handleSubmit}>
+            <IonTextarea
+              rows={"5"}
+               onIonChange={handleChange}           
+               name="note"
+               type="text"
+               placeholder="Why are you our perfect ROOM-ME?"
+               max="5"
+               min="0"/>            
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <IonText color="primary">
+            {user && `Uppon acceptance ${user.fullName}" will come back to you.`}
+          </IonText>
+        </Modal>
+      </IonCard>
+    </IonContent>
 
-    <Modal
-      onModalSubmit={handleSubmit}>
-        <IonInput
-           onIonChange={handleChange}           
-           name="note"
-           type="text"
-           placeholder="Write some catchy note"
-           max="5"
-           min="0"/>
-        <IonText >Note can increase chance of being accapted to chat</IonText>
-        
-      <br />
-      <br />
-      <IonText color="primary">
-        {user && `Uppon acceptance ${user.fullName}" will come back to you.`}
-      </IonText>
-    </Modal>
-  </IonContent>
   </IonPage>
   )
 }

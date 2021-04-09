@@ -50,6 +50,7 @@ const AddEntryPage: React.FC<Props> = ({
   
   const [description, setDescription] = useState('');
   const [mediaLink, setMediaLink] = useState('');
+  const [citylocation, setCitylocation] = useState('');
   const [category, setCategory] = useState('room')
   const [price, setPrice] = useState('')
 
@@ -224,7 +225,7 @@ const AddEntryPage: React.FC<Props> = ({
   const handleSave = async () => {
     const entriesRef = firestore.collection('services')
     // const user = firestore.doc('profiles/' + userId)
-    const entryData = { category, description, date, image, image1, image2, image3, image4, price, title, userId };
+    const entryData = { category, description, date, citylocation, mediaLink, image, image1, image2, image3, image4, price, title, userId };
     if (!image.startsWith('/assets')) {
       entryData.image = await savePicture(image, userId);
 
@@ -266,7 +267,8 @@ const AddEntryPage: React.FC<Props> = ({
       setCategory={setCategory}
       mediaLink={mediaLink}
       setMediaLink={setMediaLink}
-      
+      citylocation={citylocation}
+      setCitylocation={setCitylocation}
       fileInputRef1={fileInputRef1}
       handleFileChange1={handleFileChange1}
       handlePictureClick1={handlePictureClick1}

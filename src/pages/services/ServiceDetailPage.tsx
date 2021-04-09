@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useLayoutEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { fetchServiceById } from '../../actions';
@@ -7,38 +7,37 @@ import ServiceDeatilComponent from '../../components/service/ServiceDetailCompon
 import { IonLoading } from '@ionic/react';
 
 const ServiceDetail = props => {
-  const [offer, setOffer] = useState(false)
-  const { serviceId } = useParams<{serviceId: string}>()
+  
+  const { service, auth } = props
+  const { userId } = service
   const { fetchServiceById, isFetching } = props
   
+  const { serviceId } = useParams<{serviceId: string}>()
+
+  const [offer, setOffer] = useState(false)
+  const [serviceUser, setServiceUser] = useState<any>()
+  const [loading, setLoading] = useState(true)
+  
   useEffect(() => {
-    fetchServiceById(serviceId)
     fetchUser()
+    fetchServiceById(serviceId)
   }, [])
 
+  useEffect(() => {
+    setLoading(false)
+  }, [serviceUser])
+  
   const handleOfferClick = (_:any) => {
     setOffer(!offer)
     console.log(offer)
   }
-
-  const { service, auth } = props
-  const { userId } = service
     
-  // console.log(userId)
-  
-  const [serviceUser, setServiceUser] = useState<any>()
-  const [loading, setLoading] = useState(true)
-  
   async function fetchUser () {
-    const ServiceUser = await api.getUserProfile(userId)
-    await setServiceUser(ServiceUser)
-    console.log(ServiceUser)
-    setLoading(false)
+    const ServiceUser = await api.getUserProfile(userId)  
+    setServiceUser(ServiceUser)
   }
-  if (isFetching || serviceId !== service.id || loading) { return <IonLoading isOpen={loading} /> }
-
   return (
-  serviceUser && !loading && auth ?
+  serviceUser && !loading && auth && !isFetching ?
     <ServiceDeatilComponent
       auth={auth}
       user={serviceUser}

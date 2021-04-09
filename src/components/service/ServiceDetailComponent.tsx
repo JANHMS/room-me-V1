@@ -1,6 +1,7 @@
 import { IonAlert, IonBackButton, IonButtons, IonCard, IonCardContent, IonCardHeader, IonContent, IonFab, IonFabButton, IonHeader, IonIcon, IonImg, IonItem, IonLabel, IonList, IonPage, IonSlide, IonSlides, IonText, IonTitle, IonToolbar } from "@ionic/react";
 import { add, chatbox } from "ionicons/icons";
 import React from "react";
+import { formatDate } from "../../date";
 import OfferModal from "./OfferModal";
 
 interface Props {
@@ -19,10 +20,10 @@ const ServiceDeatilComponent:React.FC<Props> = ({
   handleOfferClick
 }) => {
 // creating an array to map over
-const serviceImages = [service.image, service.image1, service.image2, service.image3, service.image54]
+const serviceImages = [service.image, service.image1, service.image2, service.image3, service.image4]
 return(
   <IonPage>
-    <IonHeader>
+    <IonHeader translucent>
       <IonToolbar>
         <IonButtons slot="start">
           <IonBackButton />
@@ -31,32 +32,48 @@ return(
       </IonToolbar>
     </IonHeader>
     <IonContent>
-      <IonCard>
+
+      <IonCard style={{top: "-10px"}}>
+        <IonText style={{marginLeft: "30px"}}>Swipe for more pictures - Scroll for details</IonText>
         <IonSlides>
           {serviceImages.map((image, idx) => (
             <IonSlide key={idx} className="img-container">
               <img
+                style={{width:"25em", height:"15em"}}
                 src={image}
               />
             </IonSlide>
           ))}
         </IonSlides>
        <IonCardHeader>
-         <IonLabel>Owner {user.fullName}</IonLabel>
+         Published by {user.fullName}
        </IonCardHeader>
 
      <IonCardContent>
-       <p>Type of housing</p>
-        {service.category}
-       <p>Rent per Month in EUR</p>
-       <IonLabel>{service.price}</IonLabel>
-       <br/>
-       
-      <IonLabel>{service.description}</IonLabel>
-      
-      <h4>Published by user</h4>
-      <h2>{user.fullName}</h2>
-      <img style={{width:"10em", height:"10em"}} src={user.avatar }/>
+      <IonItem>
+       <div style={{fontSize: "14px", color: "darkblue" }}>Type of housing</div>
+         <IonLabel style={{position: "absolute", right:"20px" }}>{service.category}</IonLabel>
+     </IonItem>
+     <br/>
+     <IonItem>
+      <div style={{fontSize: "14px", color: "darkblue" }}>Movin Date </div>
+         <IonLabel style={{position: "absolute", right:"20px" }}>{formatDate(service.date)}</IonLabel>
+    </IonItem>
+      <br/>
+      <IonItem>
+       <div style={{fontSize: "14px", color: "darkblue" }}>Rent per Month in EUR: </div>
+          <IonLabel style={{position: "absolute", right:"20px" }}>{service.price}</IonLabel>
+     </IonItem>
+     
+     <br/>
+     <IonItem>
+      <div style={{fontSize: "14px", color: "darkblue" }}>City </div>
+         <IonLabel style={{position: "absolute", right:"20px" }}>{service.citylocation}</IonLabel>
+    </IonItem>
+      <br/>
+      <h2>Shoot a chat request to {user.fullName}</h2>
+      <br/>
+      <img style={{width:"8em", height:"6em", borderRadius: "50%"}} src={user.image}/>
       <IonFab vertical="bottom" horizontal="end" slot="fixed">
           <IonFabButton onClick={handleOfferClick}>
             <IonIcon icon={chatbox} />
@@ -83,6 +100,20 @@ return(
           user={user}/>
       }
     </IonCard>
+    <IonCard>
+      <IonCardHeader>
+        <IonLabel>Further details </IonLabel>
+      </IonCardHeader>
+      <IonCardContent>
+         <IonItem>
+          <div style={{fontSize: "14px", color: "darkblue" }}>Type of housing</div>
+            <IonLabel style={{position: "absolute", right:"20px" }}>{service.category}</IonLabel>
+        </IonItem>
+       <br/>
+       <IonText>{service.description}</IonText>
+     </IonCardContent>
+  </IonCard>
+
   </IonContent>
 
   </IonPage>

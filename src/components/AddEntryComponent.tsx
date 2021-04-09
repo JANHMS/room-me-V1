@@ -61,6 +61,8 @@ interface Props {
   setCategory?: any;
   price: string;
   setPrice: any;
+  citylocation: string;
+  setCitylocation: (l: string) => void;
 }
 
 const AddEntryComponent: React.FC <Props> = ({
@@ -69,6 +71,8 @@ const AddEntryComponent: React.FC <Props> = ({
   setDate,
   title,
   setTitle,
+  citylocation,
+  setCitylocation,
   fileInputRef,
   handleFileChange,
   handlePictureClick,
@@ -134,6 +138,13 @@ const AddEntryComponent: React.FC <Props> = ({
         </IonItem>
         
         <IonItem>
+          <IonLabel position="stacked">City</IonLabel>
+          <IonInput value={citylocation}
+            onIonChange={(event) => setCitylocation(event.detail.value)}
+          />
+        </IonItem>
+        
+        <IonItem>
           <IonLabel position="stacked">Title</IonLabel>
           <IonInput value={title}
             onIonChange={(event) => setTitle(event.detail.value)}
@@ -141,7 +152,7 @@ const AddEntryComponent: React.FC <Props> = ({
         </IonItem>
         
         <IonItem>
-          <IonLabel position="stacked">Cost per month</IonLabel>
+          <IonLabel position="stacked">Cost per month in EUR</IonLabel>
           <IonInput value={price} type="number"
             onIonChange={(event) => setPrice(event.detail.value)}
           />

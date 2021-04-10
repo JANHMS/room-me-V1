@@ -5,6 +5,9 @@ import { fetchServiceById } from '../../actions';
 import * as api from "../../api";
 import ServiceDeatilComponent from '../../components/service/ServiceDetailComponent';
 import { IonLoading } from '@ionic/react';
+import { Plugins } from '@capacitor/core';
+
+const { Browser } = Plugins;
 
 const ServiceDetail = props => {
   
@@ -36,6 +39,10 @@ const ServiceDetail = props => {
     const ServiceUser = await api.getUserProfile(userId)  
     setServiceUser(ServiceUser)
   }
+  
+  const handleMediaLinkClick = async (serviceAdress) => {
+    await Browser.open({ url: serviceAdress });
+  }
   return (
   serviceUser && !loading && auth && !isFetching ?
     <ServiceDeatilComponent
@@ -44,6 +51,7 @@ const ServiceDetail = props => {
       service={service}
       offer={offer}
       handleOfferClick={handleOfferClick}
+      handleMediaLinkClick={handleMediaLinkClick}
     /> : <IonLoading isOpen={loading}/> 
   )
 }

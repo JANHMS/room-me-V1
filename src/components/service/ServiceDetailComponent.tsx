@@ -1,8 +1,12 @@
-import { IonAlert, IonBackButton, IonButtons, IonCard, IonCardContent, IonCardHeader, IonContent, IonFab, IonFabButton, IonHeader, IonIcon, IonImg, IonItem, IonLabel, IonList, IonPage, IonSlide, IonSlides, IonText, IonTitle, IonToolbar } from "@ionic/react";
+import { IonAlert, IonBackButton, IonButton, IonButtons, IonCard, IonCardContent, IonCardHeader, IonContent, IonFab, IonFabButton, IonHeader, IonIcon, IonImg, IonItem, IonLabel, IonList, IonPage, IonSlide, IonSlides, IonText, IonTitle, IonToolbar } from "@ionic/react";
 import { add, chatbox } from "ionicons/icons";
 import React from "react";
+import { Link } from "react-router-dom";
 import { formatDate } from "../../date";
 import OfferModal from "./OfferModal";
+import { Plugins } from '@capacitor/core';
+
+const { Browser } = Plugins;
 
 interface Props {
   service: any;
@@ -10,6 +14,7 @@ interface Props {
   auth: any;
   offer: boolean;
   handleOfferClick: any;
+  handleMediaLinkClick: any;
 }
 
 const ServiceDeatilComponent:React.FC<Props> = ({
@@ -17,7 +22,8 @@ const ServiceDeatilComponent:React.FC<Props> = ({
   user,
   auth,
   offer,
-  handleOfferClick
+  handleOfferClick,
+  handleMediaLinkClick
 }) => {
 // creating an array to map over
 const serviceImages = [service.image, service.image1, service.image2, service.image3, service.image4]
@@ -106,13 +112,15 @@ return(
       </IonCardHeader>
       <IonCardContent>
          <IonItem>
-          <div style={{fontSize: "14px", color: "darkblue", top:"-5px", position: "absolute"}}>Type of housing</div>
-            <IonLabel style={{position: "absolute", right:"20px" }}>{service.category}</IonLabel>
+          <div style={{fontSize: "14px", color: "darkblue", top:"-5px", position: "absolute"}}>Address</div>
+            <IonLabel style={{position: "absolute", right:"20px", bottom: "-4px"}}>{service.address}</IonLabel>
         </IonItem>
        <br/>
        <IonItem style={{ heigh:"200px" }}>
-        <div style={{fontSize: "14px", color: "darkblue", top:"-5px", position: "absolute"}}>Address</div>
-          <IonLabel style={{position: "absolute", right:"20px", bottom: "-5px"}}>{service.address}</IonLabel>
+        <div style={{fontSize: "14px", color: "darkblue", top:"-5px", position: "absolute"}}>Medial Link</div>
+          <IonButton 
+            onClick={async () => await Browser.open({ url: service.mediaLink })} style={{position: "absolute", right:"20px", bottom: "-4px"}}>Social Media Link
+          </IonButton>
       </IonItem>
      <br/>
         <div style={{fontSize: "14px", color: "darkblue" }}>Description</div>

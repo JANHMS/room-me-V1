@@ -1635,6 +1635,13 @@
   dependencies:
     "@hapi/hoek" "^8.3.0"
 
+"@ionic-native/in-app-browser@^5.32.0":
+  version "5.32.0"
+  resolved "https://registry.yarnpkg.com/@ionic-native/in-app-browser/-/in-app-browser-5.32.0.tgz#04371f8a71d5e063605c462ae1cc83c8c124f8ca"
+  integrity sha512-/fU1aE4L8+WhgMBal5KA2jNn3Xg+DBFipILUBXC+bqZYzojjDiF0CJkmoSWCcrt4AZ1TNp/ak4JDFORkx/yytA==
+  dependencies:
+    "@types/cordova" latest
+
 "@ionic/cli-framework-output@2.2.2":
   version "2.2.2"
   resolved "https://registry.yarnpkg.com/@ionic/cli-framework-output/-/cli-framework-output-2.2.2.tgz#d03367e2b767a32fa7046c455843555b4971cd4a"
@@ -2363,6 +2370,11 @@
   integrity sha512-Vs0hm0vPahPMYi9tDjtP66llufgO3ST16WXaSTtDGEl9cewAl3AibmxWw6TINOqHPT9z0uABKAYjT9jNSg4npw==
   dependencies:
     "@babel/types" "^7.3.0"
+
+"@types/cordova@latest":
+  version "0.0.34"
+  resolved "https://registry.yarnpkg.com/@types/cordova/-/cordova-0.0.34.tgz#ea7addf74ecec3d7629827a0c39e2c9addc73d04"
+  integrity sha1-6nrd907Ow9dimCegw54smt3HPQQ=
 
 "@types/duplexify@^3.6.0":
   version "3.6.0"

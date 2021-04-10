@@ -48,7 +48,7 @@ class SentOffers extends React.Component {
           { !isFetching && offers.length === 0 &&
           <IonPage>
             <IonContent>
-                <span className="tag is-warning is-large">You don't have any sent offers :(</span>
+                <span className="tag is-warning is-large">You don't have any sent offers :( If the Toggle Bar does not Work try the Button.</span>
                 <IonButton 
                   style=
                   {{

@@ -19,6 +19,7 @@ const QuestionMultichoiceRoutes = () => {
   const checkedList = [
     {id: 0, checked: false, text: "" }, 
     {id: 1, checked: false, text: "" }, 
+    {id: 2, checked: false, text: "" }, 
     {id: 3, checked: false, text: "" },
     {id: 4, checked: false, text: "" },
     {id: 5, checked: false, text: "" },
@@ -52,7 +53,7 @@ const QuestionMultichoiceRoutes = () => {
         text: answer.text
       }))
   
-      console.log(data)
+      console.log(checkedList)
     } else return;
   },[questionData])
   
@@ -66,6 +67,7 @@ const QuestionMultichoiceRoutes = () => {
         checked: checked,
         text: text
       };
+      console.log(checkedList)
     })
   
   // questionData is a array of objects with the questions and the answers

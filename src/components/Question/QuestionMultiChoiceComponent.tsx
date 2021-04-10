@@ -41,7 +41,7 @@ const QuestionMultiChoiceComponent: React.FC<Props> = ({
           width: "280px"
         }}>
         { answers.map((answer) => (
-          
+    
           <IonItem key={answer.id} style={{height: "50px"}}>
             <IonLabel style={{fontSize: "14px"}}>{answer.text}</IonLabel>
             <IonCheckbox 
@@ -51,8 +51,10 @@ const QuestionMultiChoiceComponent: React.FC<Props> = ({
               onIonChange={() => handleChecked(answer.id, answer.text)}>
             </IonCheckbox>
           </IonItem>
+
         ))
         }
+        
         </IonList>      
       </IonContent>
       <IonButton onClick={handleNextClick}

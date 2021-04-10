@@ -27,7 +27,7 @@ const QuestionMultichoiceRoutes = () => {
     {id: 7, checked: false, text: "" },
     {id: 8, checked: false, text: "" },
     {id: 9, checked: false, text: "" },
-    {id: 10, checked: false, text: "" }
+    {id: 10, checked: false, text: ""}
   ]
 
   const { id } = useParams<RouteParams>();

@@ -23,8 +23,8 @@ interface Props {
   auth?: any;
   date?: string;
   setDate?: any;
-  title?: string;
-  setTitle?: any;
+  address?: string;
+  setAddress?: any;
   
   image1?: any;
   fileInputRef1?: any;
@@ -69,8 +69,8 @@ const AddEntryComponent: React.FC <Props> = ({
   auth,
   date,
   setDate,
-  title,
-  setTitle,
+  address,
+  setAddress,
   citylocation,
   setCitylocation,
   fileInputRef,
@@ -145,9 +145,9 @@ const AddEntryComponent: React.FC <Props> = ({
         </IonItem>
         
         <IonItem>
-          <IonLabel position="stacked">Title</IonLabel>
-          <IonInput value={title}
-            onIonChange={(event) => setTitle(event.detail.value)}
+          <IonLabel position="stacked">Address [e.g. Street]</IonLabel>
+          <IonInput value={address}
+            onIonChange={(event) => setAddress(event.detail.value)}
           />
         </IonItem>
         

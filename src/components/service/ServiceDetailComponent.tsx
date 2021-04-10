@@ -106,15 +106,18 @@ return(
       </IonCardHeader>
       <IonCardContent>
          <IonItem>
-          <div style={{fontSize: "14px", color: "darkblue" }}>Type of housing</div>
+          <div style={{fontSize: "14px", color: "darkblue", top:"-5px", position: "absolute"}}>Type of housing</div>
             <IonLabel style={{position: "absolute", right:"20px" }}>{service.category}</IonLabel>
         </IonItem>
        <br/>
-        <div style={{fontSize: "14px", color: "darkblue" }}>Description</div>
-          <IonLabel style={{position: "absolute", right:"20px" }}>{service.category}</IonLabel>
-          <IonText>{service.description}</IonText>
-
+       <IonItem style={{ heigh:"200px" }}>
+        <div style={{fontSize: "14px", color: "darkblue", top:"-5px", position: "absolute"}}>Address</div>
+          <IonLabel style={{position: "absolute", right:"20px", bottom: "-5px"}}>{service.address}</IonLabel>
+      </IonItem>
      <br/>
+        <div style={{fontSize: "14px", color: "darkblue" }}>Description</div>
+          <IonText>{service.description}</IonText>
+        <br/>
      </IonCardContent>
   </IonCard>
 

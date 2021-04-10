@@ -30,7 +30,7 @@ const DashboardPage: React.FC = () => {
         const userData = doc.data()
         await setUser(userData)
         
-        firestore.collection('services')
+        firestore.collection('services').where("citylocation", "==", "Braunschweig")
           .get()
           .then(async snapshot => {
             const servicesData = snapshot.docs.map(doc => ({id: doc.id, ...doc.data()}))

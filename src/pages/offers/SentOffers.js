@@ -7,6 +7,8 @@ import { connect } from 'react-redux';
 import ToggleBar from "../../components/ToggleBar";
 import { newMessage, newCollaboration } from '../../helpers/offers';
 import { fetchSentOffers, collaborate } from '../../actions';
+import { fetchReceivedOffers, changeOfferStatus } from '../../actions'
+
 import { toast } from "../../toast";
 class SentOffers extends React.Component {
 
@@ -37,15 +39,29 @@ class SentOffers extends React.Component {
         <IonHeader>
           <IonToolbar>
             <IonButtons slot="start">
-              <IonBackButton />
+              <IonBackButton defaultHref="/my/dashboard" />
             </IonButtons>
             <IonTitle>Sent Offers</IonTitle>
           </IonToolbar>
         </IonHeader>
         <IonContent>
           { !isFetching && offers.length === 0 &&
-            <span className="tag is-warning is-large">You don't have any send offers :(</span>
-          }
+          <IonPage>
+            <IonContent>
+                <span className="tag is-warning is-large">You don't have any sent offers :(</span>
+                <IonButton 
+                  style=
+                  {{
+                    postion: "fixed",
+                    top:"50%", 
+                    left: "50%",
+                    marginTop: "200px",            
+                    marginLeft: "100px"
+                  }} 
+                  onClick={event =>  window.location.href='/my/dashboard'}>Back to Dashboard</IonButton>
+          </IonContent>
+        </IonPage>
+        }
           <IonList>
             { offers.map(offer => (
               <IonItem 

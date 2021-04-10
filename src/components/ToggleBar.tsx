@@ -8,20 +8,23 @@ const ToggleCar: React.FC = () => {
     window.location.reload();
   }
   return(
+    
     <IonTabBar slot="bottom">
-      <IonTabButton tab="tab1" href="/my/messages/received" >
+      
+      <IonTabButton tab="tab1" href="/my/offers/received">
+        <IonIcon icon={personAddOutline} />
+        <IonLabel>Requests</IonLabel>
+      </IonTabButton>
+
+      <IonTabButton tab="tab2" href="/my/messages/received" >
         <IonIcon icon={peopleCircleOutline}/>
         <IonLabel>user chat</IonLabel>
       </IonTabButton>
-      <IonTabButton tab="tab2" href="/my/collaborations/me">
+      <IonTabButton tab="tab3" href="/my/collaborations/me">
         <IonIcon icon={home} />
         <IonLabel>house chat</IonLabel>
       </IonTabButton>
 
-      <IonTabButton tab="tab3" href="/my/offers/received">
-        <IonIcon icon={personAddOutline} />
-        <IonLabel>Requests</IonLabel>
-      </IonTabButton>
       
       <IonTabButton tab="tab4" href="/my/offers/sent">
         <IonIcon icon={telescopeOutline} />

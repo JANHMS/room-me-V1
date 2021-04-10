@@ -38,9 +38,12 @@ const DashboardPage: React.FC = () => {
             await setServices(servicesData)
           })
       fetchServices()
-      setLoading(false)
         });
     }, [])
+  
+  useEffect(() => {
+    setLoading(false)  
+  },[services])
   
   const [loadingLogout, setLoadingLogout] = useState(false)
 

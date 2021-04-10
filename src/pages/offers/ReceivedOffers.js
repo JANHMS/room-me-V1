@@ -1,6 +1,7 @@
-import React from 'react'
+import React from 'react';
+import { Link } from "react-router-dom";
 import withAuthorization from '../../hoc/withAuthorization'
-import { IonPage, IonHeader, IonTitle, IonLoading, IonLabel,IonCard,IonCardHeader,IonCardSubtitle,IonCardTitle, IonCardContent, IonImg, IonToolbar, IonContent, IonButtons, IonBackButton, IonButton, IonList, IonItem } from "@ionic/react";
+import { IonPage, IonButton, IonHeader, IonTitle, IonLoading, IonLabel,IonCard,IonCardHeader,IonCardSubtitle,IonCardTitle, IonCardContent, IonImg, IonToolbar, IonContent, IonButtons, IonBackButton, IonList, IonItem } from "@ionic/react";
 import ServiceItem from '../../components/service/ServiceItem'
 import { connect } from 'react-redux'
 import ToggleBar from "../../components/ToggleBar";
@@ -43,10 +44,25 @@ class ReceivedOffers extends React.Component {
             <IonTitle>Received Offers</IonTitle>
           </IonToolbar>
         </IonHeader>
+        <IonContent>
         { !isFetching && offers.length === 0 &&
-          <span className="tag is-warning is-large">You don't have any received offers :(</span>
-        }
-      <IonContent>
+        <IonPage>
+          <IonContent>
+              <span className="tag is-warning is-large">You don't have any received offers :(</span>
+              <IonButton 
+                style=
+                {{
+                  postion: "fixed",
+                  top:"50%", 
+                  left: "50%",
+                  marginTop: "200px",            
+                  marginLeft: "100px"
+                }} 
+                onClick={event =>  window.location.href='/my/dashboard'}>Back to Dashboard</IonButton>
+        </IonContent>
+      </IonPage>
+      }
+
       <IonList>
         {offers.map((offer) => 
           <IonItem

@@ -110,7 +110,11 @@ return(
             <IonLabel style={{position: "absolute", right:"20px" }}>{service.category}</IonLabel>
         </IonItem>
        <br/>
-       <IonText>{service.description}</IonText>
+        <div style={{fontSize: "14px", color: "darkblue" }}>Description</div>
+          <IonLabel style={{position: "absolute", right:"20px" }}>{service.category}</IonLabel>
+          <IonText>{service.description}</IonText>
+
+     <br/>
      </IonCardContent>
   </IonCard>
 

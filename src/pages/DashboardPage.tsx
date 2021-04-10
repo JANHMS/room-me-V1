@@ -21,7 +21,8 @@ const DashboardPage: React.FC = () => {
   const [user, setUser] = useState<any>()
   const [loading, setLoading] = useState(false)
   const [services, setServices] = useState<any>();
-  
+  const [locationData, setLocationData] = useState<any>()
+  const CITY_QUESTION_ID = "16";
   useEffect(() => {
     setLoading(true)
     firestore.collection("profiles").doc(userId)
@@ -29,19 +30,23 @@ const DashboardPage: React.FC = () => {
         // var source = doc.metadata.hasPendingWrites ? "Local" : "Server";
         const userData = doc.data()
         await setUser(userData)
-        
-        firestore.collection('services').where("citylocation", "==", "Braunschweig")
+        firestore.collection("profiles").doc(userId).collection("character").doc(CITY_QUESTION_ID)
+        .onSnapshot(async (doc) => {
+          const LocationData = doc.data()
+          setLocationData(LocationData)
+        })
+        firestore.collection('services').where("citylocation", "==", locationData.answer)
           .get()
           .then(async snapshot => {
             const servicesData = snapshot.docs.map(doc => ({id: doc.id, ...doc.data()}))
             console.log(servicesData)
             await setServices(servicesData)
-          })
+          }) 
       fetchServices()
         });
     }, [])
-  
-  useEffect(() => {
+
+  useEffect(() => { 
     setLoading(false)  
   },[services])
   
@@ -56,7 +61,7 @@ const DashboardPage: React.FC = () => {
   }
   
   return (
-    user && services ? <DashboardComponent
+    user && services && locationData ? <DashboardComponent
       logout={logout}
       loadingLogout={loadingLogout}
       entries={entries}

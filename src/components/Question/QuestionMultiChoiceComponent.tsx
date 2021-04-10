@@ -48,7 +48,7 @@ const QuestionMultiChoiceComponent: React.FC<Props> = ({
               color="primary" 
               slot="end" 
               checked={checkedList[parseInt(answer.id)].checked} 
-              onIonChange={() => handleChecked(answer.id)}>
+              onIonChange={() => handleChecked(answer.id, answer.text)}>
             </IonCheckbox>
           </IonItem>
         ))

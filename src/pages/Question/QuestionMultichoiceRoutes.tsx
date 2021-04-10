@@ -17,21 +17,21 @@ const NUMBEROFQUESTIONS = 15
 const QuestionMultichoiceRoutes = () => {
   
   const checkedList = [
-    {id: 0, checked: false}, 
-    {id: 1, checked: false}, 
-    {id: 3, checked: false},
-    {id: 4, checked: false},
-    {id: 5, checked: false},
-    {id: 6, checked: false},
-    {id: 7, checked: false},
-    {id: 8, checked: false},
-    {id: 9, checked: false},
-    {id: 10, checked: false}
-
+    {id: 0, checked: false, text: "" }, 
+    {id: 1, checked: false, text: "" }, 
+    {id: 3, checked: false, text: "" },
+    {id: 4, checked: false, text: "" },
+    {id: 5, checked: false, text: "" },
+    {id: 6, checked: false, text: "" },
+    {id: 7, checked: false, text: "" },
+    {id: 8, checked: false, text: "" },
+    {id: 9, checked: false, text: "" },
+    {id: 10, checked: false, text: "" }
   ]
 
   const { id } = useParams<RouteParams>();
-
+  
+  const [text, setText] = useState("")
   const [checked, setChecked] = useState(false)
   const [questionData, setQuestionData] = useState<any>()
   const [loading, setLoading] = useState(true)
@@ -45,25 +45,32 @@ const QuestionMultichoiceRoutes = () => {
   useEffect(() => {
     setLoading(false)
     if(questionData){
-      const data = questionData[id].answers.map((answer) => checkedList.push({id: answer.id, checked: false}))
+      const data = questionData[id].answers.map((answer) => 
+      checkedList.push({
+        id: parseInt(answer.id), 
+        checked: false,
+        text: answer.text
+      }))
+  
       console.log(data)
     } else return;
   },[questionData])
   
   
-  const handleChecked = ((answerId) => {
+  const handleChecked = ((answerId, text) => {
       setChecked(!checkedList[answerId].checked)
+      setText(checkedList[answerId].text)
       const foundIndex = checkedList.findIndex(x => x.id == answerId);
       checkedList[foundIndex] = {
         id: foundIndex,
-        checked: checked
+        checked: checked,
+        text: text
       };
     })
   
   // questionData is a array of objects with the questions and the answers
   
   const handleNextClick = async () => {
-    
     if(parseInt(id) < NUMBEROFQUESTIONS) {
       await firestore.collection('profiles')
       .doc(userId)

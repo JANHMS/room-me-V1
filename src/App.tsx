@@ -55,7 +55,7 @@ const App: React.FC = () => {
             <Route exact path="/register">
               <RegisterPage />
             </Route>
-            <Route path="/my/dashboard">
+            <Route path="/my">
               <AppTabs />
             </Route>
             <Redirect exact path="/" to="/my/dashboard" />

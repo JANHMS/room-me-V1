@@ -4,7 +4,6 @@ import ToggleBar from "../components/ToggleBar";
 import HeaderImage from '../components/HeaderImage';
 import { add as addIcon } from 'ionicons/icons';
 import { Link } from 'react-router-dom';
-import ReceivedMessages from './messages/ReceivedMessages';
 import HeaderBar from "./HeaderBar";
 import ServiceItem from './service/ServiceItem';
 

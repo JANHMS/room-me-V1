@@ -12,7 +12,6 @@ import EntryPage from './pages/EntryPage';
 import DashboardPage from './pages/DashboardPage';
 import SettingsPage from './pages/SettingsPage';
 import ToggleBar from './components/ToggleBar';
-import ProfilePage from './pages/ProfilePage';
 
 import ServicesPage from './pages/services/ServicesPage';
 import ServiceDetailPage from './pages/services/ServiceDetailPage';
@@ -35,6 +34,8 @@ import QuestionMultichoiceRoutes from './pages/Question/QuestionMultichoiceRoute
 import QuestionInputRoutes from './pages/Question/QuestionInputRoutes';
 import AddUserPicturePage from './pages/Question/AddUserPicturePage';
 import AddEntryPicturePage from './pages/services/AddEntryPicturePage';
+import UserProfilePage from './pages/User/UserProfilePage';
+import ProfileCard from './components/User/ProfileCard';
 
 
 const AppTabs: React.FC = (): JSX.Element => {
@@ -50,7 +51,8 @@ const AppTabs: React.FC = (): JSX.Element => {
         <Route exact path="/register">
           <RegisterPage />
         </Route>
-        
+        <Route path="/my/profile" component={UserProfilePage} exact/>
+
         <Route path="/my/register/question/:id" component={QuestionMultichoiceRoutes} exact/>
         <Route path="/my/register/picture" component={AddUserPicturePage} exact/>
 
@@ -68,12 +70,11 @@ const AppTabs: React.FC = (): JSX.Element => {
         <Route path="/my/entries/add/picture/:id" component={EntryPage} exact />
 
         <Route path="/my/services/me" component={UserServicesPage} exact />
-        
+
         <Route path="/my/services/:serviceId" component={ServiceDetailPage} exact />
 
         <Route path="/my/services" component={ServicesPage} exact />
         
-        <Route path="/my/profile" component={ProfilePage} exact />
         <Route path="/my/settings" component={SettingsPage} exact />
       </IonRouterOutlet>
       </IonReactRouter>

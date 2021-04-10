@@ -44,7 +44,7 @@ const QuestionInputRoutes = () => {
       })
     }
       else {
-        history.push('/my')
+        history.push('/my/dashboard')
       }
     }
 

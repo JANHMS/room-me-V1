@@ -12,11 +12,11 @@ const UserProfilePage = props => {
   const history = useHistory()
   
   const { userId } = useAuth();
-  const [entries, setEntries] = useState<Entry[]>([]);
   const [user, setUser] = useState<any>()
   const [loading, setLoading] = useState(false)
-  const [services, setServices] = useState<any>();
   const [character, setCharacter] = useState<any>();
+  const [individualCheckList, setIndividualCheckList] = useState<any>();
+
 
   
   useEffect(() => {
@@ -33,18 +33,26 @@ const UserProfilePage = props => {
       .then(async snapshot => {
         const characterData = snapshot.docs.map(doc => ({id: doc.id, ...doc.data()}))
         await setCharacter(characterData)
-        if(character) { console.log(character) } else return;
+        
       })
     }, [])
   
   useEffect(() => {
-    setLoading(false)  
-  },[character && user])
+    setLoading(false)
+    if (character) {
+    const exampleList = character.map(answer => (
+        console.log(answer.checkedList)
+    //   answer.checkedList.map((a,index)=> (
+    //     a.id
+    // ))
+  )) } else return;
+},[character])
   
   return (
-  user && !loading && character?
+  user && !loading && character && user.image ?
     <ProfileCard
       user={user}
+      character={character}
     /> : <IonLoading isOpen={loading}/> 
   )
 }

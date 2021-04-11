@@ -10,15 +10,23 @@ import UserListComponent from '../../components/User/UserListComponent';
 const CITY_QUESTION_ID = "16";
 
 const UserListPage: React.FC = () => {
+  
   const { userId } = useAuth();
   const history = useHistory()
   const [users, setUsers] = useState<any>()
   const [loading, setLoading] = useState(false)
+  const [user, setUser] = useState<any>()
+
   const [locationData, setLocationData] = useState<any>()
 
   // improvment could be writing the fetches as a function and rerunning the fetches until the data finally got fetched
   useEffect(() => {
     setLoading(true)
+    firestore.collection("profiles").doc(userId)
+      .onSnapshot(async (doc) => {
+        const userData = doc.data()
+        await setUser(userData)
+      })
         firestore.collection("profiles").doc(userId).collection("character").doc(CITY_QUESTION_ID)
         .onSnapshot(async (doc) => {
           const locationData = doc.data()
@@ -43,9 +51,14 @@ const UserListPage: React.FC = () => {
     setLoading(false)  
   },[users])
   
+  const handleMyUserProfileClick = () => {
+    history.push("/my/profile")
+  }
   
   return (
     users ? <UserListComponent
+      handleMyUserProfileClick={handleMyUserProfileClick}
+      user={user}
       users={users}
     /> : <IonLoading isOpen={loading}
         onDidDismiss={() => setLoading(false)}

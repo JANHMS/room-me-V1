@@ -1,4 +1,4 @@
-import { IonContent, IonPage, IonList, IonItem, IonThumbnail, IonImg, IonLabel } from '@ionic/react';
+import { IonContent, IonPage, IonList, IonItem, IonThumbnail, IonImg, IonLabel, IonText, IonButton } from '@ionic/react';
 import React, { useState } from "react";
 import HeaderImage from '../../components/HeaderImage';
 import { add as addIcon } from 'ionicons/icons';
@@ -8,9 +8,13 @@ import ToggleBar from '../ToggleBar';
 
 interface Props {
   users: any;
+  user: any;
+  handleMyUserProfileClick: () => void;
 }
 const UserListComponent: React.FC<Props> = ({
   users,
+  user,
+  handleMyUserProfileClick
 }) => {
   
 return (
@@ -18,6 +22,16 @@ return (
     <HeaderImage 
     />
     <IonContent className="icon-padding">
+      <IonItem>
+
+      <IonText 
+        style={{fontSize: "10px", color: "darkblue", postion: "absolue", marginLeft: "2%" }}
+        > Hi {user.fullName} here are users in {user.citylocation}. 
+      </IonText>
+
+          <IonButton onClick={handleMyUserProfileClick}>Your Profile</IonButton>
+    </IonItem>
+
       <IonList>
           {users.map((user) =>
             <IonItem button key={user.id}

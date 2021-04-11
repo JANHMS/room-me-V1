@@ -33,8 +33,8 @@ return (
     <IonContent className="icon-padding">
       <IonLoading message="Logging out..." duration={0} isOpen={loadingLogout}/>
       <IonText 
-        style={{fontSize: "10px", color: "darkblue", postion: "absolue", marginLeft: "15%" }}
-        > Hi {user.fullName} here are Room-Me possibilities for you. 
+        style={{fontSize: "10px", color: "darkblue", postion: "absolue", marginLeft: "2%" }}
+        > Hi {user.fullName} here are Room-Me possibilities for you in {user.citylocation}. 
       </IonText>
 
       <IonList>

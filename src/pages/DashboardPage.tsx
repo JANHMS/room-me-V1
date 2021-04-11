@@ -23,6 +23,8 @@ const DashboardPage: React.FC = () => {
   const [services, setServices] = useState<any>();
   const [locationData, setLocationData] = useState<any>()
   const CITY_QUESTION_ID = "16";
+  
+  // improvment could be writing the fetches as a function and rerunning the fetches until the data finally got fetched
   useEffect(() => {
     setLoading(true)
     firestore.collection("profiles").doc(userId)
@@ -35,18 +37,29 @@ const DashboardPage: React.FC = () => {
           const LocationData = doc.data()
           setLocationData(LocationData)
         })
-        firestore.collection('services').where("citylocation", "==", locationData.answer)
-          .get()
-          .then(async snapshot => {
-            const servicesData = snapshot.docs.map(doc => ({id: doc.id, ...doc.data()}))
-            console.log(servicesData)
-            await setServices(servicesData)
-          }) 
-      fetchServices()
-        });
-    }, [])
+        
+        firestore.collection("profiles").doc(userId).collection("character").doc(CITY_QUESTION_ID)
+        .onSnapshot(async (doc) => {
+          const locationData = doc.data()
+          setLocationData(locationData.answer)
+        })
+      });
+  }, [])
 
-  useEffect(() => { 
+  useEffect(() => {
+    if(locationData) {
+    firestore.collection('services').where("citylocation", "==", locationData)
+      .get()
+      .then(async snapshot => {
+        const servicesData = snapshot.docs.map(doc => ({id: doc.id, ...doc.data()}))
+        console.log(servicesData)
+        await setServices(servicesData)
+      }) 
+      fetchServices()
+    } else return;
+  },[locationData])
+
+  useEffect(() => {
     setLoading(false)  
   },[services])
   

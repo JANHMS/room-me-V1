@@ -36,6 +36,8 @@ import AddUserPicturePage from './pages/Question/AddUserPicturePage';
 import AddEntryPicturePage from './pages/services/AddEntryPicturePage';
 import MyUserProfilePage from './pages/User/MyUserProfilePage';
 import ProfileCard from './components/User/ProfileCard';
+import UserListPage from './pages/User/UserListPage';
+import UserDetailPage from './pages/User/UserDetailPage';
 
 
 const AppTabs: React.FC = (): JSX.Element => {
@@ -52,6 +54,8 @@ const AppTabs: React.FC = (): JSX.Element => {
           <RegisterPage />
         </Route>
         <Route path="/my/profile" component={MyUserProfilePage} exact/>
+        <Route path="/my/users" component={UserListPage} exact/>
+        <Route path="/my/users/:id" component={UserDetailPage} exact/>        
 
         <Route path="/my/register/question/:id" component={QuestionMultichoiceRoutes} exact/>
         <Route path="/my/register/picture" component={AddUserPicturePage} exact/>

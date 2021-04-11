@@ -5,9 +5,9 @@ import { useHistory } from "react-router";
 import { toast } from '../../toast';
 import { IonLoading } from '@ionic/react';
 import { connect } from 'react-redux' // HOC
+import UserListComponent from '../../components/User/UserListComponent';
 
-const DashboardPage: React.FC = () => {
-  
+const UserListPage: React.FC = () => {
   const history = useHistory()
   const [users, setUsers] = useState<any>()
   const [loading, setLoading] = useState(false)
@@ -37,7 +37,5 @@ const DashboardPage: React.FC = () => {
         duration={5000}/>
   );
 };
-
-const mapStateToProps = state => ({services: state.services.all})
     
-export default connect(mapStateToProps, {fetchServices})(DashboardPage)
+export default UserListPage;

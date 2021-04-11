@@ -5,23 +5,12 @@ import HeaderImage from '../../components/HeaderImage';
 import { add as addIcon } from 'ionicons/icons';
 import { Link } from 'react-router-dom';
 
-
 interface Props {
-  logout: any;
-  loadingLogout: boolean;
-  entries: any;
-  formatDate: any;
   user: any;
-  users: any[];
   character: any;
 }
-const UserListComponent: React.FC<Props> = ({
-  logout,
-  loadingLogout,
-  entries,
-  formatDate,
+const UserDeatilComponent: React.FC<Props> = ({
   user,
-  users,
   character
 }) => {
   
@@ -29,14 +18,11 @@ return (
   <IonPage>
     <HeaderImage />
     <IonContent className="icon-padding">
-      <IonLoading message="Logging out..." duration={0} isOpen={loadingLogout}/>
       <IonList>
           <IonCard>
             <img src={user.image}/>
             <IonCardHeader>
-              <IonItem  routerLink={`/my/users/${user.id}`}>
                 Profile of {user.fullName}
-              </IonItem>
             </IonCardHeader>
               <IonCardContent>
                 { character.map((answer, index) => (
@@ -56,7 +42,6 @@ return (
                  ))
                 }
               </IonList>
-
               </div>
                  ))
                }
@@ -70,4 +55,4 @@ return (
   )
 }
 
-export default UserListComponent;
+export default UserDeatilComponent;

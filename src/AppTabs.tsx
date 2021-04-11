@@ -34,7 +34,7 @@ import QuestionMultichoiceRoutes from './pages/Question/QuestionMultichoiceRoute
 import QuestionInputRoutes from './pages/Question/QuestionInputRoutes';
 import AddUserPicturePage from './pages/Question/AddUserPicturePage';
 import AddEntryPicturePage from './pages/services/AddEntryPicturePage';
-import UserProfilePage from './pages/User/UserProfilePage';
+import MyUserProfilePage from './pages/User/MyUserProfilePage';
 import ProfileCard from './components/User/ProfileCard';
 
 
@@ -51,7 +51,7 @@ const AppTabs: React.FC = (): JSX.Element => {
         <Route exact path="/register">
           <RegisterPage />
         </Route>
-        <Route path="/my/profile" component={UserProfilePage} exact/>
+        <Route path="/my/profile" component={MyUserProfilePage} exact/>
 
         <Route path="/my/register/question/:id" component={QuestionMultichoiceRoutes} exact/>
         <Route path="/my/register/picture" component={AddUserPicturePage} exact/>

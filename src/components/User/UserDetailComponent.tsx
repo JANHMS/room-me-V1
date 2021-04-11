@@ -38,6 +38,11 @@ return (
                     <IonItem key={index} style={{height: "50px"}} no-lines>
                     <IonText style={{fontSize: "10px", color: "darkblue" }}>{answer.question}</IonText>
                   </IonItem>
+                  {answer.answer && 
+                    <IonItem no-lines>
+                      <IonLabel style={{ fontSize: "10px" }}>{answer.answer}</IonLabel>
+                    </IonItem>
+                  }
                   <IonList lines = "none">
                   { answer.checkedList && answer.checkedList.map((a,index) => (
                     (

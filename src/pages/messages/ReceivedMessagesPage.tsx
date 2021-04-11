@@ -1,4 +1,4 @@
-import { IonButton, IonCard, IonCardContent, IonCardHeader, IonCardSubtitle, IonContent, IonImg, IonItem, IonList, IonLoading, IonPage } from "@ionic/react";
+import { IonBackButton, IonButton, IonButtons, IonCard, IonCardContent, IonCardHeader, IonCardSubtitle, IonContent, IonHeader, IonImg, IonItem, IonList, IonLoading, IonPage, IonTitle, IonToolbar } from "@ionic/react";
 import React, { useEffect, useState } from "react";
 import { connect } from 'react-redux';
 import { useHistory } from "react-router-dom";
@@ -55,7 +55,14 @@ const RecievedMessagesPage = (props) => {
     messages ?
       <div>
         <IonPage>
-          <HeaderBar />
+          <IonHeader>
+            <IonToolbar>
+              <IonButtons slot="start">
+                <IonBackButton defaultHref="/my/dashboard" />
+              </IonButtons>
+              <IonTitle>Users Chat</IonTitle>
+            </IonToolbar>
+          </IonHeader>
           <IonContent>
             <IonList>
               {messages.filter(m => !m.isRead).map(message => 

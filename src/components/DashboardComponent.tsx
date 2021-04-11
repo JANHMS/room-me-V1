@@ -32,7 +32,10 @@ return (
     />
     <IonContent className="icon-padding">
       <IonLoading message="Logging out..." duration={0} isOpen={loadingLogout}/>
-      <IonText>Hi {user.fullName}</IonText>
+      <IonText 
+        style={{fontSize: "10px", color: "darkblue", postion: "absolue", marginLeft: "15%" }}
+        > Hi {user.fullName} here are Room-Me possibilities for you. 
+      </IonText>
 
       <IonList>
           {services.map((entry) =>

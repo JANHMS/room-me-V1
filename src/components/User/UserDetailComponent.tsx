@@ -1,4 +1,4 @@
-import { IonContent, IonLoading, IonInput, IonIcon, IonButton, IonHeader, IonPage, IonTitle, IonToolbar, IonFooter, IonList, IonItem, IonThumbnail, IonImg, IonLabel, IonFab, IonFabButton, IonText, IonCard, IonCardHeader, IonCardContent } from '@ionic/react';
+import { IonContent, IonLoading, IonInput, IonIcon, IonButton, IonHeader, IonPage, IonTitle, IonToolbar, IonFooter, IonList, IonItem, IonThumbnail, IonImg, IonLabel, IonFab, IonFabButton, IonText, IonCard, IonCardHeader, IonCardContent, IonBackButton, IonButtons } from '@ionic/react';
 import React, { useState } from "react";
 import ToggleBar from "../../components/ToggleBar";
 import HeaderImage from '../../components/HeaderImage';
@@ -16,7 +16,15 @@ const UserDeatilComponent: React.FC<Props> = ({
   
 return (
   <IonPage>
-    <HeaderImage />
+    <IonHeader>
+      <IonToolbar>
+        <IonButtons slot="start">
+          <IonBackButton/>
+        </IonButtons>
+        <IonTitle>Profile of {user.fullName}</IonTitle>
+      </IonToolbar>
+    </IonHeader>
+
     <IonContent className="icon-padding">
       <IonList>
           <IonCard>

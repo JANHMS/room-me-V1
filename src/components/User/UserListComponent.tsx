@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import HeaderImage from '../../components/HeaderImage';
 import { add as addIcon } from 'ionicons/icons';
 import { Link } from 'react-router-dom';
+import ToggleBar from '../ToggleBar';
 
 
 interface Props {
@@ -31,6 +32,7 @@ return (
           )}
         </IonList>
     </IonContent>
+    <ToggleBar />
   </IonPage>
   
   )

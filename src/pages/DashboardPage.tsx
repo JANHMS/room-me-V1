@@ -32,11 +32,6 @@ const DashboardPage: React.FC = () => {
         // var source = doc.metadata.hasPendingWrites ? "Local" : "Server";
         const userData = doc.data()
         await setUser(userData)
-        firestore.collection("profiles").doc(userId).collection("character").doc(CITY_QUESTION_ID)
-        .onSnapshot(async (doc) => {
-          const LocationData = doc.data()
-          setLocationData(LocationData)
-        })
         
         firestore.collection("profiles").doc(userId).collection("character").doc(CITY_QUESTION_ID)
         .onSnapshot(async (doc) => {

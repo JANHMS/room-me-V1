@@ -16,6 +16,8 @@ interface Props {
   status: any;
   socialMediaLink: string;
   setSocialMediaLink: (socialMediaLink: string) => void;
+  citylocation: string;
+  setCitylocation: (citylocation: string) => void;
   handleRegister: MouseEventHandler<HTMLIonButtonElement>;
 }
 
@@ -31,7 +33,9 @@ const RegisterForm: React.FC<Props> = ({
   fullName,
   setFullName,
   socialMediaLink,
-  setSocialMediaLink
+  setSocialMediaLink,
+  citylocation,
+  setCitylocation
 }) => {
   
   return(
@@ -41,17 +45,17 @@ const RegisterForm: React.FC<Props> = ({
         <HeaderImage />
         </IonToolbar>
       </IonHeader>
-      <h2 style={{position: "relative", margin: "10px auto"}}>Finish Register with credentials</h2>
+      <h2 style={{position: "relative", margin: "10px auto"}}>Regsiter for Room-Me journey</h2>
      <IonContent className="ion-padding">
        <IonList>
          <IonItem>
-           <IonLabel position="stacked">Full Name</IonLabel>
+           <IonLabel position="stacked">Full Name - visible by other users</IonLabel>
            <IonInput value={fullName}
              onIonChange={(event) => setFullName(event.detail.value)}
            />
          </IonItem>
          <IonItem>
-           <IonLabel position="stacked">Email</IonLabel>
+           <IonLabel position="stacked">Email e.g. User@gmail.com</IonLabel>
            <IonInput type="email" value={email}
              onIonChange={(event) => setEmail(event.detail.value)}
            />
@@ -70,12 +74,19 @@ const RegisterForm: React.FC<Props> = ({
          </IonItem>
          
          <IonItem>
-           <IonLabel position="stacked">socialMediaLink</IonLabel>
+           <IonLabel position="stacked">SocialMedia - https://www.instagram.com/user</IonLabel>
            <IonInput value={socialMediaLink}
              onIonChange={(event) => setSocialMediaLink(event.detail.value)}
            />
          </IonItem> 
 
+         <IonItem>
+           <IonLabel position="stacked">Official cityname where to search | offer Room</IonLabel>
+           <IonInput value={citylocation}
+             onIonChange={(event) => setCitylocation(event.detail.value)}
+           />
+         </IonItem> 
+         
        </IonList>
        {status.error &&
          <IonText color="danger">Registration failed</IonText>

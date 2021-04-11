@@ -15,6 +15,8 @@ const RegisterPage: React.FC = () => {
 
   const [password, setPassword] = useState('');
   const [cpassword, setCPassword] = useState('');
+  const [citylocation, setCitylocation] = useState('');
+
   const [status, setStatus] = useState({ loading: false, error: false });
   const history = useHistory();
 
@@ -50,6 +52,8 @@ const RegisterPage: React.FC = () => {
       setSocialMediaLink={setSocialMediaLink}
       fullName={fullName}
       setFullName={setFullName}
+      citylocation={citylocation}
+      setCitylocation={setCitylocation}
     />
   );
 };

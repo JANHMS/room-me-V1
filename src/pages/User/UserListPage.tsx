@@ -7,22 +7,38 @@ import { IonLoading } from '@ionic/react';
 import { connect } from 'react-redux' // HOC
 import UserListComponent from '../../components/User/UserListComponent';
 
+const CITY_QUESTION_ID = "16";
+
 const UserListPage: React.FC = () => {
+  const { userId } = useAuth();
   const history = useHistory()
   const [users, setUsers] = useState<any>()
   const [loading, setLoading] = useState(false)
-  
+  const [locationData, setLocationData] = useState<any>()
+
   // improvment could be writing the fetches as a function and rerunning the fetches until the data finally got fetched
   useEffect(() => {
     setLoading(true)
-    firestore.collection("profiles")
-    .get()
-    .then(async snapshot => {
-      const users = snapshot.docs.map(doc => ({id: doc.id, ...doc.data()}))
-      console.log(users)
-      await setUsers(users)
-    }) 
+        firestore.collection("profiles").doc(userId).collection("character").doc(CITY_QUESTION_ID)
+        .onSnapshot(async (doc) => {
+          const locationData = doc.data()
+          setLocationData(locationData.answer)
+      });
   }, [])
+  
+  useEffect(() => {
+    setLoading(true)
+    if(locationData) {
+    firestore.collection('profiles').where("citylocation", "==", locationData)
+      .get()
+      .then(async snapshot => {
+        const users = snapshot.docs.map(doc => ({id: doc.id, ...doc.data()}))
+        console.log(users)
+        await setUsers(users)
+      }) 
+    } else return;
+  },[locationData])
+
   useEffect(() => {
     setLoading(false)  
   },[users])

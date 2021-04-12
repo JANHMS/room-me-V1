@@ -83,7 +83,7 @@ const RegisterForm: React.FC<Props> = ({
          <IonItem>
            <IonLabel position="stacked">Official cityname where to search | offer Room</IonLabel>
            <IonInput value={citylocation}
-             onIonChange={(event) => setCitylocation(event.detail.value)}
+             onIonChange={(event) => setCitylocation(event.detail.value.toLowerCase())}
            />
          </IonItem> 
          

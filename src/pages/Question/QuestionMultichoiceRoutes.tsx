@@ -8,6 +8,7 @@ import _ from "lodash";
 import { useHistory } from "react-router-dom";
 import { toast } from "../../toast";
 import { fetchQuestions } from "../../api/questions";
+import { questions } from "./questions";
 
 interface RouteParams {
   id: string;
@@ -40,7 +41,7 @@ const QuestionMultichoiceRoutes = () => {
   const { userId } = useAuth()
   
   useEffect(() => {
-    fetchQuestions(setQuestionData)
+    setQuestionData(questions)
   },[])
   
   useEffect(() => {

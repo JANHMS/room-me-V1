@@ -254,7 +254,7 @@ export const questions = [
         text: "Reggae"
       },
       {
-        id: "56",
+        id: "6",
         text: "Latin"
       },
       {
@@ -262,7 +262,7 @@ export const questions = [
         text: "Jazz"
       }
     ],
-    question: "Which kind of music do yyou like?"  
+    question: "Which kind of music do you like?"  
   },
   {
     answers: [
@@ -343,7 +343,7 @@ export const questions = [
     question: "What sports do you like to do?"  
   },  
   {
-    question: "  In which city do you search?"  
+    question: "In which city do you search | offer?"  
   },
   {
     question: "How would your best friend describe you?"  

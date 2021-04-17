@@ -13,13 +13,16 @@ const ChatMessages = ({messages, authUser}) => {
               <IonItem key={message.id}>
                   <IonThumbnail slot="start">
                     <IonImg
-                      src={message.user.image}
+                      src={authUser.image}
                       alt="avatar"
-                      style={{width: "50px", }}/>
+                      style={{width: "50px"}}/>
                   </IonThumbnail>
                     <IonText>{message.content}</IonText>
                   <br />
-                <IonText slot="end">{moment(message.timestamp).fromNow()}</IonText>
+                <IonText slot="end"
+                  style={{fontSize: "8px"}}
+                  >{moment(message.timestamp).fromNow()}
+                </IonText>
               </IonItem>
           )
         }
@@ -28,13 +31,16 @@ const ChatMessages = ({messages, authUser}) => {
           <IonItem key={message.id} >
               <IonThumbnail slot="end">
                 <IonImg
-                  src={message.user.image}
+                  src={message.user.avatar}
                   style={{width: "50px"}}/>
                 </IonThumbnail>
               <div>
                 <IonText >{message.content}</IonText>
               </div>
-            <IonText slot="start">{moment(message.timestamp).fromNow()}</IonText>
+            <IonText slot="start"
+              style={{fontSize: "8px"}}
+              >{moment(message.timestamp).fromNow()}
+            </IonText>
         </IonItem>
         )
       })

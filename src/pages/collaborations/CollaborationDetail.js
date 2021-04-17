@@ -4,7 +4,9 @@ import withAuthorization from '../../hoc/withAuthorization'
 import { withRouter } from 'react-router-dom'
 import { Timestamp } from '../../firebase'
 import moment from 'moment'
-import { IonContent, IonBackButton, IonToolbar, IonHeader, IonButtons, IonTitle, IonPage, IonLoading, IonButton, IonInput, IonList } from "@ionic/react";
+import { home} from "ionicons/icons";
+import { Link } from "react-router-dom"
+import { IonContent,IonIcon, IonBackButton, IonToolbar, IonHeader, IonButtons, IonTitle, IonPage, IonLoading, IonButton, IonInput, IonList } from "@ionic/react";
 import { 
   subToCollaboration, 
   joinCollaboration,
@@ -13,9 +15,7 @@ import {
   sendChatMessage,
   subToMessages,
   startCollaboration } from '../../actions'
-import JoinedPeople from '../../components/collaboration/JoinedPeople'
 import ChatMessages from '../../components/collaboration/ChatMessages'
-import Timer from '../../components/collaboration/Timer'
 
 class CollaborationDetail extends React.Component {
 
@@ -129,6 +129,10 @@ class CollaborationDetail extends React.Component {
             <IonButtons slot="start">
               <IonBackButton />
             </IonButtons>
+            <Link to="/my/dashboard"/>
+            <IonIcon slot="end" icon={home}>
+              
+            </IonIcon>
             <IonTitle>Chat</IonTitle>
           </IonToolbar>
         </IonHeader>

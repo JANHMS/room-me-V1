@@ -25,7 +25,7 @@ class SentOffers extends React.Component {
 
     this.props.collaborate({collaboration, message})
       .then(_ => 
-        toast('Collaboration was Created!')
+        toast('Collaboration was Created go to house chat to send a message!')
       )
   } 
 

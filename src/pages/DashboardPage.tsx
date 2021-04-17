@@ -33,16 +33,16 @@ const DashboardPage: React.FC = () => {
         const userData = doc.data()
         await setUser(userData)
         // here we fetch from the character collection of the user
-        // firestore.collection("profiles").doc(userId).collection("character").doc(CITY_QUESTION_ID)
-        // .onSnapshot(async (doc) => {
-        //   const locationData = doc.data()
-        //   setLocationData(locationData.answer)
-        
-        // but this is less nested, location question is redundant. 
-        firestore.collection("profiles").doc(userId)
+        firestore.collection("profiles").doc(userId).collection("character").doc(CITY_QUESTION_ID)
         .onSnapshot(async (doc) => {
           const locationData = doc.data()
-          setLocationData(locationData.citylocation)
+          setLocationData(locationData.answer)
+        
+        // but this is less nested, location question is redundant. 
+        // firestore.collection("profiles").doc(userId)
+        // .onSnapshot(async (doc) => {
+        //   const locationData = doc.data()
+        //   setLocationData(locationData.citylocation)
         })
       });
   }, [])

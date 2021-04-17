@@ -39,7 +39,7 @@ class ReceivedOffers extends React.Component {
         <IonHeader>
           <IonToolbar>
             <IonButtons slot="start">
-              <IonBackButton />
+              <IonBackButton href="/my/dashboard"/>
             </IonButtons>
             <IonTitle>Received Offers</IonTitle>
           </IonToolbar>
@@ -67,7 +67,7 @@ class ReceivedOffers extends React.Component {
         {offers.map((offer) => 
           <IonItem
             key={offer.id} button key={offer.id}
-              routerLink={`/my`}
+              routerLink={`/my/users/${offer.fromUser.userId}`}
               style={{height: "900px"}}>
                 <IonCard>
                   <img src={offer.fromUser.image} />

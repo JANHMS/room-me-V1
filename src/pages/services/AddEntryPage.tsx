@@ -20,16 +20,6 @@ async function savePicture(blobUrl, userId) {
   return url;
 }
 
-async function savePicture4(blobUrl, userId) {
-  const pictureRef = storage.ref(`/users/${userId}/pictures/${Date.now()}`);
-  const response = await fetch(blobUrl);
-  const blob = await response.blob();
-  const snapshot = await pictureRef.put(blob);
-  const url = await snapshot.ref.getDownloadURL();
-  console.log('saved picture:', url);
-  return url;
-}
-
 interface Props {
   auth: any;
 }

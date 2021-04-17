@@ -32,18 +32,24 @@ const DashboardPage: React.FC = () => {
         // var source = doc.metadata.hasPendingWrites ? "Local" : "Server";
         const userData = doc.data()
         await setUser(userData)
+        // here we fetch from the character collection of the user
+        // firestore.collection("profiles").doc(userId).collection("character").doc(CITY_QUESTION_ID)
+        // .onSnapshot(async (doc) => {
+        //   const locationData = doc.data()
+        //   setLocationData(locationData.answer)
         
-        firestore.collection("profiles").doc(userId).collection("character").doc(CITY_QUESTION_ID)
+        // but this is less nested, location question is redundant. 
+        firestore.collection("profiles").doc(userId)
         .onSnapshot(async (doc) => {
           const locationData = doc.data()
-          setLocationData(locationData.answer)
+          setLocationData(locationData.citylocation)
         })
       });
   }, [])
 
   useEffect(() => {
     if(locationData) {
-    firestore.collection('services').where("citylocation", "==", locationData)
+      firestore.collection('services').where("citylocation", "==", locationData)
       .get()
       .then(async snapshot => {
         const servicesData = snapshot.docs.map(doc => ({id: doc.id, ...doc.data()}))

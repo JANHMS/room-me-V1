@@ -113,7 +113,7 @@ return(
       <IonCardContent>
          <IonItem>
           <div style={{fontSize: "14px", color: "darkblue", top:"-5px", position: "absolute"}}>Address</div>
-            <IonLabel style={{position: "absolute", right:"20px", bottom: "-4px"}}>{service.address}</IonLabel>
+            <IonText style={{position: "absolute", right:"20px", bottom: "-4px", fontSize: "12px"}}>{service.address}</IonText>
         </IonItem>
        <br/>
        <IonItem style={{ heigh:"200px" }}>

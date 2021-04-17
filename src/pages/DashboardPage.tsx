@@ -83,19 +83,25 @@ const DashboardPage: React.FC = () => {
   },[services])
   
   useEffect(() => {
+    const ServiceUserMatchAnswer = {}
+    var outerObj = {}
     if(serviceUserCharacters) {
     serviceUserCharacters.map((serviceUserCharactersData) => {
       serviceUserCharactersData.map((serviceUserCheckList,i) => {
         if(serviceUserCheckList.checkedList){
+          var innerArray = []
           serviceUserCheckList.checkedList.map(answerObject => {
             if(answerObject.text !== ""){
-              console.log("Mapped text with thr question id", serviceUserCheckList.id,"Answer answer", answerObject.text)
+              innerArray.push(answerObject.text)
             } else return;
           })
+          // console.log("Mapped text with the innerArray id", innerArray)
+          outerObj[serviceUserCheckList.id] = innerArray
         }}
       )
     })
     } else return;
+    console.log("Mapped text with the outerObj id", outerObj)
   },[serviceUserCharacters])
   
 

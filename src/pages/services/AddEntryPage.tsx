@@ -30,6 +30,7 @@ const AddEntryPage: React.FC<Props> = ({
   const history = useHistory();
   
   const [date, setDate] = useState('');
+  const [title, setTitle] = useState('');
   const [address, setAddress] = useState('');
   const [image, setimage] = useState('/assets/placeholder.png');
   const [image1, setimage1] = useState('/assets/placeholder.png');
@@ -243,6 +244,8 @@ const AddEntryPage: React.FC<Props> = ({
       price={price}
       setPrice={setPrice}
       date={date}
+      title={title}
+      setTitle={setTitle}
       setDate={setDate}
       address={address}
       setAddress={setAddress}

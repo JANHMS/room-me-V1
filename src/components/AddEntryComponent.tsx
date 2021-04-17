@@ -63,6 +63,8 @@ interface Props {
   setPrice: any;
   citylocation: string;
   setCitylocation: (l: string) => void;
+  title: string;
+  setTitle: (title: string) => void;
 }
 
 const AddEntryComponent: React.FC <Props> = ({
@@ -77,6 +79,8 @@ const AddEntryComponent: React.FC <Props> = ({
   handleFileChange,
   handlePictureClick,
   image,
+  title,
+  setTitle,
   
   fileInputRef1,
   handleFileChange1,
@@ -130,6 +134,13 @@ const AddEntryComponent: React.FC <Props> = ({
       </IonSelect>
         
       </IonItem>
+      <IonItem>
+        <IonLabel position="stacked">Title</IonLabel>
+        <IonDatetime value={title}
+          onIonChange={(event) => setTitle(event.detail.value)}
+        />
+      </IonItem>
+
         <IonItem>
           <IonLabel position="stacked">Movin Day</IonLabel>
           <IonDatetime value={date}

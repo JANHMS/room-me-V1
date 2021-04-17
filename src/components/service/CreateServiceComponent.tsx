@@ -104,7 +104,7 @@ return (
               </div>
               <div className="field">
                 <IonItem>
-                <IonLabel position="stacked">Price per Hour</IonLabel>
+                <IonLabel position="stacked">Price per Month in Eur</IonLabel>
                 <div className="control">
                   <IonInput
                     onIonChange={handleChange}

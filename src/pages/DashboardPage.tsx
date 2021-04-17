@@ -12,6 +12,9 @@ import { IonLoading } from '@ionic/react';
 import { connect } from 'react-redux' // HOC
 import { fetchServices } from '../actions';
 
+//the 7th object of the array in the citylocation question answer is string
+const CITY_QUESTION_ID = "7";
+
 const DashboardPage: React.FC = () => {
   
   const history = useHistory()
@@ -24,8 +27,7 @@ const DashboardPage: React.FC = () => {
   const [services, setServices] = useState<any>();
   const [locationData, setLocationData] = useState<any>()
   const [authUserCharacter, setAuthUserCharacter] = useState<any>()
-  const [serviceUserCharacter, setServiceUserCharacter] = useState<any>()
-  const CITY_QUESTION_ID = "7";
+  const [serviceUserCharacters, setServiceUserCharacters] = useState<any>()
   
   // improvment could be writing the fetches as a function and rerunning the fetches until the data finally got fetched
   useEffect(() => {
@@ -40,7 +42,7 @@ const DashboardPage: React.FC = () => {
         .get()
         .then(snapshot => {
           const authUserCharacterData = snapshot.docs.map(doc => ({id: doc.id, ...doc.data()}))
-          console.log(authUserCharacterData)
+          console.log("This is the authUser Data", authUserCharacterData)
           setAuthUserCharacter(authUserCharacterData)
           //the 7th object of the array in the citylocation question answer is string
           setLocationData(authUserCharacterData[CITY_QUESTION_ID].answer)
@@ -54,7 +56,7 @@ const DashboardPage: React.FC = () => {
       .get()
       .then(async snapshot => {
         const servicesData = snapshot.docs.map(doc => ({id: doc.id, ...doc.data()}))
-        console.log(servicesData)
+        console.log("This is the serviceData", servicesData)
         await setServices(servicesData)
       })
       fetchServices()
@@ -63,36 +65,48 @@ const DashboardPage: React.FC = () => {
 
   useEffect(() => {
     // fetch data of the users who offer the services, array of array of objects
-    const serviceUserCharacterDataArray = []
-    console.log("This is services", services)
+    const serviceUserCharactersDataArray = []
+    // console.log("This is services", services)
     if(services) {
     services.map(service => {
     firestore.collection("profiles").doc(service.userId).collection("character")
     .get()
     .then(snapshot => {
       const serviceUserCharacterData = snapshot.docs.map(doc => ({id: doc.id, ...doc.data()}))
-      console.log(serviceUserCharacterData)
-      serviceUserCharacterDataArray.push(serviceUserCharacterData)
-      //the 7th object of the array in the citylocation question answer is string
+      serviceUserCharactersDataArray.push(serviceUserCharacterData)
       })
-      setServiceUserCharacter(serviceUserCharacterDataArray)
-      console.log("This is serviceUserCharacterDataArray", serviceUserCharacterDataArray)
+      setServiceUserCharacters(serviceUserCharactersDataArray)
+      // console.log("This is serviceUserCharactersDataArray", serviceUserCharactersDataArray)
       setLoading(false)
     })
   } else return
   },[services])
   
   useEffect(() => {
-    setLoading(false)
-  },[serviceUserCharacter])
+    if(serviceUserCharacters) {
+    serviceUserCharacters.map((serviceUserCharactersData) => {
+      serviceUserCharactersData.map((serviceUserCheckList,i) => {
+        if(serviceUserCheckList.checkedList){
+          serviceUserCheckList.checkedList.map(answerObject => {
+            if(answerObject.text !== ""){
+              console.log("Mapped text with thr question id", serviceUserCheckList.id,"Answer answer", answerObject.text)
+            } else return;
+          })
+        }}
+      )
+    })
+    } else return;
+  },[serviceUserCharacters])
   
+
   async function logout() {
-  history.push('/home')
-  setLoadingLogout(true)
-  toast("Logged out")
-  setLoadingLogout(false)
-  auth.signOut()
+    history.push('/home')
+    setLoadingLogout(true)
+    toast("Logged out")
+    setLoadingLogout(false)
+    auth.signOut()
   }
+  
   // calculate RoomME Match score
     
   // I have user and services

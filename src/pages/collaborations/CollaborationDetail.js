@@ -127,9 +127,8 @@ class CollaborationDetail extends React.Component {
         <IonHeader>
           <IonToolbar>
             <IonButtons slot="start">
-              <IonBackButton />
+              <IonBackButton defaultHref="/my/collaborations/me"/>
             </IonButtons>
-            <Link to="/my/dashboard"/>
             <IonIcon slot="end" icon={home}>
               
             </IonIcon>

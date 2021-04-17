@@ -32,7 +32,7 @@ class ReceivedCollaborations extends React.Component {
     return (
       <IonList>
        { collaborations.map(c => 
-        <IonItem key={c.id} >
+        <IonItem key={c.id}>
             <img src={c.image} alt={c.title}
             style={{width: "40px"}}/>
             <p>

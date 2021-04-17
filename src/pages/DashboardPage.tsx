@@ -19,10 +19,13 @@ const DashboardPage: React.FC = () => {
   const { userId } = useAuth();
   const [entries, setEntries] = useState<Entry[]>([]);
   const [user, setUser] = useState<any>()
+  const [loadingLogout, setLoadingLogout] = useState(false)
   const [loading, setLoading] = useState(false)
   const [services, setServices] = useState<any>();
   const [locationData, setLocationData] = useState<any>()
-  const CITY_QUESTION_ID = "16";
+  const [authUserCharacter, setAuthUserCharacter] = useState<any>()
+  const [serviceUserCharacter, setServiceUserCharacter] = useState<any>()
+  const CITY_QUESTION_ID = "7";
   
   // improvment could be writing the fetches as a function and rerunning the fetches until the data finally got fetched
   useEffect(() => {
@@ -32,17 +35,15 @@ const DashboardPage: React.FC = () => {
         // var source = doc.metadata.hasPendingWrites ? "Local" : "Server";
         const userData = doc.data()
         await setUser(userData)
-        // here we fetch from the character collection of the user
-        firestore.collection("profiles").doc(userId).collection("character").doc(CITY_QUESTION_ID)
-        .onSnapshot(async (doc) => {
-          const locationData = doc.data()
-          setLocationData(locationData.answer)
-        
-        // but this is less nested, location question is redundant. 
-        // firestore.collection("profiles").doc(userId)
-        // .onSnapshot(async (doc) => {
-        //   const locationData = doc.data()
-        //   setLocationData(locationData.citylocation)
+        // here we fetch from the character collection of the auth user
+        firestore.collection("profiles").doc(userId).collection("character")
+        .get()
+        .then(snapshot => {
+          const authUserCharacterData = snapshot.docs.map(doc => ({id: doc.id, ...doc.data()}))
+          console.log(authUserCharacterData)
+          setAuthUserCharacter(authUserCharacterData)
+          //the 7th object of the array in the citylocation question answer is string
+          setLocationData(authUserCharacterData[CITY_QUESTION_ID].answer)
         })
       });
   }, [])
@@ -55,17 +56,36 @@ const DashboardPage: React.FC = () => {
         const servicesData = snapshot.docs.map(doc => ({id: doc.id, ...doc.data()}))
         console.log(servicesData)
         await setServices(servicesData)
-      }) 
+      })
       fetchServices()
     } else return;
   },[locationData])
 
   useEffect(() => {
-    setLoading(false)  
+    // fetch data of the users who offer the services, array of array of objects
+    const serviceUserCharacterDataArray = []
+    console.log("This is services", services)
+    if(services) {
+    services.map(service => {
+    firestore.collection("profiles").doc(service.userId).collection("character")
+    .get()
+    .then(snapshot => {
+      const serviceUserCharacterData = snapshot.docs.map(doc => ({id: doc.id, ...doc.data()}))
+      console.log(serviceUserCharacterData)
+      serviceUserCharacterDataArray.push(serviceUserCharacterData)
+      //the 7th object of the array in the citylocation question answer is string
+      })
+      setServiceUserCharacter(serviceUserCharacterDataArray)
+      console.log("This is serviceUserCharacterDataArray", serviceUserCharacterDataArray)
+      setLoading(false)
+    })
+  } else return
   },[services])
   
-  const [loadingLogout, setLoadingLogout] = useState(false)
-
+  useEffect(() => {
+    setLoading(false)
+  },[serviceUserCharacter])
+  
   async function logout() {
   history.push('/home')
   setLoadingLogout(true)
@@ -73,7 +93,12 @@ const DashboardPage: React.FC = () => {
   setLoadingLogout(false)
   auth.signOut()
   }
-  
+  // calculate RoomME Match score
+    
+  // I have user and services
+  // fetch the answered questions of the current authenticated user 
+  // fetch the answered questiosn of the users who have created the serviceData
+  // compare those answers and give back a percentage of similar answered questions
   return (
     user && services && locationData ? <DashboardComponent
       logout={logout}

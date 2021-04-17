@@ -32,7 +32,7 @@ return(
     <IonHeader translucent>
       <IonToolbar>
         <IonButtons slot="start">
-          <IonBackButton />
+          <IonBackButton defaultHref="/my/dashboard"/>
         </IonButtons>
         <IonTitle>{service.title}</IonTitle>
       </IonToolbar>
@@ -77,9 +77,11 @@ return(
          <IonLabel style={{position: "absolute", right:"20px" }}>{service.citylocation}</IonLabel>
     </IonItem>
       <br/>
-      <h2>Shoot a chat request to {user.fullName}</h2>
+      <h2>Click to see {user.fullName}'s profile send a message</h2>
       <br/>
-      <img style={{width:"8em", height:"6em", borderRadius: "50%"}} src={user.image}/>
+      <IonItem routerLink={`/my/users/${user.userId}`}>
+        <img style={{width:"8em", height:"6em", borderRadius: "50%"}} src={user.image}/>
+      </IonItem>
       <IonFab vertical="bottom" horizontal="end" slot="fixed">
           <IonFabButton onClick={handleOfferClick}>
             <IonIcon icon={chatbox} />

@@ -29,7 +29,7 @@ const DashboardPage: React.FC = (): JSX.Element => {
   const [authUserCharacter, setAuthUserCharacter] = useState<any>()
   const [serviceUserCharacters, setServiceUserCharacters] = useState<any>()
   const [serviceUserMatchAnswer, setServiceUserMatchAnswer] = useState<any>()
-  
+  const [setServiceUserCharactersLoading , setSetServiceUserCharactersLoading] = useState(false)
   
     useEffect(() => {
       if(locationData) {
@@ -60,6 +60,7 @@ const DashboardPage: React.FC = (): JSX.Element => {
         // console.log("This is serviceUserCharactersDataArray", serviceUserCharactersDataArray)
       })
       setServiceUserCharacters(serviceUserCharactersDataObject)
+      setSetServiceUserCharactersLoading(true)
     } else return
     },[services])
     
@@ -122,40 +123,21 @@ const DashboardPage: React.FC = (): JSX.Element => {
   useEffect(() => {
     const ServiceUserMatchAnswer = {}
     Object.keys(serviceUserCharacters).map(function(key, index) {
-      console.log(`This is the Object of the user ${key}`, serviceUserCharacters[key])
+      // console.log(`This is the Object of the user ${key}`, serviceUserCharacters[key])
+      var outerObj = {}
+      serviceUserCharacters[key].map((object) => {
+        var innerArray = []
+        object.checkedList && object.checkedList.map((answer) => {
+          if(answer.text !== "") { 
+            innerArray.push(answer.text) 
+          }
+        })
+        outerObj[object.id] = innerArray
+      })
+      ServiceUserMatchAnswer[key] = outerObj
+      console.log(`This is the Object of the user ${key} and the answer`, ServiceUserMatchAnswer)
     });
-    // console.log("This is services in last update", serviceUserCharacters)
-      // serviceUserCharacters.map((serviceUserCharactersData, j) => {
-      //   console.log("This is serviceUserCharactersData", serviceUserCharactersData)
-        // var outerObj = {}
-        //   serviceUserCharactersData.map((serviceUserCheckList,i) => {
-        //     var innerArray = []
-        //     serviceUserCheckList.checkedList?.map(answerObject => { 
-        //         if(answerObject.text !== ""){ innerArray.push(answerObject.text) }
-        //       }) 
-        //       outerObj[serviceUserCheckList.id] = innerArray
-        //     })
-        //     // console.log("This is the outerObj", outerObj)
-        //     ServiceUserMatchAnswer[j] = outerObj
-        //     console.log("This is ServiceUserMatchAnswer", ServiceUserMatchAnswer)
-          // })
-      //   const outerObj = {}
-      //   serviceUserCharactersData.map((serviceUserCheckList,i) => {
-      //       var innerArray = []
-      //       serviceUserCheckList.checkedList?.map(answerObject => {
-      //         if(answerObject.text !== ""){
-      //           innerArray.push(answerObject.text)
-      //         }
-      //       })
-      //       // console.log("Mapped text with the innerArray id", innerArray)
-      //       outerObj[serviceUserCheckList.id] = innerArray
-      //   })        
-      //   var ServiceUserMatchAnswer = {}
-      //   ServiceUserMatchAnswer[j] = outerObj
-      //   console.log("This is serviceUserCharacters", ServiceUserMatchAnswer)
-      // })
-
-  },[serviceUserCharacters])
+  },[setServiceUserCharactersLoading])
   
   useEffect(() => {
     setLoading(false)

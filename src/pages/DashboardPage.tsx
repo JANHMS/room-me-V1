@@ -29,6 +29,37 @@ const DashboardPage: React.FC = () => {
   const [authUserCharacter, setAuthUserCharacter] = useState<any>()
   const [serviceUserCharacters, setServiceUserCharacters] = useState<any>()
   
+    useEffect(() => {
+      if(locationData) {
+        firestore.collection('services').where("citylocation", "==", locationData)
+        .get()
+        .then(async snapshot => {
+          const servicesData = snapshot.docs.map(doc => ({id: doc.id, ...doc.data()}))
+          // console.log("This is the serviceData", servicesData)
+          await setServices(servicesData)
+        })
+        fetchServices()
+      } else return;
+    },[locationData])
+
+    useEffect(() => {
+      // fetch data of the users who offer the services, array of array of objects
+      const serviceUserCharactersDataArray = []
+      // console.log("This is services", services)
+      if(services) {
+      services.map(service => {
+      firestore.collection("profiles").doc(service.userId).collection("character")
+      .get()
+      .then(snapshot => {
+        const serviceUserCharacterData = snapshot.docs.map(doc => ({id: doc.id, ...doc.data()}))
+        serviceUserCharactersDataArray.push(serviceUserCharacterData)
+        })
+        setServiceUserCharacters(serviceUserCharactersDataArray)
+        // console.log("This is serviceUserCharactersDataArray", serviceUserCharactersDataArray)
+      })
+    } else return
+    },[services])
+    
   // improvment could be writing the fetches as a function and rerunning the fetches until the data finally got fetched
   useEffect(() => {
     setLoading(true)
@@ -43,48 +74,33 @@ const DashboardPage: React.FC = () => {
         .then(snapshot => {
           const authUserCharacterData = snapshot.docs.map(doc => ({id: doc.id, ...doc.data()}))
           console.log("This is the authUser Data", authUserCharacterData)
+          const AuthUserMatchAnswer = {}
+          if(authUserCharacterData) {
+          authUserCharacterData.map((authUserCheckedList) => {
+              if(authUserCheckedList.checkedList){
+                var innerArray = []
+                authUserCheckedList.checkedList.map(answerObject => {
+                  if(answerObject.text !== ""){
+                    innerArray.push(answerObject.text)
+                  } else return;
+                })
+
+                AuthUserMatchAnswer[authUserCheckedList.id] = innerArray
+
+              }
+          })
+          console.log("Mapped text of AuthUserMatchAnswer id", AuthUserMatchAnswer)
+          setLoading(false)
+          } else return;
           setAuthUserCharacter(authUserCharacterData)
           //the 7th object of the array in the citylocation question answer is string
           setLocationData(authUserCharacterData[CITY_QUESTION_ID].answer)
         })
       });
   }, [])
-
-  useEffect(() => {
-    if(locationData) {
-      firestore.collection('services').where("citylocation", "==", locationData)
-      .get()
-      .then(async snapshot => {
-        const servicesData = snapshot.docs.map(doc => ({id: doc.id, ...doc.data()}))
-        console.log("This is the serviceData", servicesData)
-        await setServices(servicesData)
-      })
-      fetchServices()
-    } else return;
-  },[locationData])
-
-  useEffect(() => {
-    // fetch data of the users who offer the services, array of array of objects
-    const serviceUserCharactersDataArray = []
-    // console.log("This is services", services)
-    if(services) {
-    services.map(service => {
-    firestore.collection("profiles").doc(service.userId).collection("character")
-    .get()
-    .then(snapshot => {
-      const serviceUserCharacterData = snapshot.docs.map(doc => ({id: doc.id, ...doc.data()}))
-      serviceUserCharactersDataArray.push(serviceUserCharacterData)
-      })
-      setServiceUserCharacters(serviceUserCharactersDataArray)
-      // console.log("This is serviceUserCharactersDataArray", serviceUserCharactersDataArray)
-      setLoading(false)
-    })
-  } else return
-  },[services])
   
   useEffect(() => {
     const ServiceUserMatchAnswer = {}
-    var outerObj = {}
     if(serviceUserCharacters) {
     serviceUserCharacters.map((serviceUserCharactersData) => {
       serviceUserCharactersData.map((serviceUserCheckList,i) => {
@@ -96,12 +112,13 @@ const DashboardPage: React.FC = () => {
             } else return;
           })
           // console.log("Mapped text with the innerArray id", innerArray)
-          outerObj[serviceUserCheckList.id] = innerArray
+          ServiceUserMatchAnswer[serviceUserCheckList.id] = innerArray
         }}
       )
     })
+    console.log("ServiceUserMatchAnswer", ServiceUserMatchAnswer)
+    setLoading(false)
     } else return;
-    console.log("Mapped text with the outerObj id", outerObj)
   },[serviceUserCharacters])
   
 

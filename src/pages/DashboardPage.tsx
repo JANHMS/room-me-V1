@@ -15,7 +15,7 @@ import { fetchServices } from '../actions';
 //the 7th object of the array in the citylocation question answer is string
 const CITY_QUESTION_ID = "7";
 
-const DashboardPage: React.FC = () => {
+const DashboardPage: React.FC = (): JSX.Element => {
   
   const history = useHistory()
   
@@ -46,7 +46,7 @@ const DashboardPage: React.FC = () => {
 
     useEffect(() => {
       // fetch data of the users who offer the services, array of array of objects
-      const serviceUserCharactersDataArray = []
+      const serviceUserCharactersDataObject = {}
       // console.log("This is services", services)
       if(services) {
       services.map(service => {
@@ -54,38 +54,16 @@ const DashboardPage: React.FC = () => {
       .get()
       .then(snapshot => {
         const serviceUserCharacterData = snapshot.docs.map(doc => ({id: doc.id, ...doc.data()}))
-        serviceUserCharactersDataArray.push(serviceUserCharacterData)
+        serviceUserCharactersDataObject[service.userId] = serviceUserCharacterData
         })
+        
         // console.log("This is serviceUserCharactersDataArray", serviceUserCharactersDataArray)
       })
-      setServiceUserCharacters(serviceUserCharactersDataArray)
+      setServiceUserCharacters(serviceUserCharactersDataObject)
     } else return
     },[services])
     
 // useEffect(() => {
-//   if(serviceUserCharacters) {
-//     const ServiceUserMatchAnswer = {}
-// 
-//     serviceUserCharacters.map((serviceUserCharactersData, j) => {
-//       const outerObj = {}
-//       serviceUserCharactersData.map((serviceUserCheckList,i) => {
-//         if(serviceUserCheckList.checkedList){
-//           var innerArray = []
-//           serviceUserCheckList.checkedList.map(answerObject => {
-//             if(answerObject.text !== ""){
-//               innerArray.push(answerObject.text)
-//             } else return;
-//           })
-//           // console.log("Mapped text with the innerArray id", innerArray)
-//           outerObj[serviceUserCheckList.id] = innerArray
-//         }
-//       })        
-//       ServiceUserMatchAnswer[j] = outerObj
-//     })
-//     setServiceUserMatchAnswer(ServiceUserMatchAnswer)
-//   }
-// 
-// 
 //     var MatchScore = {}
 //     we map though all servies
   //   if(ServiceUserMatchAnswer) {
@@ -104,7 +82,7 @@ const DashboardPage: React.FC = () => {
   // } else return;
 // },[serviceUserCharacters])
 
-// improvment could be writing the fetches as a function and rerunning the fetches until the data finally got fetched
+  // improvment could be writing the fetches as a function and rerunning the fetches until the data finally got fetched
 
   useEffect(() => {
     firestore.collection("profiles").doc(userId)
@@ -140,12 +118,48 @@ const DashboardPage: React.FC = () => {
         })
       });
   }, [])
-  
+
   useEffect(() => {
-    console.log("This is services in las update", serviceUserCharacters)
-      setLoading(false)
+    const ServiceUserMatchAnswer = {}
+    Object.keys(serviceUserCharacters).map(function(key, index) {
+      console.log(`This is the Object of the user ${key}`, serviceUserCharacters[key])
+    });
+    // console.log("This is services in last update", serviceUserCharacters)
+      // serviceUserCharacters.map((serviceUserCharactersData, j) => {
+      //   console.log("This is serviceUserCharactersData", serviceUserCharactersData)
+        // var outerObj = {}
+        //   serviceUserCharactersData.map((serviceUserCheckList,i) => {
+        //     var innerArray = []
+        //     serviceUserCheckList.checkedList?.map(answerObject => { 
+        //         if(answerObject.text !== ""){ innerArray.push(answerObject.text) }
+        //       }) 
+        //       outerObj[serviceUserCheckList.id] = innerArray
+        //     })
+        //     // console.log("This is the outerObj", outerObj)
+        //     ServiceUserMatchAnswer[j] = outerObj
+        //     console.log("This is ServiceUserMatchAnswer", ServiceUserMatchAnswer)
+          // })
+      //   const outerObj = {}
+      //   serviceUserCharactersData.map((serviceUserCheckList,i) => {
+      //       var innerArray = []
+      //       serviceUserCheckList.checkedList?.map(answerObject => {
+      //         if(answerObject.text !== ""){
+      //           innerArray.push(answerObject.text)
+      //         }
+      //       })
+      //       // console.log("Mapped text with the innerArray id", innerArray)
+      //       outerObj[serviceUserCheckList.id] = innerArray
+      //   })        
+      //   var ServiceUserMatchAnswer = {}
+      //   ServiceUserMatchAnswer[j] = outerObj
+      //   console.log("This is serviceUserCharacters", ServiceUserMatchAnswer)
+      // })
+
   },[serviceUserCharacters])
   
+  useEffect(() => {
+    setLoading(false)
+  },[serviceUserCharacters])
 
   async function logout() {
     history.push('/home')
@@ -155,12 +169,6 @@ const DashboardPage: React.FC = () => {
     auth.signOut()
   }
   
-  // calculate RoomME Match score
-    
-  // I have user and services
-  // fetch the answered questions of the current authenticated user 
-  // fetch the answered questiosn of the users who have created the serviceData
-  // compare those answers and give back a percentage of similar answered questions
   return (
     user && services && locationData && !loading ? 
     <DashboardComponent

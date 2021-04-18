@@ -23,11 +23,13 @@ const DashboardPage: React.FC = () => {
   const [entries, setEntries] = useState<Entry[]>([]);
   const [user, setUser] = useState<any>()
   const [loadingLogout, setLoadingLogout] = useState(false)
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(true)
   const [services, setServices] = useState<any>();
   const [locationData, setLocationData] = useState<any>()
   const [authUserCharacter, setAuthUserCharacter] = useState<any>()
   const [serviceUserCharacters, setServiceUserCharacters] = useState<any>()
+  const [serviceUserMatchAnswer, setServiceUserMatchAnswer] = useState<any>()
+  
   
     useEffect(() => {
       if(locationData) {
@@ -60,9 +62,51 @@ const DashboardPage: React.FC = () => {
     } else return
     },[services])
     
-  // improvment could be writing the fetches as a function and rerunning the fetches until the data finally got fetched
+// useEffect(() => {
+//   if(serviceUserCharacters) {
+//     const ServiceUserMatchAnswer = {}
+// 
+//     serviceUserCharacters.map((serviceUserCharactersData, j) => {
+//       const outerObj = {}
+//       serviceUserCharactersData.map((serviceUserCheckList,i) => {
+//         if(serviceUserCheckList.checkedList){
+//           var innerArray = []
+//           serviceUserCheckList.checkedList.map(answerObject => {
+//             if(answerObject.text !== ""){
+//               innerArray.push(answerObject.text)
+//             } else return;
+//           })
+//           // console.log("Mapped text with the innerArray id", innerArray)
+//           outerObj[serviceUserCheckList.id] = innerArray
+//         }
+//       })        
+//       ServiceUserMatchAnswer[j] = outerObj
+//     })
+//     setServiceUserMatchAnswer(ServiceUserMatchAnswer)
+//   }
+// 
+// 
+//     var MatchScore = {}
+//     we map though all servies
+  //   if(ServiceUserMatchAnswer) {
+  //   ServiceUserMatchAnswer.map((SingleServiceUser, j) => {
+  //     // we are mapping thought the array of services, because if we have 3 services we have 3 different persons published these services
+  //     SingleServiceUser.map((answer, i) => {
+  //       // we have the authUserCharacter in state
+  //       if(SingleServiceUser[i] === authUserCharacter[i]) {
+  //         // then we increase the matchscore of that object by one for each similar answer
+  //         MatchScore[j] += 1
+  //       } 
+  //     })
+  //     console.log(MatchScore)
+  //   })
+  //   setLoading(false)
+  // } else return;
+// },[serviceUserCharacters])
+
+// improvment could be writing the fetches as a function and rerunning the fetches until the data finally got fetched
+
   useEffect(() => {
-    setLoading(true)
     firestore.collection("profiles").doc(userId)
       .onSnapshot(async (doc) => {
         // var source = doc.metadata.hasPendingWrites ? "Local" : "Server";
@@ -98,46 +142,7 @@ const DashboardPage: React.FC = () => {
   }, [])
   
   useEffect(() => {
-    const ServiceUserMatchAnswer = {}
-    if(serviceUserCharacters) {
-        
-      serviceUserCharacters.map((serviceUserCharactersData, j) => {
-        const outerObj = {}
-        serviceUserCharactersData.map((serviceUserCheckList,i) => {
-          if(serviceUserCheckList.checkedList){
-            var innerArray = []
-            serviceUserCheckList.checkedList.map(answerObject => {
-              if(answerObject.text !== ""){
-                innerArray.push(answerObject.text)
-              } else return;
-            })
-            // console.log("Mapped text with the innerArray id", innerArray)
-            outerObj[serviceUserCheckList.id] = innerArray
-          }
-        })        
-        ServiceUserMatchAnswer[j] = outerObj
-      })
-    }
-      console.log("First ServiceUserMatchAnswer", ServiceUserMatchAnswer[0])
-      console.log("Secon ServiceUserMatchAnswer", ServiceUserMatchAnswer[1])
-      
-      var MatchScore = {}
-      // we map though all servies
-    //   if(ServiceUserMatchAnswer) {
-    //   ServiceUserMatchAnswer.map((SingleServiceUser, j) => {
-    //     // we are mapping thought the array of services, because if we have 3 services we have 3 different persons published these services
-    //     SingleServiceUser.map((answer, i) => {
-    //       // we have the authUserCharacter in state
-    //       if(SingleServiceUser[i] === authUserCharacter[i]) {
-    //         // then we increase the matchscore of that object by one for each similar answer
-    //         MatchScore[j] += 1
-    //       } 
-    //     })
-    //     console.log(MatchScore)
-    //   })
-    //   setLoading(false)
-    // } else return;
-
+    console.log("This is services in las update", serviceUserCharacters)
       setLoading(false)
   },[serviceUserCharacters])
   
@@ -157,7 +162,8 @@ const DashboardPage: React.FC = () => {
   // fetch the answered questiosn of the users who have created the serviceData
   // compare those answers and give back a percentage of similar answered questions
   return (
-    user && services && locationData ? <DashboardComponent
+    user && services && locationData && !loading ? 
+    <DashboardComponent
       logout={logout}
       loadingLogout={loadingLogout}
       entries={entries}
@@ -165,9 +171,8 @@ const DashboardPage: React.FC = () => {
       user={user}
       services={services}
     /> : <IonLoading isOpen={loading}
-        onDidDismiss={() => setLoading(false)}
         message={'Please wait...'}
-        duration={5000}/>
+        duration={10000}/>
   );
 };
 

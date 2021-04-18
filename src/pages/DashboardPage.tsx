@@ -28,63 +28,8 @@ const DashboardPage: React.FC = (): JSX.Element => {
   const [locationData, setLocationData] = useState<any>()
   const [authUserCharacter, setAuthUserCharacter] = useState<any>()
   const [serviceUserCharacters, setServiceUserCharacters] = useState<any>()
-  const [serviceUserMatchAnswer, setServiceUserMatchAnswer] = useState<any>()
   const [setServiceUserCharactersLoading , setSetServiceUserCharactersLoading] = useState(false)
   
-    useEffect(() => {
-      if(locationData) {
-        firestore.collection('services').where("citylocation", "==", locationData)
-        .get()
-        .then(async snapshot => {
-          const servicesData = snapshot.docs.map(doc => ({id: doc.id, ...doc.data()}))
-          // console.log("This is the serviceData", servicesData)
-          await setServices(servicesData)
-        })
-        fetchServices()
-      } else return;
-    },[locationData])
-
-    useEffect(() => {
-      // fetch data of the users who offer the services, array of array of objects
-      const serviceUserCharactersDataObject = {}
-      // console.log("This is services", services)
-      if(services) {
-      services.map(service => {
-      firestore.collection("profiles").doc(service.userId).collection("character")
-      .get()
-      .then(snapshot => {
-        const serviceUserCharacterData = snapshot.docs.map(doc => ({id: doc.id, ...doc.data()}))
-        serviceUserCharactersDataObject[service.userId] = serviceUserCharacterData
-        })
-        
-        // console.log("This is serviceUserCharactersDataArray", serviceUserCharactersDataArray)
-      })
-      setServiceUserCharacters(serviceUserCharactersDataObject)
-      setSetServiceUserCharactersLoading(true)
-    } else return
-    },[services])
-    
-// useEffect(() => {
-//     var MatchScore = {}
-//     we map though all servies
-  //   if(ServiceUserMatchAnswer) {
-  //   ServiceUserMatchAnswer.map((SingleServiceUser, j) => {
-  //     // we are mapping thought the array of services, because if we have 3 services we have 3 different persons published these services
-  //     SingleServiceUser.map((answer, i) => {
-  //       // we have the authUserCharacter in state
-  //       if(SingleServiceUser[i] === authUserCharacter[i]) {
-  //         // then we increase the matchscore of that object by one for each similar answer
-  //         MatchScore[j] += 1
-  //       } 
-  //     })
-  //     console.log(MatchScore)
-  //   })
-  //   setLoading(false)
-  // } else return;
-// },[serviceUserCharacters])
-
-  // improvment could be writing the fetches as a function and rerunning the fetches until the data finally got fetched
-
   useEffect(() => {
     firestore.collection("profiles").doc(userId)
       .onSnapshot(async (doc) => {
@@ -120,6 +65,41 @@ const DashboardPage: React.FC = (): JSX.Element => {
       });
   }, [])
 
+    useEffect(() => {
+      if(locationData) {
+        firestore.collection('services').where("citylocation", "==", locationData)
+        .get()
+        .then(async snapshot => {
+          const servicesData = snapshot.docs.map(doc => ({id: doc.id, ...doc.data()}))
+          // console.log("This is the serviceData", servicesData)
+          await setServices(servicesData)
+        })
+        fetchServices()
+      } else return;
+    },[locationData])
+
+    useEffect(() => {
+      // fetch data of the users who offer the services, array of array of objects
+      const serviceUserCharactersDataObject = {}
+      // console.log("This is services", services)
+      if(services) {
+      services.map(service => {
+      firestore.collection("profiles").doc(service.userId).collection("character")
+      .get()
+      .then(snapshot => {
+        const serviceUserCharacterData = snapshot.docs.map(doc => ({id: doc.id, ...doc.data()}))
+        serviceUserCharactersDataObject[service.userId] = serviceUserCharacterData
+        })
+        
+        // console.log("This is serviceUserCharactersDataArray", serviceUserCharactersDataArray)
+      })
+      setServiceUserCharacters(serviceUserCharactersDataObject)
+      setSetServiceUserCharactersLoading(true)
+    } else return
+    },[services])
+
+  // improvment could be writing the fetches as a function and rerunning the fetches until the data finally got fetched
+
   useEffect(() => {
     //this first step is done to refactor the Object and get the pure answer data
     const ServiceUserMatchAnswer = {}
@@ -142,6 +122,7 @@ const DashboardPage: React.FC = (): JSX.Element => {
       });
     }
     if(ServiceUserMatchAnswer !== {}) {
+      // Matchscores is object with key userId and score as number
       const MatchScores = {};
       Object.keys(ServiceUserMatchAnswer).map(function(key, index) {
         var score = 0;
@@ -167,9 +148,10 @@ const DashboardPage: React.FC = (): JSX.Element => {
     }
   },[setServiceUserCharactersLoading])
   
+  
   useEffect(() => {
     setLoading(false)
-  },[serviceUserCharacters])
+  },[serviceUserCharacters, setServiceUserCharactersLoading])
 
   async function logout() {
     history.push('/home')
@@ -190,7 +172,7 @@ const DashboardPage: React.FC = (): JSX.Element => {
       services={services}
     /> : <IonLoading isOpen={loading}
         message={'Please wait...'}
-        duration={10000}/>
+        duration={100000}/>
   );
 };
 

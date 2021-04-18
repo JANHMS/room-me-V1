@@ -54,9 +54,9 @@ const DashboardPage: React.FC = () => {
         const serviceUserCharacterData = snapshot.docs.map(doc => ({id: doc.id, ...doc.data()}))
         serviceUserCharactersDataArray.push(serviceUserCharacterData)
         })
-        setServiceUserCharacters(serviceUserCharactersDataArray)
         // console.log("This is serviceUserCharactersDataArray", serviceUserCharactersDataArray)
       })
+      setServiceUserCharacters(serviceUserCharactersDataArray)
     } else return
     },[services])
     
@@ -84,14 +84,13 @@ const DashboardPage: React.FC = () => {
                     innerArray.push(answerObject.text)
                   } else return;
                 })
-
                 AuthUserMatchAnswer[authUserCheckedList.id] = innerArray
-
               }
           })
           console.log("Mapped text of AuthUserMatchAnswer id", AuthUserMatchAnswer)
           } else return;
-          setAuthUserCharacter(authUserCharacterData)
+          
+          setAuthUserCharacter(AuthUserMatchAnswer)
           //the 7th object of the array in the citylocation question answer is string
           setLocationData(authUserCharacterData[CITY_QUESTION_ID].answer)
         })
@@ -101,25 +100,45 @@ const DashboardPage: React.FC = () => {
   useEffect(() => {
     const ServiceUserMatchAnswer = {}
     if(serviceUserCharacters) {
-    serviceUserCharacters.map((serviceUserCharactersData, j) => {
-      const outerObj = {}
-      serviceUserCharactersData.map((serviceUserCheckList,i) => {
-        if(serviceUserCheckList.checkedList){
-          var innerArray = []
-          serviceUserCheckList.checkedList.map(answerObject => {
-            if(answerObject.text !== ""){
-              innerArray.push(answerObject.text)
-            } else return;
-          })
-          // console.log("Mapped text with the innerArray id", innerArray)
-          outerObj[serviceUserCheckList.id] = innerArray
-        }
-      })        
-      ServiceUserMatchAnswer[j] = outerObj
-    })
-    console.log("ServiceUserMatchAnswer", ServiceUserMatchAnswer)
-    setLoading(false)
-    } else return;
+        
+      serviceUserCharacters.map((serviceUserCharactersData, j) => {
+        const outerObj = {}
+        serviceUserCharactersData.map((serviceUserCheckList,i) => {
+          if(serviceUserCheckList.checkedList){
+            var innerArray = []
+            serviceUserCheckList.checkedList.map(answerObject => {
+              if(answerObject.text !== ""){
+                innerArray.push(answerObject.text)
+              } else return;
+            })
+            // console.log("Mapped text with the innerArray id", innerArray)
+            outerObj[serviceUserCheckList.id] = innerArray
+          }
+        })        
+        ServiceUserMatchAnswer[j] = outerObj
+      })
+    }
+      console.log("First ServiceUserMatchAnswer", ServiceUserMatchAnswer[0])
+      console.log("Secon ServiceUserMatchAnswer", ServiceUserMatchAnswer[1])
+      
+      var MatchScore = {}
+      // we map though all servies
+    //   if(ServiceUserMatchAnswer) {
+    //   ServiceUserMatchAnswer.map((SingleServiceUser, j) => {
+    //     // we are mapping thought the array of services, because if we have 3 services we have 3 different persons published these services
+    //     SingleServiceUser.map((answer, i) => {
+    //       // we have the authUserCharacter in state
+    //       if(SingleServiceUser[i] === authUserCharacter[i]) {
+    //         // then we increase the matchscore of that object by one for each similar answer
+    //         MatchScore[j] += 1
+    //       } 
+    //     })
+    //     console.log(MatchScore)
+    //   })
+    //   setLoading(false)
+    // } else return;
+
+      setLoading(false)
   },[serviceUserCharacters])
   
 

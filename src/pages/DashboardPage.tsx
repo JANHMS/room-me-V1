@@ -121,22 +121,50 @@ const DashboardPage: React.FC = (): JSX.Element => {
   }, [])
 
   useEffect(() => {
+    //this first step is done to refactor the Object and get the pure answer data
     const ServiceUserMatchAnswer = {}
-    Object.keys(serviceUserCharacters).map(function(key, index) {
-      // console.log(`This is the Object of the user ${key}`, serviceUserCharacters[key])
-      var outerObj = {}
-      serviceUserCharacters[key].map((object) => {
-        var innerArray = []
-        object.checkedList && object.checkedList.map((answer) => {
-          if(answer.text !== "") { 
-            innerArray.push(answer.text) 
-          }
+    if(serviceUserCharacters) {
+      Object.keys(serviceUserCharacters).map(function(key, index) {
+        // console.log(`This is the Object of the user ${key}`, serviceUserCharacters[key])
+        var outerObj = {}
+        serviceUserCharacters[key].map((object) => {
+          var innerArray = []
+          object.checkedList && object.checkedList.map((answer) => {
+            if(answer.text !== "") { 
+              innerArray.push(answer.text) 
+            }
+          })
+          outerObj[object.id] = innerArray
         })
-        outerObj[object.id] = innerArray
-      })
-      ServiceUserMatchAnswer[key] = outerObj
-      console.log(`This is the Object of the user ${key} and the answer`, ServiceUserMatchAnswer)
-    });
+        ServiceUserMatchAnswer[key] = outerObj
+        // console.log(`This is the Object of the user ${key} and the answer`, ServiceUserMatchAnswer)
+  
+      });
+    }
+    if(ServiceUserMatchAnswer !== {}) {
+      const MatchScores = {};
+      Object.keys(ServiceUserMatchAnswer).map(function(key, index) {
+        var score = 0;
+        console.log(`This is the Object of the user ${key} and the answer`, ServiceUserMatchAnswer[key])
+        if(ServiceUserMatchAnswer) {
+          Object.keys(ServiceUserMatchAnswer[key]).map(function(k, index) {
+            // we map thought all service users and map throught their answers, if they are the same as the one of authuser w matchsore += 1
+            console.log(`This is the ServiceUserMatchAnswer`, ServiceUserMatchAnswer[key][k])
+            console.log("This is the authUser", authUserCharacter[index])
+            
+            var a = authUserCharacter[index]
+            var b = ServiceUserMatchAnswer[key][k]
+            
+            for (var i = 0; i < b.length; ++i) {
+              if (a[i] !== b[i]) return false;
+            }
+            score += 1;
+          });
+          MatchScores[key] = score
+        }
+      })  
+      console.log(`This is the score ${MatchScores["WcvJ9BGBT0Ymma6OJ0QWW8ptJvT2"]}`)
+    }
   },[setServiceUserCharactersLoading])
   
   useEffect(() => {

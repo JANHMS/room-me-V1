@@ -136,7 +136,7 @@ const AddEntryComponent: React.FC <Props> = ({
       </IonItem>
       <IonItem>
         <IonLabel position="stacked">Title</IonLabel>
-        <IonDatetime value={title}
+        <IonInput value={title}
           onIonChange={(event) => setTitle(event.detail.value)}
         />
       </IonItem>

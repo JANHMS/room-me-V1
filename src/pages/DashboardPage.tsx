@@ -73,7 +73,7 @@ const DashboardPage: React.FC = () => {
         .get()
         .then(snapshot => {
           const authUserCharacterData = snapshot.docs.map(doc => ({id: doc.id, ...doc.data()}))
-          console.log("This is the authUser Data", authUserCharacterData)
+          // console.log("This is the authUser Data", authUserCharacterData)
           const AuthUserMatchAnswer = {}
           if(authUserCharacterData) {
           authUserCharacterData.map((authUserCheckedList) => {
@@ -90,7 +90,6 @@ const DashboardPage: React.FC = () => {
               }
           })
           console.log("Mapped text of AuthUserMatchAnswer id", AuthUserMatchAnswer)
-          setLoading(false)
           } else return;
           setAuthUserCharacter(authUserCharacterData)
           //the 7th object of the array in the citylocation question answer is string
@@ -102,7 +101,8 @@ const DashboardPage: React.FC = () => {
   useEffect(() => {
     const ServiceUserMatchAnswer = {}
     if(serviceUserCharacters) {
-    serviceUserCharacters.map((serviceUserCharactersData) => {
+    serviceUserCharacters.map((serviceUserCharactersData, j) => {
+      const outerObj = {}
       serviceUserCharactersData.map((serviceUserCheckList,i) => {
         if(serviceUserCheckList.checkedList){
           var innerArray = []
@@ -112,9 +112,10 @@ const DashboardPage: React.FC = () => {
             } else return;
           })
           // console.log("Mapped text with the innerArray id", innerArray)
-          ServiceUserMatchAnswer[serviceUserCheckList.id] = innerArray
-        }}
-      )
+          outerObj[serviceUserCheckList.id] = innerArray
+        }
+      })        
+      ServiceUserMatchAnswer[j] = outerObj
     })
     console.log("ServiceUserMatchAnswer", ServiceUserMatchAnswer)
     setLoading(false)

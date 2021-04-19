@@ -28,7 +28,10 @@ return (
         style={{fontSize: "10px", color: "darkblue", postion: "absolue", marginLeft: "2%" }}
         > Hi {user.fullName} here are users in {user.citylocation}. 
       </IonText>
-
+      <IonText 
+        style={{fontSize: "10px", color: "darkblue", postion: "absolue", marginLeft: "2%" }}
+        >Click Button to see your profile. 
+      </IonText>
           <IonButton onClick={handleMyUserProfileClick}>Your Profile</IonButton>
     </IonItem>
 

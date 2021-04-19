@@ -1,5 +1,5 @@
 import React from 'react';
-import { IonPage, IonBackButton, IonItem, IonCardContent, IonCardSubtitle, IonCardHeader, IonList, IonCard, IonHeader, IonTitle, IonButtons, IonToolbar, IonLoading, IonButton, IonContent } from "@ionic/react";
+import { IonPage, IonBackButton,IonLabel,  IonItem, IonCardContent, IonCardSubtitle, IonCardHeader, IonList, IonCard, IonHeader, IonTitle, IonButtons, IonToolbar, IonLoading, IonButton, IonContent } from "@ionic/react";
 import withAuthorization from '../../hoc/withAuthorization';
 import { withToastManager } from 'react-toast-notifications';
 import ServiceItem from '../../components/service/ServiceItem';
@@ -75,17 +75,11 @@ class SentOffers extends React.Component {
                   </IonCardHeader>
                 <IonCardContent>
                   <div className="service-offer">
-                    <div>
-                      <span className="label">To User:</span> {offer.toUser.fullName}
+                    <div style={{fontWeight: "bold"}}>
+                      <IonLabel className="label">To User: </IonLabel> {offer.toUser.fullName}
                     </div>
                     <div>
                       <span className="label">Note:</span> {offer.note}
-                    </div>
-                    <div>
-                      <span className="label">Price:</span> ${offer.price}
-                    </div>
-                    <div>
-                      <span className="label">Time:</span> {offer.time} hours
                     </div>
                   </div>
                   { offer.status === 'accepted' && !offer.collaborationCreated &&

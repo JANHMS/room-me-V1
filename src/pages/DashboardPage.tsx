@@ -14,7 +14,13 @@ import { fetchServices } from '../actions';
 
 //the 7th object of the array in the citylocation question answer is string
 const CITY_QUESTION_ID = "7";
-
+const POSSIBLE_SCORES = [1, 0.99]
+// function scores () {
+//   var i = 1
+//   while(i>0){
+//     POSSIBLE_SCORES.append()
+//   }
+// }
 const DashboardPage: React.FC = (): JSX.Element => {
   
   const history = useHistory()
@@ -68,7 +74,14 @@ const DashboardPage: React.FC = (): JSX.Element => {
     useEffect(() => {
       const servicePromise = new Promise((resolve, reject) => {
         if(locationData) {
-          resolve(firestore.collection('services').where("citylocation", "==", locationData)
+          resolve(
+            firestore.collection('services')
+            .where("citylocation", "==", locationData)
+            .where("matchscores", "array-contains", {
+              userId: userId, score:
+              10 || 9 || 8 || 7 || 6 || 5 || 4 || 3 || 2 || 1 || 0
+            })
+            // .orderBy("score")
             .get()
             .then(async snapshot => {
               const servicesData = snapshot.docs.map(doc => ({id: doc.id, ...doc.data()}))
@@ -113,55 +126,59 @@ const DashboardPage: React.FC = (): JSX.Element => {
     //this first step is done to refactor the Object and get the pure answer data
     const ServiceUserMatchAnswer = {}
     console.log(`This is the Object serviceUserCharacters`, serviceUserCharacters)
-
-    const myPromise = new Promise((resolve, reject) => {
-
-        if(serviceUserCharacters !== {} || serviceUserCharacters !== undefined) {
-          Object.keys(serviceUserCharacters).map(function(key, index) {
-            // console.log(`This is the Object of the user ${key}`, serviceUserCharacters[key])
-            var outerObj = {}
-            serviceUserCharacters[key].map((object) => {
-              var innerArray = []
-              object.checkedList && object.checkedList.map((answer) => {
-                if(answer.text !== "") { 
-                  innerArray.push(answer.text) 
-                }
-              })
-              outerObj[object.id] = innerArray
-            })
-            ServiceUserMatchAnswer[key] = outerObj
-            // console.log(`This is the Object of the user ${key} and the answer`, ServiceUserMatchAnswer)
-      
-          });
-
-          if(ServiceUserMatchAnswer !== {}) {
-            // Matchscores is object with key userId and score as number
-            const MatchScores = {};
-            Object.keys(ServiceUserMatchAnswer).map(function(key, index) {
-              var score = 0;
-              // console.log(`This is the Object of the user ${key} and the answer`, ServiceUserMatchAnswer[key])
-              if(ServiceUserMatchAnswer) {
-                Object.keys(ServiceUserMatchAnswer[key]).map(function(k, index) {
-                  // we map thought all service users and map throught their answers, if they are the same as the one of authuser w matchsore += 1
-                  // console.log(`This is the ServiceUserMatchAnswer`, ServiceUserMatchAnswer[key][k])
-                  // console.log("This is the authUser", authUserCharacter[index])
-                  
-                  var a = authUserCharacter[index]
-                  var b = ServiceUserMatchAnswer[key][k]
-                  
-                  for (var i = 0; i < b.length; ++i) {
-                    if (a[i] !== b[i]) return false;
-                  }
-                  score += 1;
-                });
-                resolve(MatchScores[key] = score)
-              }
-            })  
-            // console.log(`This is the score ${MatchScores["WcvJ9BGBT0Ymma6OJ0QWW8ptJvT2"]}`)
-          }
-        }
-    });
-    myPromise.then(() => setLoading(false))
+    
+    // const myPromise = new Promise((resolve, reject) => {
+    //   Object.keys(serviceUserCharacters).map(function(key, index) {
+    //       // console.log(`This is the Object of the user ${key}`, serviceUserCharacters[key])
+    //       var outerObj = {}
+    //       serviceUserCharacters[key].map((object) => {
+    //         var innerArray = []
+    //         object.checkedList && object.checkedList.map((answer) => {
+    //           if(answer.text !== "") { 
+    //             innerArray.push(answer.text) 
+    //           }
+    //         })
+    //         outerObj[object.id] = innerArray
+    //       })
+    //       ServiceUserMatchAnswer[key] = outerObj
+    //       // console.log(`This is the Object of the user ${key} and the answer`, ServiceUserMatchAnswer)
+    // 
+    //     });
+    // 
+    //     if(ServiceUserMatchAnswer !== {}) {
+    //       // Matchscores is object with key userId and score as number
+    //       const MatchScores = {};
+    //       Object.keys(ServiceUserMatchAnswer).map(function(key, index) {
+    //         var score = 0;
+    //         // console.log(`This is the Object of the user ${key} and the answer`, ServiceUserMatchAnswer[key])
+    //         if(ServiceUserMatchAnswer) {
+    //           Object.keys(ServiceUserMatchAnswer[key]).map(function(k, index) {
+    //             // we map thought all service users and map throught their answers, if they are the same as the one of authuser w matchsore += 1
+    //             // console.log(`This is the ServiceUserMatchAnswer`, ServiceUserMatchAnswer[key][k])
+    //             // console.log("This is the authUser", authUserCharacter[index])
+    // 
+    //             var a = authUserCharacter[index]
+    //             var b = ServiceUserMatchAnswer[key][k]
+    // 
+    //             for (var i = 0; i < b.length; ++i) {
+    //               if (a[i] !== b[i]) return false;
+    //             }
+    //             score += 1;
+    //           });
+    //           MatchScores[key] = score
+    //           firestore.collection("services").doc(key).set({
+    //             matchscore: score
+    //           }, { merge: true })
+    // 
+    //         }
+    //       })  
+    //       console.log(`This is the score ${MatchScores["WcvJ9BGBT0Ymma6OJ0QWW8ptJvT2"]}`)
+    //     }
+    // });
+    // myPromise.then(() => {
+    //   setLoading(false)
+    // })
+    setLoading(false)
   },[serviceUserCharacters])
   
 

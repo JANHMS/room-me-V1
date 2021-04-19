@@ -156,33 +156,33 @@ const CreateUserSpecificServicesPage: React.FC = (): JSX.Element => {
                   }
                   score += 1;
                 });
-                MatchScores[key] = score  
-                
-                services.map((service) => {
-                  service["score"] = score
-                  firestore.collection("profiles")
-                  .doc(userId)
-                  .collection("services")
-                  .doc(service.id).set({
-                    address: service.address,
-                    category: service.category,
-                    citylocation: service.citylocation,
-                    date: service.date,
-                    description: service.description,
-                    image: service.image,
-                    image1: service.image1,
-                    image2: service.image2,
-                    image3: service.image3,
-                    image4: service.image4,
-                    mediaLink: service.mediaLink,
-                    price: service.price,
-                    userId: service.userId
-                  }, { merge: true })
-                  
-                })
+                MatchScores[key] = score
               }
             })
             console.log('This is the score', MatchScores)
+            services.map((service) => {
+              service["score"] = MatchScores[service.id]
+              firestore.collection("profiles")
+              .doc(userId)
+              .collection("services")
+              .doc(service.id).set({
+                address: service.address,
+                category: service.category,
+                citylocation: service.citylocation,
+                date: service.date,
+                description: service.description,
+                image: service.image,
+                image1: service.image1,
+                image2: service.image2,
+                image3: service.image3,
+                image4: service.image4,
+                mediaLink: service.mediaLink,
+                price: service.price,
+                userId: service.userId,
+                title: service.title,
+                score: service.score
+              }, { merge: true })  
+            })
           }
       });
       myPromise.then(() => {

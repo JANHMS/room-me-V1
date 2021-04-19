@@ -43,6 +43,7 @@ const DashboardPage: React.FC = (): JSX.Element => {
       const servicePromise = new Promise((resolve, reject) => {
         resolve(
           firestore.collection("profiles").doc(userId).collection('services')
+          .orderBy("score", "desc")
           .get()
           .then(async snapshot => {
             const servicesData = snapshot.docs.map(doc => ({id: doc.id, ...doc.data()}))

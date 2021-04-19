@@ -38,6 +38,7 @@ import MyUserProfilePage from './pages/User/MyUserProfilePage';
 import ProfileCard from './components/User/ProfileCard';
 import UserListPage from './pages/User/UserListPage';
 import UserDetailPage from './pages/User/UserDetailPage';
+import CreateUserSpecificServicesPage from './pages/services/CreateUserSpecificServicesPage';
 
 
 const AppTabs: React.FC = (): JSX.Element => {
@@ -74,6 +75,8 @@ const AppTabs: React.FC = (): JSX.Element => {
         <Route path="/my/entries/add/picture/:id" component={EntryPage} exact />
 
         <Route path="/my/services/me" component={UserServicesPage} exact />
+        <Route path="/my/create/services" component={CreateUserSpecificServicesPage} exact />
+
 
         <Route path="/my/services/:serviceId" component={ServiceDetailPage} exact />
 

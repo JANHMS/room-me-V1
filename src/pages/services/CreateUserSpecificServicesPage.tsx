@@ -1,27 +1,21 @@
 import React, { useState, useEffect } from 'react';
-import { useAuth } from '../auth';
-import { formatDate } from '../date';
-import { firestore } from '../firebase';
-import { Entry, toEntry } from '../models';
-import { auth } from '../firebase';
+import { useAuth } from '../../auth';
+import { formatDate } from '../../date';
+import { firestore } from '../../firebase';
+import { Entry, toEntry } from '../../models';
+import { auth } from '../../firebase';
 import { useHistory } from "react-router";
-import DashboardComponent from '../components/DashboardComponent';
-import { toast } from '../toast';
-import { getUserProfile } from '../api';
+import DashboardComponent from '../../components/DashboardComponent';
+import { toast } from '../../toast';
+import { getUserProfile } from '../../api';
 import { IonLoading } from '@ionic/react';
 import { connect } from 'react-redux' // HOC
-import { fetchServices } from '../actions';
+import { fetchServices } from '../../actions';
+import CreateUserSpecificServices from '../../components/User/CreateUserSpecificServices';
 
 //the 7th object of the array in the citylocation question answer is string
 const CITY_QUESTION_ID = "7";
-const POSSIBLE_SCORES = [1, 0.99]
-// function scores () {
-//   var i = 1
-//   while(i>0){
-//     POSSIBLE_SCORES.append()
-//   }
-// }
-const DashboardPage: React.FC = (): JSX.Element => {
+const CreateUserSpecificServicesPage: React.FC = (): JSX.Element => {
   
   const history = useHistory()
   
@@ -77,15 +71,10 @@ const DashboardPage: React.FC = (): JSX.Element => {
           resolve(
             firestore.collection('services')
             .where("citylocation", "==", locationData)
-            // .where("matchscores", "array-contains", {
-            //   userId: userId, 
-            //   score: 
-            // })
-            .orderBy("matchscores")
             .get()
             .then(async snapshot => {
               const servicesData = snapshot.docs.map(doc => ({id: doc.id, ...doc.data()}))
-              // console.log("This is the serviceData", servicesData)
+              console.log("This is the serviceData", servicesData)
               setServices(servicesData)
             })
           )
@@ -108,97 +97,89 @@ const DashboardPage: React.FC = (): JSX.Element => {
         .get()
         .then(snapshot => {
           const serviceUserCharacterData = snapshot.docs.map(doc => ({id: doc.id, ...doc.data()}))
-          serviceUserCharactersDataObject[service.userId] = serviceUserCharacterData
+          //the service id and the userData according to that service
+          serviceUserCharactersDataObject[service.id] = serviceUserCharacterData
           })
           
-          // console.log("This is serviceUserCharactersDataArray", serviceUserCharactersDataObject)
+          console.log("This is serviceUserCharactersDataArray", serviceUserCharactersDataObject)
         })
       }
         resolve(setServiceUserCharacters(serviceUserCharactersDataObject))
       })
     serviceUserCharacterPromise.then(() => setServiceUserCharactersLoaded(true))
-    console.log('This is the Object setSetServiceUserCharactersLoading', serviceUserCharactersLoaded)
+    // console.log('This is the Object setSetServiceUserCharactersLoading', serviceUserCharactersLoaded)
+    setLoading(false)
+
     },[services])
 
   // improvment could be writing the fetches as a function and rerunning the fetches until the data finally got fetched
 
-  useEffect(() => {
     //this first step is done to refactor the Object and get the pure answer data
-    const ServiceUserMatchAnswer = {}
-    console.log(`This is the Object serviceUserCharacters`, serviceUserCharacters)
-    
-    // const myPromise = new Promise((resolve, reject) => {
-    //   Object.keys(serviceUserCharacters).map(function(key, index) {
-    //       // console.log(`This is the Object of the user ${key}`, serviceUserCharacters[key])
-    //       var outerObj = {}
-    //       serviceUserCharacters[key].map((object) => {
-    //         var innerArray = []
-    //         object.checkedList && object.checkedList.map((answer) => {
-    //           if(answer.text !== "") { 
-    //             innerArray.push(answer.text) 
-    //           }
-    //         })
-    //         outerObj[object.id] = innerArray
-    //       })
-    //       ServiceUserMatchAnswer[key] = outerObj
-    //       // console.log(`This is the Object of the user ${key} and the answer`, ServiceUserMatchAnswer)
-    // 
-    //     });
-    // 
-    //     if(ServiceUserMatchAnswer !== {}) {
-    //       // Matchscores is object with key userId and score as number
-    //       const MatchScores = {};
-    //       Object.keys(ServiceUserMatchAnswer).map(function(key, index) {
-    //         var score = 0;
-    //         // console.log(`This is the Object of the user ${key} and the answer`, ServiceUserMatchAnswer[key])
-    //         if(ServiceUserMatchAnswer) {
-    //           Object.keys(ServiceUserMatchAnswer[key]).map(function(k, index) {
-    //             // we map thought all service users and map throught their answers, if they are the same as the one of authuser w matchsore += 1
-    //             // console.log(`This is the ServiceUserMatchAnswer`, ServiceUserMatchAnswer[key][k])
-    //             // console.log("This is the authUser", authUserCharacter[index])
-    // 
-    //             var a = authUserCharacter[index]
-    //             var b = ServiceUserMatchAnswer[key][k]
-    // 
-    //             for (var i = 0; i < b.length; ++i) {
-    //               if (a[i] !== b[i]) return false;
-    //             }
-    //             score += 1;
-    //           });
-    //           MatchScores[key] = score
-    //           firestore.collection("services").doc(key).set({
-    //             matchscore: score
-    //           }, { merge: true })
-    // 
-    //         }
-    //       })  
-    //       console.log(`This is the score ${MatchScores["WcvJ9BGBT0Ymma6OJ0QWW8ptJvT2"]}`)
-    //     }
-    // });
-    // myPromise.then(() => {
-    //   setLoading(false)
-    // })
-    setLoading(false)
-  },[serviceUserCharacters])
-  
+    const createScore = () => {
+      const ServiceUserMatchAnswer = {}
+      // console.log(`This is the Object serviceUserCharacters`, serviceUserCharacters)
+      
+      const myPromise = new Promise((resolve, reject) => {
+        Object.keys(serviceUserCharacters).map(function(key, index) {
+            // console.log(`This is the Object of the user ${key}`, serviceUserCharacters[key])
+            var outerObj = {}
+            serviceUserCharacters[key].map((object) => {
+              var innerArray = []
+              object.checkedList && object.checkedList.map((answer) => {
+                if(answer.text !== "") { 
+                  innerArray.push(answer.text) 
+                }
+              })
+              outerObj[object.id] = innerArray
+            })
+            ServiceUserMatchAnswer[key] = outerObj
+            // console.log(`This is the Object of the user ${key} and the answer`, ServiceUserMatchAnswer)  
+          });
+      
+          if(ServiceUserMatchAnswer !== {}) {
+            // Matchscores is object with key userId and score as number
+            const MatchScores = {};
+            Object.keys(ServiceUserMatchAnswer).map(function(key, index) {
+              var score = 0;
+              // console.log(`This is the Object of the user ${key} and the answer`, ServiceUserMatchAnswer[key])
+              if(ServiceUserMatchAnswer) {
+                Object.keys(ServiceUserMatchAnswer[key]).map(function(k, index) {
+                  // we map thought all service users and map throught their answers, if they are the same as the one of authuser w matchsore += 1
+                  // console.log(`This is the ServiceUserMatchAnswer`, ServiceUserMatchAnswer[key][k])
+                  // console.log("This is the authUser", authUserCharacter[index])
+      
+                  var a = authUserCharacter[index]
+                  var b = ServiceUserMatchAnswer[key][k]
+      
+                  for (var i = 0; i < b.length; ++i) {
+                    if (a[i] !== b[i]) return false;
+                  }
+                  score += 1;
+                });
+                MatchScores[key] = score
+                firestore.collection("services").doc(key).set({
+                  matchscore: score
+                }, { merge: true })
+      
+              }
+            })  
+            console.log('This is the score', MatchScores)
+          }
+      });
+      myPromise.then(() => {
+      })
+    }
 
-  async function logout() {
-    history.push('/home')
-    setLoadingLogout(true)
-    toast("Logged out")
-    setLoadingLogout(false)
-    auth.signOut()
-  }
+const handleCreateClick = () => {
+  console.log(services)
+  // firestore.collection("profiles").doc(userId).collection("services")
+}
   
   return (
     user && services && locationData && !loading ? 
-    <DashboardComponent
-      logout={logout}
-      loadingLogout={loadingLogout}
-      entries={entries}
-      formatDate={formatDate}
-      user={user}
-      services={services}
+    <CreateUserSpecificServices
+      createScore={createScore}
+      handleCreateClick={handleCreateClick}
     /> : <IonLoading isOpen={loading}
         message={'Please wait...'}
         duration={100000}/>
@@ -207,4 +188,4 @@ const DashboardPage: React.FC = (): JSX.Element => {
 
 const mapStateToProps = state => ({services: state.services.all})
     
-export default connect(mapStateToProps, {fetchServices})(DashboardPage)
+export default connect(mapStateToProps, {fetchServices})(CreateUserSpecificServicesPage)

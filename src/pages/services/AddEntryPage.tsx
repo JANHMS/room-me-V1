@@ -216,7 +216,22 @@ const AddEntryPage: React.FC<Props> = ({
   const handleSave = async () => {
     const entriesRef = firestore.collection('services')
     // const user = firestore.doc('profiles/' + userId)
-    const entryData = { category, description, date, citylocation, mediaLink, image, image1, image2, image3, image4, price, address, userId };
+    const entryData = { 
+      category, 
+      description, 
+      date, 
+      citylocation, 
+      title , 
+      mediaLink, 
+      image, 
+      image1, 
+      image2, 
+      image3, 
+      image4, 
+      price, 
+      address, 
+      userId 
+    };
     if (!image.startsWith('/assets')) {
       entryData.image = await savePicture(image, userId);
 

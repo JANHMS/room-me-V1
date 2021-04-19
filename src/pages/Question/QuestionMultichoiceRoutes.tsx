@@ -92,7 +92,6 @@ const QuestionMultichoiceRoutes = () => {
       }
     }
 
-
   return (
     !loading && questionData ? 
     <QuestionMultiChoicePage

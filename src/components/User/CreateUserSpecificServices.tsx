@@ -3,12 +3,10 @@ import React from 'react';
 import HeaderImage from '.././HeaderImage';
 
 interface Props {
-  handleCreateClick: () => void;
   createScore: () => void;
 }
 
 const CreateUserSpecificServices: React.FC<Props> = ({
-  handleCreateClick,
   createScore
 }) => {
   return(
@@ -18,11 +16,20 @@ const CreateUserSpecificServices: React.FC<Props> = ({
         <HeaderImage />
         </IonToolbar>
       </IonHeader>
-      <h2>Create Services</h2>
-      createScore
+
       <IonContent className="ion-padding">
-        <IonButton expand="block" onClick={createScore}>CreateScore</IonButton>
-        <IonButton expand="block" onClick={handleCreateClick}>CreateServices</IonButton>
+        <IonTitle 
+          style={{       
+          position: "fixed", 
+          top: "-10%"
+        }}>Find your Room-Me's</IonTitle>
+        <IonButton      
+         style={{  
+           position: "fixed", 
+           top: "50%",
+           left: "35%",
+        }}
+        expand="block" onClick={createScore}>Room-Me</IonButton>
       </IonContent>
     </IonPage>
   )

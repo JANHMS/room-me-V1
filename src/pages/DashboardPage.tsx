@@ -12,15 +12,6 @@ import { IonLoading } from '@ionic/react';
 import { connect } from 'react-redux' // HOC
 import { fetchServices } from '../actions';
 
-//the 7th object of the array in the citylocation question answer is string
-const CITY_QUESTION_ID = "7";
-const POSSIBLE_SCORES = [1, 0.99]
-// function scores () {
-//   var i = 1
-//   while(i>0){
-//     POSSIBLE_SCORES.append()
-//   }
-// }
 const DashboardPage: React.FC = (): JSX.Element => {
   
   const history = useHistory()

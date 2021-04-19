@@ -160,7 +160,7 @@ const CreateUserSpecificServicesPage: React.FC = (): JSX.Element => {
               }
             })
             console.log('This is the score', MatchScores)
-            services.map((service) => {
+            resolve(services.map((service) => {
               service["score"] = MatchScores[service.id]
               firestore.collection("profiles")
               .doc(userId)
@@ -182,23 +182,18 @@ const CreateUserSpecificServicesPage: React.FC = (): JSX.Element => {
                 title: service.title,
                 score: service.score
               }, { merge: true })  
-            })
+            }))
           }
       });
       myPromise.then(() => {
+        history.push("/my/dashboard")
       })
     }
-
-const handleCreateClick = () => {
-  console.log(services)
-  // firestore.collection("profiles").doc(userId).collection("services")
-}
   
   return (
     user && services && locationData && !loading ? 
     <CreateUserSpecificServices
       createScore={createScore}
-      handleCreateClick={handleCreateClick}
     /> : <IonLoading isOpen={loading}
         message={'Please wait...'}
         duration={100000}/>

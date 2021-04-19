@@ -44,10 +44,12 @@ return (
               <IonThumbnail slot="end">
                 <IonImg src={entry.image} />
               </IonThumbnail>
+              <IonThumbnail slot="start">
+                <IonLabel>{entry.score}</IonLabel>
+              </IonThumbnail>              
               <IonLabel>
                 <h2>{entry.title}</h2>
                 <h3>{formatDate(entry.date)}</h3>
-
               </IonLabel>
             </IonItem>
           )}

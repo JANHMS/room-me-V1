@@ -164,7 +164,19 @@ const CreateUserSpecificServicesPage: React.FC = (): JSX.Element => {
                   .doc(userId)
                   .collection("services")
                   .doc(key).set({
-                    service
+                    address: service.address,
+                    category: service.category,
+                    citylocation: service.citylocation,
+                    date: service.date,
+                    description: service.description,
+                    image: service.image,
+                    image1: service.image1,
+                    image2: service.image2,
+                    image3: service.image3,
+                    image4: service.image4,
+                    mediaLink: service.mediaLink,
+                    price: service.price,
+                    userId: service.userId
                   }, { merge: true })
                   
                 })

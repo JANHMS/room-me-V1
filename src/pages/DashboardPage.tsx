@@ -66,36 +66,44 @@ const DashboardPage: React.FC = (): JSX.Element => {
   }, [])
 
     useEffect(() => {
-      if(locationData) {
-        firestore.collection('services').where("citylocation", "==", locationData)
-        .get()
-        .then(async snapshot => {
-          const servicesData = snapshot.docs.map(doc => ({id: doc.id, ...doc.data()}))
-          // console.log("This is the serviceData", servicesData)
-          await setServices(servicesData)
-        })
+      const servicePromise = new Promise((resolve, reject) => {
+        if(locationData) {
+          resolve(firestore.collection('services').where("citylocation", "==", locationData)
+            .get()
+            .then(async snapshot => {
+              const servicesData = snapshot.docs.map(doc => ({id: doc.id, ...doc.data()}))
+              // console.log("This is the serviceData", servicesData)
+              setServices(servicesData)
+            })
+          )
+        }
+      })
+      servicePromise.then(() => {
         fetchServices()
-      } else return;
+      }
+    )
     },[locationData])
 
     useEffect(() => {
+      const serviceUserCharacterPromise = new Promise((resolve, reject) => {
       // fetch data of the users who offer the services, array of array of objects
       const serviceUserCharactersDataObject = {}
       // console.log("This is services", services)
       if(services) {
-      services.map(service => {
-      firestore.collection("profiles").doc(service.userId).collection("character")
-      .get()
-      .then(snapshot => {
-        const serviceUserCharacterData = snapshot.docs.map(doc => ({id: doc.id, ...doc.data()}))
-        serviceUserCharactersDataObject[service.userId] = serviceUserCharacterData
+        services.map(service => {
+        firestore.collection("profiles").doc(service.userId).collection("character")
+        .get()
+        .then(snapshot => {
+          const serviceUserCharacterData = snapshot.docs.map(doc => ({id: doc.id, ...doc.data()}))
+          serviceUserCharactersDataObject[service.userId] = serviceUserCharacterData
+          })
+          
+          // console.log("This is serviceUserCharactersDataArray", serviceUserCharactersDataObject)
         })
-        
-        // console.log("This is serviceUserCharactersDataArray", serviceUserCharactersDataArray)
+      }
+        resolve(setServiceUserCharacters(serviceUserCharactersDataObject))
       })
-      setServiceUserCharacters(serviceUserCharactersDataObject)
-      setSetServiceUserCharactersLoading(true)
-    } else return
+    serviceUserCharacterPromise.then(() => setSetServiceUserCharactersLoading(true))
     },[services])
 
   // improvment could be writing the fetches as a function and rerunning the fetches until the data finally got fetched
@@ -103,55 +111,57 @@ const DashboardPage: React.FC = (): JSX.Element => {
   useEffect(() => {
     //this first step is done to refactor the Object and get the pure answer data
     const ServiceUserMatchAnswer = {}
-    if(serviceUserCharacters) {
-      Object.keys(serviceUserCharacters).map(function(key, index) {
-        // console.log(`This is the Object of the user ${key}`, serviceUserCharacters[key])
-        var outerObj = {}
-        serviceUserCharacters[key].map((object) => {
-          var innerArray = []
-          object.checkedList && object.checkedList.map((answer) => {
-            if(answer.text !== "") { 
-              innerArray.push(answer.text) 
-            }
-          })
-          outerObj[object.id] = innerArray
-        })
-        ServiceUserMatchAnswer[key] = outerObj
-        // console.log(`This is the Object of the user ${key} and the answer`, ServiceUserMatchAnswer)
-  
-      });
-    }
-    if(ServiceUserMatchAnswer !== {}) {
-      // Matchscores is object with key userId and score as number
-      const MatchScores = {};
-      Object.keys(ServiceUserMatchAnswer).map(function(key, index) {
-        var score = 0;
-        console.log(`This is the Object of the user ${key} and the answer`, ServiceUserMatchAnswer[key])
-        if(ServiceUserMatchAnswer) {
-          Object.keys(ServiceUserMatchAnswer[key]).map(function(k, index) {
-            // we map thought all service users and map throught their answers, if they are the same as the one of authuser w matchsore += 1
-            console.log(`This is the ServiceUserMatchAnswer`, ServiceUserMatchAnswer[key][k])
-            console.log("This is the authUser", authUserCharacter[index])
-            
-            var a = authUserCharacter[index]
-            var b = ServiceUserMatchAnswer[key][k]
-            
-            for (var i = 0; i < b.length; ++i) {
-              if (a[i] !== b[i]) return false;
-            }
-            score += 1;
+    const myPromise = new Promise((resolve, reject) => {
+
+        if(serviceUserCharacters) {
+          Object.keys(serviceUserCharacters).map(function(key, index) {
+            // console.log(`This is the Object of the user ${key}`, serviceUserCharacters[key])
+            var outerObj = {}
+            serviceUserCharacters[key].map((object) => {
+              var innerArray = []
+              object.checkedList && object.checkedList.map((answer) => {
+                if(answer.text !== "") { 
+                  innerArray.push(answer.text) 
+                }
+              })
+              outerObj[object.id] = innerArray
+            })
+            ServiceUserMatchAnswer[key] = outerObj
+            // console.log(`This is the Object of the user ${key} and the answer`, ServiceUserMatchAnswer)
+      
           });
-          MatchScores[key] = score
+
+
+          if(ServiceUserMatchAnswer !== {}) {
+            // Matchscores is object with key userId and score as number
+            const MatchScores = {};
+            Object.keys(ServiceUserMatchAnswer).map(function(key, index) {
+              var score = 0;
+              // console.log(`This is the Object of the user ${key} and the answer`, ServiceUserMatchAnswer[key])
+              if(ServiceUserMatchAnswer) {
+                Object.keys(ServiceUserMatchAnswer[key]).map(function(k, index) {
+                  // we map thought all service users and map throught their answers, if they are the same as the one of authuser w matchsore += 1
+                  // console.log(`This is the ServiceUserMatchAnswer`, ServiceUserMatchAnswer[key][k])
+                  // console.log("This is the authUser", authUserCharacter[index])
+                  
+                  var a = authUserCharacter[index]
+                  var b = ServiceUserMatchAnswer[key][k]
+                  
+                  for (var i = 0; i < b.length; ++i) {
+                    if (a[i] !== b[i]) return false;
+                  }
+                  score += 1;
+                });
+                resolve(MatchScores[key] = score)
+              }
+            })  
+            // console.log(`This is the score ${MatchScores["WcvJ9BGBT0Ymma6OJ0QWW8ptJvT2"]}`)
+          }
         }
-      })  
-      console.log(`This is the score ${MatchScores["WcvJ9BGBT0Ymma6OJ0QWW8ptJvT2"]}`)
-    }
+    });
+    myPromise.then(() => setLoading(false))
   },[setServiceUserCharactersLoading])
   
-  
-  useEffect(() => {
-    setLoading(false)
-  },[serviceUserCharacters, setServiceUserCharactersLoading])
 
   async function logout() {
     history.push('/home')

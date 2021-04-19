@@ -156,15 +156,20 @@ const CreateUserSpecificServicesPage: React.FC = (): JSX.Element => {
                   }
                   score += 1;
                 });
-                MatchScores[key] = score
-                firestore.collection("profiles")
-                .doc(userId)
-                .collection("services")
-                .doc(key).set({
-                  matchscore: score
-                }, { merge: true })
+                MatchScores[key] = score  
+                
+                services.map((service) => {
+                  service["score"] = score
+                  firestore.collection("profiles")
+                  .doc(userId)
+                  .collection("services")
+                  .doc(key).set({
+                    service
+                  }, { merge: true })
+                  
+                })
               }
-            })  
+            })
             console.log('This is the score', MatchScores)
           }
       });

@@ -163,7 +163,7 @@ const CreateUserSpecificServicesPage: React.FC = (): JSX.Element => {
                   firestore.collection("profiles")
                   .doc(userId)
                   .collection("services")
-                  .doc(key).set({
+                  .doc(service.id).set({
                     address: service.address,
                     category: service.category,
                     citylocation: service.citylocation,

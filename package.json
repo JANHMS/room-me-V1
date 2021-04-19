@@ -7,6 +7,10 @@
     "start:android": "ionic capacitor run android --livereload --external",
     "build": "ionic build"
   },
+  "scripts": {
+    "lint": "eslint .",
+    "lint:fix": "eslint --fix --ext .js,.jsx ."
+  },
   "dependencies": {
     "@capacitor/android": "2.4.7",
     "@capacitor/core": "2.4.7",

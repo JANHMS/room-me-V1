@@ -28,7 +28,7 @@ const DashboardPage: React.FC = (): JSX.Element => {
   const [locationData, setLocationData] = useState<any>()
   const [authUserCharacter, setAuthUserCharacter] = useState<any>()
   const [serviceUserCharacters, setServiceUserCharacters] = useState<any>()
-  const [setServiceUserCharactersLoading , setSetServiceUserCharactersLoading] = useState(false)
+  const [serviceUserCharactersLoaded , setServiceUserCharactersLoaded] = useState(false)
   
   useEffect(() => {
     firestore.collection("profiles").doc(userId)
@@ -103,7 +103,8 @@ const DashboardPage: React.FC = (): JSX.Element => {
       }
         resolve(setServiceUserCharacters(serviceUserCharactersDataObject))
       })
-    serviceUserCharacterPromise.then(() => setSetServiceUserCharactersLoading(true))
+    serviceUserCharacterPromise.then(() => setServiceUserCharactersLoaded(true))
+    console.log('This is the Object setSetServiceUserCharactersLoading', serviceUserCharactersLoaded)
     },[services])
 
   // improvment could be writing the fetches as a function and rerunning the fetches until the data finally got fetched
@@ -111,9 +112,11 @@ const DashboardPage: React.FC = (): JSX.Element => {
   useEffect(() => {
     //this first step is done to refactor the Object and get the pure answer data
     const ServiceUserMatchAnswer = {}
+    console.log(`This is the Object serviceUserCharacters`, serviceUserCharacters)
+
     const myPromise = new Promise((resolve, reject) => {
 
-        if(serviceUserCharacters) {
+        if(serviceUserCharacters !== {} || serviceUserCharacters !== undefined) {
           Object.keys(serviceUserCharacters).map(function(key, index) {
             // console.log(`This is the Object of the user ${key}`, serviceUserCharacters[key])
             var outerObj = {}
@@ -130,7 +133,6 @@ const DashboardPage: React.FC = (): JSX.Element => {
             // console.log(`This is the Object of the user ${key} and the answer`, ServiceUserMatchAnswer)
       
           });
-
 
           if(ServiceUserMatchAnswer !== {}) {
             // Matchscores is object with key userId and score as number
@@ -160,7 +162,7 @@ const DashboardPage: React.FC = (): JSX.Element => {
         }
     });
     myPromise.then(() => setLoading(false))
-  },[setServiceUserCharactersLoading])
+  },[serviceUserCharacters])
   
 
   async function logout() {

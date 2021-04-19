@@ -40,7 +40,7 @@ const ChatItem = ({ contact }) => {
 
     
 
-    messageSubscription = await db.collection("messages").where("channel", "in", [channel1, channel2])
+    messageSubscription = await firestore.collection("messages").where("channel", "in", [channel1, channel2])
     .orderBy("time", "desc")
     .limit(1)
     .onSnapshot(function(querySnapshot) {

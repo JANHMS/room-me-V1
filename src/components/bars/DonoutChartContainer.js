@@ -3,14 +3,15 @@ import { Doughnut } from "react-chartjs-2";
 import { chartColors } from "./colors";
 
 // Doughnut.defaults.global.legend.display = false;
-
+const TOTALSCORE = 1
 const options = {
   legend: {
     display: false,
   },
   labels: {
     display: false
-  }
+  },
+  tooltip: false,
 };
 
 const DonoutChartContainer = ({
@@ -22,18 +23,28 @@ const DonoutChartContainer = ({
     labels: {
       display: false
     },
+    tooltip: false,
     datasets: [
       {
         label: "none",
-        data: [score, 17],
+        tooltip: false,
+        data: [score/17, score/17 - TOTALSCORE],
         backgroundColor: chartColors,
         hoverBackgroundColor: chartColors
       }
     ]
   };
-
+    
   return (
-    <Doughnut options={options} data={data} score={score}/>
+    <div className='wrapper'>
+      <div className='chart-number' style={{
+        position: "absolute",
+        marginLeft: "20px",
+        marginTop: "23px",
+        color: "limegreen"
+      }}>{score}</div>
+      <Doughnut options={options} data={data} score={score}/>
+  </div>
   );
 }
 

@@ -183,7 +183,7 @@ const CreateUserSpecificServicesPage: React.FC = (): JSX.Element => {
                       //   console.log("This is b long array", b)
 
                       const intersection = a.filter(element => b.indexOf(element) !== -1)
-                      score += intersection.length * 3
+                      score += intersection.length * 2
                       
                     }
                 });

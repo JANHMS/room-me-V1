@@ -6,6 +6,7 @@ import { add as addIcon } from 'ionicons/icons';
 import { Link } from 'react-router-dom';
 import HeaderBar from "./HeaderBar";
 import ServiceItem from './service/ServiceItem';
+import DonoutChartContainer from './bars/DonoutChartContainer';
 
 
 interface Props {
@@ -45,7 +46,7 @@ return (
                 <IonImg src={entry.image} />
               </IonThumbnail>
               <IonThumbnail slot="start">
-                <IonLabel>{entry.score}</IonLabel>
+                <DonoutChartContainer score={entry.score}/>
               </IonThumbnail>              
               <IonLabel>
                 <h2>{entry.title}</h2>

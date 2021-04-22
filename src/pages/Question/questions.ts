@@ -114,7 +114,7 @@ export const questions = [
         text: "Sci-Fi marathon"
       }
     ],
-    question: "Which event is most appealing?"  
+    question: "Which event are most appealing?"  
   },
   {
     answers: [
@@ -216,7 +216,7 @@ export const questions = [
         text: "Don't mind"
       },
     ],
-    question: "  Does your roommate can have a pet?"  
+    question: "Does your roommate can have a pet?"  
   },
   {
     answers: [
@@ -262,7 +262,7 @@ export const questions = [
         text: "Jazz"
       }
     ],
-    question: "Which kind of music do you like?"  
+    question: "Which kinds of music do you like?"  
   },
   {
     answers: [

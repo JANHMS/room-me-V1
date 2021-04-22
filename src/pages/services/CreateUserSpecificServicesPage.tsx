@@ -143,7 +143,7 @@ const CreateUserSpecificServicesPage: React.FC = (): JSX.Element => {
             const MatchScores = {};
             Object.keys(ServiceUserMatchAnswer).map(function(key, index) {
               var score = 0;
-              console.log(`This is the Object of the user ${key} and the answer`, ServiceUserMatchAnswer[key])
+              // console.log(`This is the Object of the user ${key} and the answer`, ServiceUserMatchAnswer[key])
               if(ServiceUserMatchAnswer) {
                 Object.keys(ServiceUserMatchAnswer[key]).map(function(k, index) {
                   // we map thought all service users and map throught their answers, if they are the same as the one of authuser w matchsore += 1
@@ -152,22 +152,55 @@ const CreateUserSpecificServicesPage: React.FC = (): JSX.Element => {
       
                   var a = authUserCharacter[index]
                   var b = ServiceUserMatchAnswer[key][k]
-                  console.log("authUserCharacter",a)
-                  console.log("ServiceUserMatchAnswer",b)
-
-                  for (var i = 0; i < b.length; ++i) {
+                  // console.log("authUserCharacter",a)
+                  // console.log("ServiceUserMatchAnswer",b)
                     if(a && b){
-                      if (a[i] !== b[i]) return false;
-                      else {
-                        score += 1;
-                      }
+                      //0th Smoke
+                      //1st number of same roommates, if some number in array overlap +1
+                      //2nd do nothing hole day
+                      //talk about feelings
+                      //active person?
+                      //brunch?
+                      //climate?
+                      // 
+                      // if(parseInt(k) && index === 0 || 1 || 2 || 3 || 4 || 6 || 7 || 8 || 12){
+                      // //Events for each element in array +1
+                      //   // if (a == b) score +=1;
+                      //   console.log("This is a short", a)
+                      //   console.log("This is b short", b)
+                      // 
+                      //   console.log("This is a == b", a == b)
+                      // }
+                      // 
+                      // //Pet
+                      // if(parseInt(k) && index === 11){
+                      //   if (a[11] == b[11]) score +=3;
+                      // }       
+                      // 
+                      // //Politic
+                      // if(parseInt(k) && index === 5 || 9 || 10 || 11 || 13 || 14 || 15 ){
+                      //   console.log("This is a long array", a)
+                      //   console.log("This is b long array", b)
+
+                      const intersection = a.filter(element => b.indexOf(element) !== -1)
+                      score += intersection.length * 3
+                      
                     }
-                    else return;
-                  }
                 });
                 MatchScores[key] = score
               }
             })
+            
+            //convert score to scale 1 - 10
+            //find max value
+            const M = Object.values(MatchScores)
+            var max = Math.max.apply(null, M);
+            
+            Object.keys(MatchScores).map(function(key, index) {
+              MatchScores[key] = MatchScores[key]/max * 10
+              MatchScores[key] = parseInt(MatchScores[key], 10)
+            });
+            
             console.log('This is the score', MatchScores)
             resolve(services.map((service) => {
               service["score"] = MatchScores[service.id]

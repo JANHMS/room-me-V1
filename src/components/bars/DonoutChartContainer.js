@@ -28,7 +28,7 @@ const DonoutChartContainer = ({
       {
         label: "none",
         tooltip: false,
-        data: [score/17, score/17 - TOTALSCORE],
+        data: [score/10, score/10 - TOTALSCORE],
         backgroundColor: chartColors,
         hoverBackgroundColor: chartColors
       }

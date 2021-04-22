@@ -14,7 +14,7 @@ import { fetchServices } from '../../actions';
 import CreateUserSpecificServices from '../../components/User/CreateUserSpecificServices';
 
 //the 7th object of the array in the citylocation question answer is string
-const CITY_QUESTION_ID = "7";
+const CITY_QUESTION_ID = "8";
 const CreateUserSpecificServicesPage: React.FC = (): JSX.Element => {
   
   const history = useHistory()
@@ -32,7 +32,8 @@ const CreateUserSpecificServicesPage: React.FC = (): JSX.Element => {
   
   useEffect(() => {
     firestore.collection("profiles").doc(userId)
-      .onSnapshot(async (doc) => {
+      .get()
+      .then(async doc => {
         // var source = doc.metadata.hasPendingWrites ? "Local" : "Server";
         const userData = doc.data()
         await setUser(userData)
@@ -59,6 +60,7 @@ const CreateUserSpecificServicesPage: React.FC = (): JSX.Element => {
           } else return;
           
           setAuthUserCharacter(AuthUserMatchAnswer)
+          console.log(authUserCharacterData)
           //the 7th object of the array in the citylocation question answer is string
           setLocationData(authUserCharacterData[CITY_QUESTION_ID].answer)
         })
@@ -150,14 +152,18 @@ const CreateUserSpecificServicesPage: React.FC = (): JSX.Element => {
       
                   var a = authUserCharacter[index]
                   var b = ServiceUserMatchAnswer[key][k]
-                  // console.log("authUserCharacter",a)
-                  // console.log("ServiceUserMatchAnswer",b)
+                  console.log("authUserCharacter",a)
+                  console.log("ServiceUserMatchAnswer",b)
 
                   for (var i = 0; i < b.length; ++i) {
-                    if (a[i] !== b[i]) return false;
-    
+                    if(a && b){
+                      if (a[i] !== b[i]) return false;
+                      else {
+                        score += 1;
+                      }
+                    }
+                    else return;
                   }
-                  score += 1;
                 });
                 MatchScores[key] = score
               }

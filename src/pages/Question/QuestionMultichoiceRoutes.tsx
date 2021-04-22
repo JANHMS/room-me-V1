@@ -91,7 +91,7 @@ const QuestionMultichoiceRoutes = () => {
         .doc(userId)
         .collection('character')
         .doc(id)
-        .set({question: questionData[id].question, checkedList: checkedList})
+        .set({question: questionData[id].question, checkedList: checkedList}, {merge: true})
         .then(() => {
           toast("Data stored!")
           history.push(`/my/register/inputquestion/${parseInt(id)+1}`)

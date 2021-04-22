@@ -83,12 +83,19 @@ const QuestionMultichoiceRoutes = () => {
       .set({question: questionData[id].question, checkedList: checkedList})
       .then(() => {
         toast("Data stored!")
-
         history.push(`/my/register/question/${parseInt(id)+1}`)
       })
     }
       else {
-        history.push(`/my/register/inputquestion/${parseInt(id)+1}`)
+        await firestore.collection('profiles')
+        .doc(userId)
+        .collection('character')
+        .doc(id)
+        .set({question: questionData[id].question, checkedList: checkedList})
+        .then(() => {
+          toast("Data stored!")
+          history.push(`/my/register/inputquestion/${parseInt(id)+1}`)
+        })
       }
     }
 

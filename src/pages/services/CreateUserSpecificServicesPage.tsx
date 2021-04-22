@@ -141,7 +141,7 @@ const CreateUserSpecificServicesPage: React.FC = (): JSX.Element => {
             const MatchScores = {};
             Object.keys(ServiceUserMatchAnswer).map(function(key, index) {
               var score = 0;
-              // console.log(`This is the Object of the user ${key} and the answer`, ServiceUserMatchAnswer[key])
+              console.log(`This is the Object of the user ${key} and the answer`, ServiceUserMatchAnswer[key])
               if(ServiceUserMatchAnswer) {
                 Object.keys(ServiceUserMatchAnswer[key]).map(function(k, index) {
                   // we map thought all service users and map throught their answers, if they are the same as the one of authuser w matchsore += 1
@@ -150,9 +150,12 @@ const CreateUserSpecificServicesPage: React.FC = (): JSX.Element => {
       
                   var a = authUserCharacter[index]
                   var b = ServiceUserMatchAnswer[key][k]
-      
+                  // console.log("authUserCharacter",a)
+                  // console.log("ServiceUserMatchAnswer",b)
+
                   for (var i = 0; i < b.length; ++i) {
                     if (a[i] !== b[i]) return false;
+    
                   }
                   score += 1;
                 });

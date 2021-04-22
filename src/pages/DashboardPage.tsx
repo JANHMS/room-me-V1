@@ -35,12 +35,11 @@ const DashboardPage: React.FC = (): JSX.Element => {
         resolve(
           firestore.collection("profiles").doc(userId).collection('services')
           .orderBy("score", "desc")
-          .get()
-          .then(async snapshot => {
-            const servicesData = snapshot.docs.map(doc => ({id: doc.id, ...doc.data()}))
+          .onSnapshot(async (doc) => {
+            const servicesData = doc.docs.map(doc => ({id: doc.id, ...doc.data()}))
             // console.log("This is the serviceData", servicesData)
             setServices(servicesData)
-            })
+              })
           )
         }
       )

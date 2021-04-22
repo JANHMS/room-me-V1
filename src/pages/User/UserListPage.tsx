@@ -38,8 +38,7 @@ const UserListPage: React.FC = () => {
     setLoading(true)
     if(locationData) {
     firestore.collection('profiles').where("citylocation", "==", locationData)
-      .get()
-      .then(async snapshot => {
+      .onSnapshot(async snapshot => {
         const users = snapshot.docs.map(doc => ({id: doc.id, ...doc.data()}))
         console.log(users)
         await setUsers(users)

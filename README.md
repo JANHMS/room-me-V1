@@ -19,6 +19,7 @@ This has been developed until a certain point. However I realized that there are
 
 
 ## Technical Aspects
+* Typescrip and REACT have been mainly used, which are the standard of todays FE development. 
 * I used IONIC, which is a framework to develop JS Applications, which can be used by Android and IOS systems. I thought this might be good, because the more people I could reach the better. 
 * The DB is Firebase, which is pretty simple for JS Applications and fast to set up.
 

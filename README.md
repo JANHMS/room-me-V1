@@ -1,6 +1,6 @@
 # Room Me
 ### Idea
-This is a smart up idea, which eases the process of finding roommates.
+This is a start up idea, which eases the process of finding roommates.
 I am moving often places and often I find it quite exhausing to find the space I like and also the roommates, that we vibe together with. 
 Therefore I wanted to implement something similar to bumble, but instead for dates of for friends for roommates. 
 

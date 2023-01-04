@@ -1,4 +1,8 @@
 # Room Me
+
+## Landing Page
+https://claudiaroomme.wixsite.com/my-site
+
 ### Idea
 This is a start up idea, which eases the process of finding roommates.
 I am moving often places and often I find it quite exhausing to find the space I like and also the roommates, that we vibe together with. 
